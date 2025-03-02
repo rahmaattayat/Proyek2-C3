@@ -4,12 +4,14 @@
 #include <stdbool.h>
 #include <stdlib.h>//buat random
 #include "ihsan.h"
+#include "gema.h"
 
 int layar[2] = {1280, 720};//layar[LEBAR] = 1280 ama layar[TINGGI] = 720
 
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
 Pesawat pesawat;
+Background bg;
 bool spasi_dipencet = false;
 bool spasi_sebelumnya = false;
 
@@ -19,6 +21,7 @@ void mulai() {
     renderer = SDL_CreateRenderer(window, NULL);
 
     bikinPesawat(&pesawat);
+    inisialisasi_background(&bg, layar[LEBAR], layar[TINGGI]);
 }
 
 void cekInput() {
@@ -46,11 +49,13 @@ void cekInput() {
 void update() {
     updatePesawat(&pesawat);
     jalankanPeluru(&pesawat);
+    update_background(&bg, 0.016f);
 }
 
 void gambar() {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
+    render_background(&bg, renderer);
     bikinGambarPesawat(renderer, &pesawat);
     bikinGambarPeluru(renderer, &pesawat);
     SDL_RenderPresent(renderer);
