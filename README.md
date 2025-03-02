@@ -23,7 +23,7 @@ Space Invaders adalah game di mana pemain mengendalikan pesawat yang bisa menemb
 3. Jika peluru mengenai musuh, musuh akan menghilang (tereliminasi) dan pemain mendapatkan skor.
 4. Jika pesawat terkena peluru dari musuh, game akan berakhir.
 
-### Musuh (Gambar Musuh, Peluru, Collision) – Rahma & Alda
+### Musuh (Gambar Musuh, Peluru, Collision) – Rahma & Gema
 1. Terdapat dua jenis musuh dengan tampilan dan perilaku yang berbeda.
 2. Musuh dapat bergerak secara dinamis (naik-turun) untuk membuat pola serangan lebih sulit.
 3. Musuh juga dapat menembakkan peluru ke arah pemain.
