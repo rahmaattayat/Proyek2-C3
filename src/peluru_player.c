@@ -15,14 +15,14 @@ void nembak(Pesawat* pesawat) {
     }
 }
 
-void jalankanPeluru(Pesawat* pesawat, int lebarLayar) {
+void jalankanPeluru(Pesawat* pesawat) {
     for (int i = 0; i < MAX_PELURU; i++) {
         if (pesawat->peluru[i].nyala) {
             pesawat->peluru[i].x += pesawat->peluru[i].dx;
             pesawat->peluru[i].y += pesawat->peluru[i].dy;
             
             // matiin peluru klo udh keluar layar
-            if (pesawat->peluru[i].x > lebarLayar) {
+            if (pesawat->peluru[i].x > layar[LEBAR]) {
                 pesawat->peluru[i].nyala = false;
             }
         }

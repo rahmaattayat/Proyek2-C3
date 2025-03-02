@@ -2,11 +2,10 @@
 #include <SDL3/SDL_main.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <stdlib.h> // buat random
+#include <stdlib.h>//buat random
 #include "ihsan.h"
 
-#define LAYAR_LEBAR 1280
-#define LAYAR_TINGGI 720
+int layar[2] = {1280, 720};//layar[LEBAR] = 1280 ama layar[TINGGI] = 720
 
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
@@ -16,10 +15,10 @@ bool spasi_sebelumnya = false;
 
 void mulai() {
     SDL_Init(SDL_INIT_VIDEO);
-    window = SDL_CreateWindow("Space Invaders - Proyek 2 - C3", LAYAR_LEBAR, LAYAR_TINGGI, 0);
+    window = SDL_CreateWindow("Space Invaders - Proyek 2 - C3", layar[LEBAR], layar[TINGGI], 0);
     renderer = SDL_CreateRenderer(window, NULL);
 
-    bikinPesawat(&pesawat, LAYAR_LEBAR, LAYAR_TINGGI);
+    bikinPesawat(&pesawat);
 }
 
 void cekInput() {
@@ -45,8 +44,8 @@ void cekInput() {
 }
 
 void update() {
-    updatePesawat(&pesawat, LAYAR_LEBAR, LAYAR_TINGGI);
-    jalankanPeluru(&pesawat, LAYAR_LEBAR);
+    updatePesawat(&pesawat);
+    jalankanPeluru(&pesawat);
 }
 
 void gambar() {

@@ -1,9 +1,9 @@
 #include "ihsan.h"
 #include <SDL3/SDL.h>
 
-void bikinPesawat(Pesawat* pesawat, int layarLebar, int layarTinggi) {
+void bikinPesawat(Pesawat* pesawat) {
     pesawat->x = 50;
-    pesawat->y = layarTinggi / 2;
+    pesawat->y = layar[TINGGI] / 2;
     pesawat->w = 60;
     pesawat->h = 40;
     pesawat->dx = 0;
@@ -41,14 +41,14 @@ void gerakinPesawat(Pesawat* pesawat, const Uint8* keyboard, bool pencetSpasi) {
     }
 }
 
-void updatePesawat(Pesawat* pesawat, int layarLebar, int layarTinggi) {
+void updatePesawat(Pesawat* pesawat) {
     pesawat->x += pesawat->dx;
     pesawat->y += pesawat->dy;
 
     if (pesawat->x < 0) pesawat->x = 0;
-    if (pesawat->x + pesawat->w > layarLebar) pesawat->x = layarLebar - pesawat->w;
+    if (pesawat->x + pesawat->w > layar[LEBAR]) pesawat->x = layar[LEBAR] - pesawat->w;
     if (pesawat->y < 0) pesawat->y = 0;
-    if (pesawat->y + pesawat->h > layarTinggi) pesawat->y = layarTinggi - pesawat->h;
+    if (pesawat->y + pesawat->h > layar[TINGGI]) pesawat->y = layar[TINGGI] - pesawat->h;
 }
 
 void bikinGambarPesawat(SDL_Renderer* renderer, Pesawat* pesawat) {
