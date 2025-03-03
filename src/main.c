@@ -6,9 +6,6 @@
 #include "ihsan.h"
 #include "Rahma.h"
 
-#define LAYAR_LEBAR 1280
-#define LAYAR_TINGGI 720
-
 int layar[2] = {1280, 720}; //layar[LEBAR] = 1280 ama layar[TINGGI] = 720
 
 SDL_Window* window = NULL;
@@ -25,7 +22,7 @@ void mulai() {
     renderer = SDL_CreateRenderer(window, NULL);
 
     bikinPesawat(&pesawat);
-    bikinMusuh(&musuh, LAYAR_LEBAR, LAYAR_TINGGI);
+    bikinMusuh(&musuh, layar[LEBAR], layar[TINGGI]);
 }
 
 void cekInput() {
@@ -56,7 +53,7 @@ void update() {
     gerakinMusuh(&musuh);
 
     if (musuh.x + musuh.w < 0) {
-        bikinMusuh(&musuh, LAYAR_LEBAR, LAYAR_TINGGI);
+        bikinMusuh(&musuh, layar[LEBAR], layar[TINGGI]);
     }
 }
 
