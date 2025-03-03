@@ -10,9 +10,10 @@ typedef struct {
     float x;
     float y;
     float size;
+    float speed;
 } Star;
 
-Star create_star(float x, float y, float size);
+Star create_star(float x, float y, float size, float speed);
 
 // Struktur dan fungsi untuk background
 typedef struct {

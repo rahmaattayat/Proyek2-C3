@@ -49,7 +49,7 @@ void cekInput() {
 void update() {
     updatePesawat(&pesawat);
     jalankanPeluru(&pesawat);
-    update_background(&bg, 0.016f);
+    update_background(&bg, 1.0f);
 }
 
 void gambar() {
