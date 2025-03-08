@@ -7,6 +7,8 @@
 #include "ihsan.h"
 #include "rahma.h"
 #include "gema.h"
+#include "alda.h"
+#include "fairuz.h"
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
