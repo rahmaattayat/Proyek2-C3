@@ -9,11 +9,6 @@
 
 #define MAX_MUSUH 50
 
-typedef struct {
-    Musuh musuhAsli;
-    int aktif;        
-} MusuhGameplay;
-
 void inisialisasiMusuh(int layarLebar, int layarTinggi);
 void cekWaveBaru(int layarLebar, int layarTinggi);
 void updateMusuh();
