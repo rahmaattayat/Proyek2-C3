@@ -22,12 +22,12 @@ Musuh musuh;
 void mulai()
 {
     SDL_Init(SDL_INIT_VIDEO);
-    window = SDL_CreateWindow("Space Invaders - Proyek 2 - C3", layar[LEBAR], layar[TINGGI], 0);
+    window = SDL_CreateWindow("Space Invaders - Proyek 2 - C3", LEBAR_LAYAR, TINGGI_LAYAR, 0);
     renderer = SDL_CreateRenderer(window, NULL);
 
     bikinPesawat(&pesawat);
-    bikinMusuh(&musuh, LAYAR_LEBAR, LAYAR_TINGGI);
-    bikinBackground(&bg, layar[LEBAR], layar[TINGGI]);
+    bikinMusuh(&musuh, LEBAR_LAYAR, TINGGI_LAYAR);
+    bikinBackground(&bg, LEBAR_LAYAR, TINGGI_LAYAR);
 }
 
 void cekInput()
