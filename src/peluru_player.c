@@ -4,7 +4,7 @@
 
 void nembak(Pesawat *pesawat)
 {
-    // find peluru gaaktif
+    //find peluru gaaktif
     for (int i = 0; i < MAX_PELURU; i++)
     {
         if (!pesawat->peluru[i].nyala)
@@ -12,9 +12,9 @@ void nembak(Pesawat *pesawat)
             pesawat->peluru[i].nyala = true;
             pesawat->peluru[i].x = pesawat->x + pesawat->w;
             pesawat->peluru[i].y = pesawat->y + pesawat->h / 2;
-            pesawat->peluru[i].dx = 15.0f; // kec tembak
+            pesawat->peluru[i].dx = 15.0f;//kec tembak
             pesawat->peluru[i].dy = 0;
-            return; // debounce
+            return;//debounce
         }
     }
 }
@@ -39,7 +39,7 @@ void jalankanPeluru(Pesawat *pesawat)
 
 void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
 {
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // merah(peluru)
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);//merah(peluru)
 
     for (int i = 0; i < MAX_PELURU; i++)
     {
@@ -50,12 +50,12 @@ void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
                 10, 4};
             SDL_RenderFillRect(renderer, &kotakpeluru);
             // ekor peluru
-            SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150); // kuning ekr
+            SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150);//kuning ekr
             SDL_FRect ekor = {
                 pesawat->peluru[i].x - 8, pesawat->peluru[i].y - 1,
                 8, 2};
             SDL_RenderFillRect(renderer, &ekor);
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // reset warna
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);//reset warna
         }
     }
 }

@@ -7,10 +7,6 @@
 #include "gema.h"
 #include "rahma.h"
 
-#define LAYAR_LEBAR 1280
-#define LAYAR_TINGGI 720
-int layar[2] = {1280, 720}; // layar[LEBAR] = 1280 ama layar[TINGGI] = 720
-
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 Pesawat pesawat;
@@ -33,7 +29,7 @@ void mulai()
 void cekInput()
 {
     SDL_Event event;
-    // biar ga spam tembak(debounce)
+    //biar ga spam tembak(debounce)
     spasi_sebelumnya = spasi_dipencet;
     spasi_dipencet = false;
 
@@ -90,7 +86,7 @@ int SDL_main(int argc, char *argv[])
         cekInput();
         update();
         gambar();
-        SDL_Delay(16); // buat 60 fps, harusnya sih
+        SDL_Delay(16);//buat 60 fps, harusnya sih
     }
 
     SDL_DestroyRenderer(renderer);

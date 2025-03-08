@@ -5,7 +5,7 @@
 #include <stdbool.h>
 #include "config.h"
 
-// var global
+//var global
 #define MAX_PELURU 50
 
 typedef struct
@@ -19,8 +19,8 @@ typedef struct
 {
     float x, y;
     float dx, dy;
-    int w, h;      // width height(lebar dan tinggi)
-    int cd_tembak; // cooldown = cd
+    int w, h;//width height(lebar dan tinggi)
+    int cd_tembak;//cooldown = cd
     PeluruStruct peluru[MAX_PELURU];
 } Pesawat;
 
@@ -32,4 +32,4 @@ void nembak(Pesawat *pesawat);
 void jalankanPeluru(Pesawat *pesawat);
 void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat);
 
-#endif   //IHSAN_H
+#endif //IHSAN_H
