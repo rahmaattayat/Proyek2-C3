@@ -9,10 +9,7 @@
 
 #define MAX_MUSUH 50
 
-void inisialisasiMusuh(int layarLebar, int layarTinggi);
 void cekWaveBaru(int layarLebar, int layarTinggi);
-void updateMusuh();
-void gambarMusuh(SDL_Renderer* renderer);
 
 #endif
 
