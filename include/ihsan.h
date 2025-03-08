@@ -8,13 +8,15 @@
 //var global
 #define MAX_PELURU 50
 
-typedef struct {
+typedef struct
+{
     float x, y;
     float dx, dy;
     bool nyala;
 } PeluruStruct;
 
-typedef struct {
+typedef struct
+{
     float x, y;
     float dx, dy;
     int w, h;//width height(lebar dan tinggi)

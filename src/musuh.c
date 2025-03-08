@@ -1,33 +1,28 @@
 #include "Rahma.h"
+#include "config.h"
 #include <SDL3/SDL.h>
+#include <stdlib.h>
 
-void bikinMusuh(Musuh* musuh, int layarLebar, int layarTinggi) {
-    musuh->x = layarLebar - 100;  
-    musuh->y = layarTinggi / 3;   
-    musuh->w = 50;
-    musuh->h = 40;
-    musuh->dx = -2.5f;            // Kecepatan maju musuh ke kiri
-    // musuh->dy = 2.0f;          // Kecepatan gerak vertikal
-    musuh->batasAtas = 50;
-    musuh->batasBawah = layarTinggi - 50;
-    musuh->batasKiri = -50;       
+void bikinMusuh(Musuh musuh[], int jumlah) {
+    for (int i = 0; i < JUMLAH; i++) {
+        musuh[i].x = LEBAR_LAYAR;
+        musuh[i].y = rand() % TINGGI_LAYAR;
+        musuh[i].w = 50;
+        musuh[i].h = 40;
+        musuh[i].dx = -2.5f;
+        musuh[i].batasKiri = -50;       
+        musuh[i].aktif = 1;
+    }
 }
 
 void gerakinMusuh(Musuh* musuh) {
     // Gerak horizontal (maju ke kiri)
     musuh->x += musuh->dx;
 
-    // Jika musuh melewati batas kiri layar, reset ke posisi awal 
-    // if (musuh->x + musuh->w < musuh->batasKiri) {
-    //     musuh->x = 800;  
-    // }
-
-    // Gerak vertikal
-    // musuh->y += musuh->dy;
-
-    // Jika menyentuh batas, balik arah gerakan vertikal
-    if (musuh->y <= musuh->batasAtas || musuh->y + musuh->h >= musuh->batasBawah) {
-        musuh->dy = -musuh->dy;
+    // Jika musuh keluar dari layar, reset ke posisi awal dengan y random
+    if (musuh->x + musuh->w < musuh->batasKiri) {
+        musuh->x = LEBAR_LAYAR;
+        musuh->y = rand() % TINGGI_LAYAR;  // Muncul kembali dengan y acak
     }
 }
 

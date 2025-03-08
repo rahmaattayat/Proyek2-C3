@@ -5,38 +5,48 @@
 #include <stdlib.h> //buat random
 #include "config.h"
 #include "ihsan.h"
-#include "Rahma.h"
+#include "rahma.h"
+#include "gema.h"
+#include "alda.h"
+#include "fairuz.h"
 
-SDL_Window* window = NULL;
-SDL_Renderer* renderer = NULL;
+SDL_Window *window = NULL;
+SDL_Renderer *renderer = NULL;
 Pesawat pesawat;
+Background bg;
 bool spasi_dipencet = false;
 bool spasi_sebelumnya = false;
-
 Musuh musuh;
 
-void mulai() {
+void mulai()
+{
     SDL_Init(SDL_INIT_VIDEO);
     window = SDL_CreateWindow("Space Invaders - Proyek 2 - C3", LEBAR_LAYAR, TINGGI_LAYAR, 0);
     renderer = SDL_CreateRenderer(window, NULL);
 
     bikinPesawat(&pesawat);
     bikinMusuh(&musuh, LEBAR_LAYAR, TINGGI_LAYAR);
+    bikinBackground(&bg, LEBAR_LAYAR, TINGGI_LAYAR);
 }
 
-void cekInput() {
+void cekInput()
+{
     SDL_Event event;
     //biar ga spam tembak(debounce)
     spasi_sebelumnya = spasi_dipencet;
     spasi_dipencet = false;
-    
-    while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_EVENT_QUIT) {
+
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_EVENT_QUIT)
+        {
             SDL_Quit();
             exit(0);
         }
-        else if (event.type == SDL_EVENT_KEY_DOWN) {
-            if (event.key.scancode == SDL_SCANCODE_SPACE) {
+        else if (event.type == SDL_EVENT_KEY_DOWN)
+        {
+            if (event.key.scancode == SDL_SCANCODE_SPACE)
+            {
                 spasi_dipencet = true;
             }
         }
@@ -46,29 +56,36 @@ void cekInput() {
     gerakinPesawat(&pesawat, keyboard, spasi_dipencet && !spasi_sebelumnya);
 }
 
-void update() {
+void update()
+{
     updatePesawat(&pesawat);
     jalankanPeluru(&pesawat);
     gerakinMusuh(&musuh);
+    updateBackground(&bg, 1.0f);
 
-    if (musuh.x + musuh.w < 0) {
+    if (musuh.x + musuh.w < 0)
+    {
         bikinMusuh(&musuh, LEBAR_LAYAR, TINGGI_LAYAR);
     }
 }
 
-void gambar() {
+void gambar()
+{
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
+    renderBackground(&bg, renderer);
     bikinGambarPesawat(renderer, &pesawat);
     bikinGambarPeluru(renderer, &pesawat);
     bikinGambarMusuh(renderer, &musuh);
     SDL_RenderPresent(renderer);
 }
 
-int SDL_main(int argc, char* argv[]) {
+int SDL_main(int argc, char *argv[])
+{
     mulai();
 
-    while (1) {
+    while (1)
+    {
         cekInput();
         update();
         gambar();
