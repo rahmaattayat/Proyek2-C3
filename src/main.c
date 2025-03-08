@@ -5,7 +5,10 @@
 #include <stdlib.h>//buat random
 #include "ihsan.h"
 #include "gema.h"
+#include "rahma.h"
 
+#define LAYAR_LEBAR 1280
+#define LAYAR_TINGGI 720
 int layar[2] = {1280, 720};//layar[LEBAR] = 1280 ama layar[TINGGI] = 720
 
 SDL_Window* window = NULL;
@@ -14,6 +17,7 @@ Pesawat pesawat;
 Background bg;
 bool spasi_dipencet = false;
 bool spasi_sebelumnya = false;
+Musuh musuh;
 
 void mulai() {
     SDL_Init(SDL_INIT_VIDEO);
@@ -21,7 +25,8 @@ void mulai() {
     renderer = SDL_CreateRenderer(window, NULL);
 
     bikinPesawat(&pesawat);
-    inisialisasi_background(&bg, layar[LEBAR], layar[TINGGI]);
+    bikinMusuh(&musuh, LAYAR_LEBAR, LAYAR_TINGGI);
+    bikinBackground(&bg, layar[LEBAR], layar[TINGGI]);
 }
 
 void cekInput() {
@@ -49,15 +54,21 @@ void cekInput() {
 void update() {
     updatePesawat(&pesawat);
     jalankanPeluru(&pesawat);
-    update_background(&bg, 1.0f);
+    gerakinMusuh(&musuh);
+    updateBackground(&bg, 1.0f);
+
+    if (musuh.x + musuh.w < 0) {
+        bikinMusuh(&musuh, LAYAR_LEBAR, LAYAR_TINGGI);
+    }
 }
 
 void gambar() {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
-    render_background(&bg, renderer);
+    renderBackground(&bg, renderer);
     bikinGambarPesawat(renderer, &pesawat);
     bikinGambarPeluru(renderer, &pesawat);
+    bikinGambarMusuh(renderer, &musuh);
     SDL_RenderPresent(renderer);
 }
 

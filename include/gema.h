@@ -13,7 +13,7 @@ typedef struct {
     float speed;
 } Star;
 
-Star create_star(float x, float y, float size, float speed);
+Star bikinBintang(float x, float y, float size, float speed);
 
 // Struktur dan fungsi untuk background
 typedef struct {
@@ -24,12 +24,12 @@ typedef struct {
 } Background;
 
 // Inisialisasi background dengan bintang acak
-void inisialisasi_background(Background* bg, int width, int height);
+void bikinBackground(Background* bg, int width, int height);
 
 // Update posisi bintang (bergerak ke kiri)
-void update_background(Background* bg, float deltaTime);
+void updateBackground(Background* bg, float deltaTime);
 
 // Render bintang-bintang di background
-void render_background(const Background* bg, SDL_Renderer* renderer);
+void renderBackground(const Background* bg, SDL_Renderer* renderer);
 
 #endif // GEMA_H
