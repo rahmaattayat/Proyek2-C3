@@ -3,7 +3,7 @@
 #include <SDL3/SDL.h>
 #include <stdlib.h>
 
-void bikinMusuh(Musuh musuh[], int jumlah) {
+void bikinMusuh(Musuh musuh[], int lebar, int tinggi) {
     for (int i = 0; i < JUMLAH; i++) {
         musuh[i].x = LEBAR_LAYAR;
         musuh[i].y = rand() % TINGGI_LAYAR;
