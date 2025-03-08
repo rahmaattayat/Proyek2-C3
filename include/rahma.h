@@ -7,15 +7,15 @@
 #define JUMLAH 5
 
 typedef struct {
-    float x, y;       // Posisi musuh
-    float dx;           // Kecepatan gerak horizontal & vertikal
-    int w, h;         // Ukuran musuh
-    int batasAtas, batasBawah; // Batas gerakan vertikal
-    int batasKiri, batasKanan; // Batas gerakan horizontal
+    float x, y;       
+    float dx;         
+    int w, h;         
+    int batasAtas, batasBawah; 
+    int batasKiri, batasKanan; 
     int aktif;
 } Musuh;
 
-void bikinMusuh(Musuh* musuh, int aktif);
+void bikinMusuh(Musuh* musuh, int lebar, int tinggi);
 void gerakinMusuh(Musuh* musuh);
 void bikinGambarMusuh(SDL_Renderer* renderer, Musuh* musuh);
 
