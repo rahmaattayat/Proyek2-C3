@@ -3,9 +3,10 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h> //buat random
+#include "config.h"
 #include "ihsan.h"
-#include "gema.h"
 #include "rahma.h"
+#include "gema.h"
 
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
@@ -62,7 +63,7 @@ void update()
 
     if (musuh.x + musuh.w < 0)
     {
-        bikinMusuh(&musuh, LAYAR_LEBAR, LAYAR_TINGGI);
+        bikinMusuh(&musuh, LEBAR_LAYAR, TINGGI_LAYAR);
     }
 }
 
