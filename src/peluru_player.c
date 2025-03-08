@@ -1,4 +1,5 @@
 #include "ihsan.h"
+#include "config.h"
 #include <SDL3/SDL.h>
 
 void nembak(Pesawat* pesawat) {
@@ -22,7 +23,7 @@ void jalankanPeluru(Pesawat* pesawat) {
             pesawat->peluru[i].y += pesawat->peluru[i].dy;
             
             // matiin peluru klo udh keluar layar
-            if (pesawat->peluru[i].x > layar[LEBAR]) {
+            if (pesawat->peluru[i].x > LEBAR_LAYAR) {
                 pesawat->peluru[i].nyala = false;
             }
         }

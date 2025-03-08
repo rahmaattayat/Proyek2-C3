@@ -3,10 +3,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h> //buat random
+#include "config.h"
 #include "ihsan.h"
 #include "Rahma.h"
-
-int layar[2] = {1280, 720}; //layar[LEBAR] = 1280 ama layar[TINGGI] = 720
 
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
@@ -18,11 +17,11 @@ Musuh musuh;
 
 void mulai() {
     SDL_Init(SDL_INIT_VIDEO);
-    window = SDL_CreateWindow("Space Invaders - Proyek 2 - C3", layar[LEBAR], layar[TINGGI], 0);
+    window = SDL_CreateWindow("Space Invaders - Proyek 2 - C3", LEBAR_LAYAR, TINGGI_LAYAR, 0);
     renderer = SDL_CreateRenderer(window, NULL);
 
     bikinPesawat(&pesawat);
-    bikinMusuh(&musuh, layar[LEBAR], layar[TINGGI]);
+    bikinMusuh(&musuh, LEBAR_LAYAR, TINGGI_LAYAR);
 }
 
 void cekInput() {
@@ -53,7 +52,7 @@ void update() {
     gerakinMusuh(&musuh);
 
     if (musuh.x + musuh.w < 0) {
-        bikinMusuh(&musuh, layar[LEBAR], layar[TINGGI]);
+        bikinMusuh(&musuh, LEBAR_LAYAR, TINGGI_LAYAR);
     }
 }
 

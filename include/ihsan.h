@@ -3,11 +3,10 @@
 
 #include <SDL3/SDL.h>
 #include <stdbool.h>
+#include "config.h"
 
 //var global
 #define MAX_PELURU 50
-#define LEBAR 0
-#define TINGGI 1
 
 typedef struct {
     float x, y;
@@ -22,8 +21,6 @@ typedef struct {
     int cd_tembak;//cooldown = cd
     PeluruStruct peluru[MAX_PELURU];
 } Pesawat;
-
-extern int layar[2];//layar[LEBAR], layar[TINGGI]
 
 void bikinPesawat(Pesawat* pesawat);
 void gerakinPesawat(Pesawat* pesawat, const Uint8* keyboard, bool pencetSpasi);
