@@ -47,13 +47,13 @@ void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
         {
             SDL_FRect kotakpeluru = {
                 pesawat->peluru[i].x, pesawat->peluru[i].y - 2,
-                10, 4};
+                15, 9};
             SDL_RenderFillRect(renderer, &kotakpeluru);
             // ekor peluru
             SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150);//kuning ekr
             SDL_FRect ekor = {
                 pesawat->peluru[i].x - 8, pesawat->peluru[i].y - 1,
-                8, 2};
+                13, 7};
             SDL_RenderFillRect(renderer, &ekor);
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);//reset warna
         }
