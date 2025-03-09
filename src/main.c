@@ -13,7 +13,7 @@
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 Pesawat pesawat;
-Background bg;
+Background background;
 bool spasi_dipencet = false;
 bool spasi_sebelumnya = false;
 Musuh musuh[JUMLAH];
@@ -26,7 +26,7 @@ void mulai()
 
     bikinPesawat(&pesawat);
     bikinMusuh(musuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
-    bikinBackground(&bg, LEBAR_LAYAR, TINGGI_LAYAR);
+    bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
 }
 
 void cekInput()
@@ -62,7 +62,7 @@ void update()
     jalankanPeluru(&pesawat);
     gerakinMusuh(musuh);
 
-    updateBackground(&bg, 1.0f);
+    updateBackground(&background, 1.0f);
 
     for (int i = 0; i < JUMLAH; i++)
     {
@@ -78,7 +78,7 @@ void gambar()
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
-    renderBackground(&bg, renderer);
+    renderBackground(&background, renderer);
     bikinGambarPesawat(renderer, &pesawat);
     bikinGambarPeluru(renderer, &pesawat);
     bikinGambarMusuh(renderer, musuh);
