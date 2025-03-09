@@ -96,4 +96,44 @@ void bikinGambarPesawat(SDL_Renderer *renderer, Pesawat *pesawat)
     SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
     SDL_FRect knalpot = { pesawat->x - pesawat->w / 8, tengahanY - pesawat->h / 6, pesawat->w / 10, pesawat->h / 3 };
     SDL_RenderFillRect(renderer, &knalpot);
+
+    //nos
+    if (pesawat->dx != 0 || pesawat->dy != 0)
+    {
+    int offset = rand() % 6;//variasi
+
+    SDL_FRect api[4];
+
+    api[0].x = pesawat->x - pesawat->w / 1.3;
+    api[0].y = tengahanY - pesawat->h / 3.2 + offset;
+    api[0].w = pesawat->w / 2;
+    api[0].h = pesawat->h / 1.5;
+
+    api[1].x = pesawat->x - pesawat->w / 1.5;
+    api[1].y = tengahanY - pesawat->h / 3.2 + offset;
+    api[1].w = pesawat->w / 2.2;
+    api[1].h = pesawat->h / 1.7;
+
+    api[2].x = pesawat->x - pesawat->w / 1.7;
+    api[2].y = tengahanY - pesawat->h / 3.5 + offset;
+    api[2].w = pesawat->w / 2.5;
+    api[2].h = pesawat->h / 1.9;
+
+    api[3].x = pesawat->x - pesawat->w / 2.1;
+    api[3].y = tengahanY - pesawat->h / 4.5 + offset;
+    api[3].w = pesawat->w / 2.8;
+    api[3].h = pesawat->h / 2.2;
+
+    SDL_SetRenderDrawColor(renderer, 255, 50, 0, 255);
+    SDL_RenderFillRect(renderer, &api[0]);
+
+    SDL_SetRenderDrawColor(renderer, 255, 100, 0, 255);
+    SDL_RenderFillRect(renderer, &api[1]);
+
+    SDL_SetRenderDrawColor(renderer, 255, 150, 0, 255);
+    SDL_RenderFillRect(renderer, &api[2]);
+
+    SDL_SetRenderDrawColor(renderer, 255, 200, 0, 255);
+    SDL_RenderFillRect(renderer, &api[3]);
+    }
 }
