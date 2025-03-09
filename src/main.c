@@ -13,7 +13,7 @@
 SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 Pesawat pesawat;
-Background background;
+Background bg;
 bool spasi_dipencet = false;
 bool spasi_sebelumnya = false;
 Musuh musuh;
@@ -26,13 +26,13 @@ void mulai()
 
     bikinPesawat(&pesawat);
     bikinMusuh(&musuh, LEBAR_LAYAR, TINGGI_LAYAR);
-    bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
+    bikinBackground(&bg, LEBAR_LAYAR, TINGGI_LAYAR);
 }
 
 void cekInput()
 {
     SDL_Event event;
-    // biar ga spam tembak(debounce)
+    //biar ga spam tembak(debounce)
     spasi_sebelumnya = spasi_dipencet;
     spasi_dipencet = false;
 
@@ -61,7 +61,7 @@ void update()
     updatePesawat(&pesawat);
     jalankanPeluru(&pesawat);
     gerakinMusuh(&musuh);
-    updateBackground(&background, 1.0f);
+    updateBackground(&bg, 1.0f);
 
     if (musuh.x + musuh.w < 0)
     {
@@ -73,7 +73,7 @@ void gambar()
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
-    renderBackground(&background, renderer);
+    renderBackground(&bg, renderer);
     bikinGambarPesawat(renderer, &pesawat);
     bikinGambarPeluru(renderer, &pesawat);
     bikinGambarMusuh(renderer, &musuh);
@@ -89,7 +89,7 @@ int SDL_main(int argc, char *argv[])
         cekInput();
         update();
         gambar();
-        SDL_Delay(16); // buat 60 fps, harusnya sih
+        SDL_Delay(16);//buat 60 fps, harusnya sih
     }
 
     SDL_DestroyRenderer(renderer);
