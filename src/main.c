@@ -63,6 +63,7 @@ void update()
     gerakinMusuh(musuh);
 
     updateBackground(&background, 1.0f);
+    nabrakPeluru(&pesawat, musuh);
 
     for (int i = 0; i < JUMLAH; i++)
     {

@@ -4,6 +4,7 @@
 #include <SDL3/SDL.h>
 #include <stdbool.h>
 #include "config.h"
+#include "ihsan.h"
 
 #define JUMLAH 5
 
@@ -18,6 +19,7 @@ typedef struct {
 
 void bikinMusuh(Musuh* musuh, int aktif, int tinggi, int lebar);
 void gerakinMusuh(Musuh* musuh);
+void nabrakPeluru(Pesawat *pesawat, Musuh musuh[]);
 void bikinGambarMusuh(SDL_Renderer* renderer, Musuh* musuh);
 
 #endif // RAHMA_H
