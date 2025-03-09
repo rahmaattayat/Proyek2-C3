@@ -17,13 +17,17 @@ void bikinMusuh(Musuh musuh[], int jumlah)
     }
 }
 
-void gerakinMusuh(Musuh musuh[]) {
-    for (int i = 0; i < JUMLAH; i++) {
-        if (musuh[i].aktif) {  // Hanya gerakkan musuh yang aktif
+void gerakinMusuh(Musuh musuh[])
+{
+    for (int i = 0; i < JUMLAH; i++)
+    {
+        if (musuh[i].aktif)
+        { // Hanya gerakkan musuh yang aktif
             musuh[i].x += musuh[i].dx;
 
             // Jika musuh keluar dari layar, reset posisinya
-            if (musuh[i].x + musuh[i].w < musuh[i].batasKiri) {
+            if (musuh[i].x + musuh[i].w < musuh[i].batasKiri)
+            {
                 musuh[i].x = LEBAR_LAYAR;
                 musuh[i].y = rand() % TINGGI_LAYAR;
             }
@@ -31,10 +35,16 @@ void gerakinMusuh(Musuh musuh[]) {
     }
 }
 
-
-void bikinGambarMusuh(SDL_Renderer *renderer, Musuh *musuh)
+void bikinGambarMusuh(SDL_Renderer *renderer, Musuh musuh[])
 {
     SDL_SetRenderDrawColor(renderer, 255, 50, 50, 255);
-    SDL_FRect kotakMusuh = {musuh->x, musuh->y, musuh->w, musuh->h};
-    SDL_RenderFillRect(renderer, &kotakMusuh);
+
+    for (int i = 0; i < JUMLAH; i++)
+    {
+        if (musuh[i].aktif)
+        {
+            SDL_FRect kotakMusuh = {musuh[i].x, musuh[i].y, musuh[i].w, musuh[i].h};
+            SDL_RenderFillRect(renderer, &kotakMusuh);
+        }
+    }
 }
