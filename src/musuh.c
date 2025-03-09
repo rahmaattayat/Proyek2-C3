@@ -3,7 +3,7 @@
 #include <SDL3/SDL.h>
 #include <stdlib.h>
 
-void bikinMusuh(Musuh musuh[], int jumlah)
+void bikinMusuh(Musuh *musuh, int jumlah)
 {
     for (int i = 0; i < JUMLAH; i++)
     {
