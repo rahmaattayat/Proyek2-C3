@@ -26,7 +26,7 @@ void updateBackground(Background *background, float selisihwaktu)
         // Jika keluar layar, pindahkan ke kanan
         if (background->bintang[i].x < 0)
         {
-            background->bintang[i].x = background->tinggiLayar;
+            background->bintang[i].x = background->lebarLayar;
             background->bintang[i].y = rand() % background->tinggiLayar;   // Random posisi Y baru
             background->bintang[i].kecepatanBintang = 0.5f + (rand() % 3); // Beri kecepatan baru
         }
