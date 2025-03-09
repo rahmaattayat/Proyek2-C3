@@ -1,13 +1,14 @@
 #include "ihsan.h"
 #include "config.h"
 #include <SDL3/SDL.h>
+#include <stdlib.h>
 
 void bikinPesawat(Pesawat *pesawat)
 {
     pesawat->x = 50;
     pesawat->y = TINGGI_LAYAR / 2;
-    pesawat->w = 60;
-    pesawat->h = 40;
+    pesawat->w = 80;
+    pesawat->h = 60;
     pesawat->dx = 0;
     pesawat->dy = 0;
     pesawat->cd_tembak = 0;
@@ -43,7 +44,7 @@ void gerakinPesawat(Pesawat *pesawat, const Uint8 *keyboard, bool pencetSpasi)
     if (pencetSpasi && pesawat->cd_tembak <= 0)
     {
         nembak(pesawat);
-        pesawat->cd_tembak = 25; // cd peluru
+        pesawat->cd_tembak = 25;//cd peluru
     }
     if (pesawat->cd_tembak > 0)
     {
@@ -64,21 +65,35 @@ void updatePesawat(Pesawat *pesawat)
 
 void bikinGambarPesawat(SDL_Renderer *renderer, Pesawat *pesawat)
 {
-    // dapetin tengahan
-    float tengahX = pesawat->x + pesawat->w / 2;
-    float tengahY = pesawat->y + pesawat->h / 2;
+    //dapetin tengahan
+    float tengahanX = pesawat->x + pesawat->w / 2;
+    float tengahanY = pesawat->y + pesawat->h / 2;
 
     SDL_SetRenderDrawColor(renderer, 100, 150, 255, 255);
 
-    SDL_RenderLine(renderer,
-                   pesawat->x + pesawat->w, tengahY,
-                   pesawat->x, tengahY - pesawat->h / 2);
+    SDL_RenderLine(renderer, pesawat->x + pesawat->w, tengahanY, pesawat->x, tengahanY - pesawat->h / 2.5);
+    SDL_RenderLine(renderer, pesawat->x, tengahanY - pesawat->h / 2.5, pesawat->x, tengahanY + pesawat->h / 2.5);
+    SDL_RenderLine(renderer, pesawat->x, tengahanY + pesawat->h / 2.5, pesawat->x + pesawat->w, tengahanY);
 
-    SDL_RenderLine(renderer,
-                   pesawat->x, tengahY - pesawat->h / 2,
-                   pesawat->x, tengahY + pesawat->h / 2);
+    for (int i = 0; i < pesawat->w; i++) {
+        float progres = (float)i / pesawat->w;
+        float h = pesawat->h * progres;
+        SDL_RenderLine(renderer, pesawat->x + i, tengahanY - h/ 2.5, pesawat->x + i, tengahanY + h / 2.5);
+    }
 
-    SDL_RenderLine(renderer,
-                   pesawat->x, tengahY + pesawat->h / 2,
-                   pesawat->x + pesawat->w, tengahY);
+    SDL_SetRenderDrawColor(renderer, 50, 100, 200, 255);
+
+    SDL_FRect sayapAtas = { pesawat->x - pesawat->w / 4, pesawat->y, pesawat->w / 3, pesawat->h / 4 };
+    SDL_RenderFillRect(renderer, &sayapAtas);
+
+    SDL_FRect sayapBwh = { pesawat->x - pesawat->w / 4, pesawat->y + pesawat->h - pesawat->h / 4, pesawat->w / 3, pesawat->h / 4 };
+    SDL_RenderFillRect(renderer, &sayapBwh);
+
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_FRect kokpit = { pesawat->x + pesawat->w / 2, tengahanY - pesawat->h / 6, pesawat->w / 5, pesawat->h / 3 };
+    SDL_RenderFillRect(renderer, &kokpit);
+
+    SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
+    SDL_FRect knalpot = { pesawat->x - pesawat->w / 8, tengahanY - pesawat->h / 6, pesawat->w / 10, pesawat->h / 3 };
+    SDL_RenderFillRect(renderer, &knalpot);
 }
