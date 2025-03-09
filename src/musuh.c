@@ -10,7 +10,7 @@ void bikinMusuh(Musuh *musuh, int aktif, int tinggi, int lebar)
     for (int i = 0; i < JUMLAH; i++)
     {
         musuh[i].x = LEBAR_LAYAR + i * (jarak_musuh + rand() % variasi);
-        musuh[i].y = rand() % TINGGI_LAYAR;
+        musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
         musuh[i].w = 50;
         musuh[i].h = 40;
         musuh[i].dx = -2.5f;
@@ -31,7 +31,7 @@ void gerakinMusuh(Musuh musuh[])
             if (musuh[i].x + musuh[i].w < musuh[i].batasKiri)
             {
                 musuh[i].x = LEBAR_LAYAR;
-                musuh[i].y = rand() % TINGGI_LAYAR;
+                musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
             }
         }
     }
