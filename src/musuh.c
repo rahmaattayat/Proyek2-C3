@@ -5,9 +5,11 @@
 
 void bikinMusuh(Musuh *musuh, int aktif, int tinggi, int lebar)
 {
+    int variasi = 30;
+    int jarak_musuh = 100;
     for (int i = 0; i < JUMLAH; i++)
     {
-        musuh[i].x = LEBAR_LAYAR;
+        musuh[i].x = LEBAR_LAYAR + i * (jarak_musuh + rand() % variasi);
         musuh[i].y = rand() % TINGGI_LAYAR;
         musuh[i].w = 50;
         musuh[i].h = 40;
