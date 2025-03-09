@@ -1,11 +1,12 @@
 #include "gema.h"
 #include <stdlib.h>
 
-Star bikinBintang(float x, float y, float size, float speed) {
-    Star s;
+Bintang bikinBintang(float x, float y, float size, float speed)
+{
+    Bintang s;
     s.x = x;
     s.y = y;
-    s.size = size;
-    s.speed = speed;
+    s.ukuranBintang = size;
+    s.kecepatanBintang = speed;
     return s;
 }
