@@ -69,8 +69,8 @@ void update()
     {
         if (musuh[i].x + musuh[i].w < 0)
         {
-            musuh[i].x = LEBAR_LAYAR;           // Reset posisi ke kanan layar
-            musuh[i].y = rand() % TINGGI_LAYAR; // Acak ulang posisi Y
+            musuh[i].x = LEBAR_LAYAR;           
+            musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20); 
         }
     }
 }
