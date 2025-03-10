@@ -8,8 +8,14 @@
 #include "config.h"
 
 #define MAX_MUSUH 50
+#define MAX_WAVE 10
 
-void cekWaveBaru(int layarLebar, int layarTinggi);
+typedef struct 
+{
+    int wave;
+}Wave;
+
+void cekmusuh (Musuh musuh[]);
 
 #endif
 
