@@ -11,9 +11,9 @@ void bikinBackground(Background *background, int lebar, int tinggi)
     {
         float x = (float)(rand() % lebar);
         float y = (float)(rand() % tinggi);
-        float size = 1.0f + (rand() % 3);
+        float ukuranBintang = 1.0f + (rand() % 3);
         float kecepatanBintang = 0.5f + (rand() % 3); // Kecepatan antara 0.5 hingga 3.0
-        background->bintang[i] = bikinBintang(x, y, size, kecepatanBintang);
+        background->bintang[i] = bikinBintang(x, y, ukuranBintang, kecepatanBintang);
     }
 }
 
