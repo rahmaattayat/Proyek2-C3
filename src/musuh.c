@@ -34,15 +34,6 @@ void gerakinMusuh(Musuh musuh[])
                 musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
             }
         }
-
-        if (!musuh[i].aktif)  
-        {
-            // spawn ulang musuh yang udh mati
-            musuh[i].x = LEBAR_LAYAR;
-            musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
-            musuh[i].dx = -(2 + rand() % 3); // biar random kecepatannya
-            musuh[i].aktif = 1; 
-        }
     }
 }
 
