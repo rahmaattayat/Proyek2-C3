@@ -20,17 +20,16 @@ Bintang bikinBintang(float x, float y, float size, float speed);
 typedef struct
 {
     Bintang bintang[MAKSIMAL_BINTANG]; // Array bintang
-    int count;
-    int screenWidth;
-    int screenHeight;
+    int jumlah;
+    int lebarLayar;
+    int tinggiLayar;
 } Background;
 
-// Modul Background
 // Inisialisasi background dengan bintang acak
-void bikinBackground(Background *background, int width, int height);
+void bikinBackground(Background *background, int lebar, int tinggi);
 
 // Update posisi bintang (bergerak ke kiri)
-void updateBackground(Background *background, float deltaTime);
+void updateBackground(Background *background, float selisihWaktu);
 
 // Render bintang-bintang di background
 void renderBackground(const Background *background, SDL_Renderer *renderer);
