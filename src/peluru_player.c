@@ -10,7 +10,7 @@ void nembak(Pesawat *pesawat)
         if (!pesawat->peluru[i].nyala)
         {
             pesawat->peluru[i].nyala = true;
-            pesawat->peluru[i].x = pesawat->x + pesawat->w;
+            pesawat->peluru[i].x = pesawat->x + pesawat->w + 13;
             pesawat->peluru[i].y = pesawat->y + pesawat->h / 2;
             pesawat->peluru[i].dx = 15.0f;//kec tembak
             pesawat->peluru[i].dy = 0;

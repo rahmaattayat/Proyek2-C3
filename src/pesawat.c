@@ -93,9 +93,21 @@ void bikinGambarPesawat(SDL_Renderer *renderer, Pesawat *pesawat)
     SDL_FRect kokpit = { pesawat->x + pesawat->w / 2, tengahanY - pesawat->h / 6, pesawat->w / 5, pesawat->h / 3 };
     SDL_RenderFillRect(renderer, &kokpit);
 
+    SDL_SetRenderDrawColor(renderer, 150, 150, 150, 255);
+    SDL_FRect depankokpit = {pesawat->x + pesawat->w / 2 + 16, tengahanY - pesawat->h / 6, pesawat->w / 20, pesawat->h / 3};
+    SDL_RenderFillRect(renderer, &depankokpit);
+
     SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
     SDL_FRect knalpot = { pesawat->x - pesawat->w / 8, tengahanY - pesawat->h / 6, pesawat->w / 10, pesawat->h / 3 };
     SDL_RenderFillRect(renderer, &knalpot);
+
+    SDL_SetRenderDrawColor(renderer, 100, 100, 100, 255);
+    SDL_FRect moncong = {pesawat->x + pesawat->w , tengahanY - pesawat->h / 12, pesawat->w / 5, pesawat->h / 5};
+    SDL_RenderFillRect(renderer, &moncong);
+
+    SDL_SetRenderDrawColor(renderer, 70, 70, 70, 255);
+    SDL_FRect merahujung = {pesawat->x + pesawat->w + 14, tengahanY - pesawat->h / 12, pesawat->w / 20, pesawat->h / 5};
+    SDL_RenderFillRect(renderer, &merahujung);
 
     //nos
     if (pesawat->dx != 0 || pesawat->dy != 0)
