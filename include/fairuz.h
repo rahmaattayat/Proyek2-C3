@@ -10,12 +10,16 @@
 #define MAX_MUSUH 50
 #define MAX_WAVE 10
 
-typedef struct 
+typedef struct
 {
     int wave;
-}Wave;
+} Wave;
 
-void cekmusuh (Musuh musuh[]);
+/// k
+extern int waveterbaru;
+extern int jumlahmusuh;
+
+void updatewave(Musuh *musuh);
+void cekmusuh(Musuh musuh[]);
 
 #endif
-

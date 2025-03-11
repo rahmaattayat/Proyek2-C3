@@ -6,8 +6,6 @@
 #include "config.h"
 #include "ihsan.h"
 
-#define JUMLAH 5
-
 typedef struct {
     float x, y;       
     float dx;         
@@ -17,7 +15,7 @@ typedef struct {
     int aktif;
 } Musuh;
 
-void bikinMusuh(Musuh* musuh, int aktif, int tinggi, int lebar);
+void bikinMusuh(Musuh* musuh,int jumlahmusuh, int aktif, int tinggi, int lebar);
 void gerakinMusuh(Musuh* musuh);
 void nabrakPeluru(Pesawat *pesawat, Musuh musuh[]);
 void bikinGambarMusuh(SDL_Renderer* renderer, Musuh* musuh);
