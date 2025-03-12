@@ -25,7 +25,7 @@ void updatewave(Musuh *musuh)
     {
         (waveterbaru)++;
 
-        jumlahmusuh + (waveterbaru * 2); // Tambah 2 musuh setiap wave
+        jumlahmusuh = jumlahmusuh + 2; // Tambah 2 musuh setiap wave
 
         if (jumlahmusuh > MAX_MUSUH)
         {
