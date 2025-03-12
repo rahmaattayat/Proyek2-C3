@@ -2,12 +2,15 @@
 #include "config.h"
 #include <SDL3/SDL.h>
 #include <stdlib.h>
+#include "fairuz.h"
 
-void bikinMusuh(Musuh *musuh, int aktif, int tinggi, int lebar)
+int jumlahmusuh = 5;
+
+void bikinMusuh(Musuh *musuh, int jumlahmusuh, int aktif, int tinggi, int lebar)
 {
     int variasi = 30;
     int jarak_musuh = 100;
-    for (int i = 0; i < JUMLAH; i++)
+    for (int i = 0; i < jumlahmusuh; i++)
     {
         musuh[i].x = LEBAR_LAYAR + i * (jarak_musuh + rand() % variasi);
         musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
@@ -21,10 +24,10 @@ void bikinMusuh(Musuh *musuh, int aktif, int tinggi, int lebar)
 
 void gerakinMusuh(Musuh musuh[])
 {
-    for (int i = 0; i < JUMLAH; i++)
+    for (int i = 0; i < jumlahmusuh; i++)
     {
         if (musuh[i].aktif)
-        { 
+        {
             musuh[i].x += musuh[i].dx;
 
             // reset posisi musuh kalo udah keluar layar
@@ -41,11 +44,13 @@ void nabrakPeluru(Pesawat *pesawat, Musuh musuh[])
 {
     for (int i = 0; i < MAX_PELURU; i++)
     {
-        if (!pesawat->peluru[i].nyala) continue; 
+        if (!pesawat->peluru[i].nyala)
+            continue;
 
-        for (int j = 0; j < JUMLAH; j++)
+        for (int j = 0; j < jumlahmusuh; j++)
         {
-            if (!musuh[j].aktif) continue; 
+            if (!musuh[j].aktif)
+                continue;
 
             // ngecek tabrakan apa ngga
             if (pesawat->peluru[i].x < musuh[j].x + musuh[j].w &&
@@ -65,7 +70,7 @@ void bikinGambarMusuh(SDL_Renderer *renderer, Musuh musuh[])
 {
     SDL_SetRenderDrawColor(renderer, 255, 50, 50, 255);
 
-    for (int i = 0; i < JUMLAH; i++)
+    for (int i = 0; i < jumlahmusuh; i++)
     {
         if (musuh[i].aktif)
         {

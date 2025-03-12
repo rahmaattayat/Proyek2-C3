@@ -16,7 +16,7 @@ Pesawat pesawat;
 Background background;
 bool spasi_dipencet = false;
 bool spasi_sebelumnya = false;
-Musuh musuh[JUMLAH];
+Musuh musuh[MAX_MUSUH];
 
 void mulai()
 {
@@ -25,7 +25,7 @@ void mulai()
     renderer = SDL_CreateRenderer(window, NULL);
 
     bikinPesawat(&pesawat);
-    bikinMusuh(musuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
+    bikinMusuh(musuh, jumlahmusuh,1, LEBAR_LAYAR, TINGGI_LAYAR);
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
 }
 
@@ -61,18 +61,19 @@ void update()
     updatePesawat(&pesawat);
     jalankanPeluru(&pesawat);
     gerakinMusuh(musuh);
+    cekmusuh(musuh);
 
     updateBackground(&background, 1.0f);
     nabrakPeluru(&pesawat, musuh);
 
-    for (int i = 0; i < JUMLAH; i++)
-    {
-        if (musuh[i].x + musuh[i].w < 0)
-        {
-            musuh[i].x = LEBAR_LAYAR;           
-            musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20); 
-        }
-    }
+    // for (int i = 0; i < jumlahmusuh; i++)
+    // {
+    //     if (musuh[i].x + musuh[i].w < 0)
+    //     {
+    //         musuh[i].x = LEBAR_LAYAR;           
+    //         musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20); 
+    //     }
+    // }
 }
 
 void gambar()
