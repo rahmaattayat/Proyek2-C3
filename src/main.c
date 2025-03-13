@@ -2,7 +2,7 @@
 #include <SDL3/SDL_main.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <stdlib.h> //buat random
+#include <stdlib.h> // untuk random
 #include "config.h"
 #include "ihsan.h"
 #include "rahma.h"
@@ -14,9 +14,13 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 Pesawat pesawat;
 Background background;
-bool spasi_dipencet = false;
-bool spasi_sebelumnya = false;
 Musuh musuh[MAX_MUSUH];
+extern int jumlahmusuh;
+
+Menu menu;
+
+statusGame state = STATE_MENU;
+bool gameBerjalan = true;
 
 void mulai()
 {
@@ -25,14 +29,19 @@ void mulai()
     renderer = SDL_CreateRenderer(window, NULL);
 
     bikinPesawat(&pesawat);
-    bikinMusuh(musuh, jumlahmusuh,1, LEBAR_LAYAR, TINGGI_LAYAR);
+    jumlahmusuh = 5;
+    bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
+
+    menuInit(&menu);
 }
 
 void cekInput()
 {
     SDL_Event event;
     // biar ga spam tembak(debounce)
+    static bool spasi_dipencet = false;
+    static bool spasi_sebelumnya = false;
     spasi_sebelumnya = spasi_dipencet;
     spasi_dipencet = false;
 
@@ -40,29 +49,31 @@ void cekInput()
     {
         if (event.type == SDL_EVENT_QUIT)
         {
-            SDL_Quit();
-            exit(0);
+            gameBerjalan = false;
         }
         else if (event.type == SDL_EVENT_KEY_DOWN)
         {
+            if (event.key.scancode == SDL_SCANCODE_ESCAPE)
+            {
+                state = STATE_MENU;
+            }
             if (event.key.scancode == SDL_SCANCODE_SPACE)
             {
                 spasi_dipencet = true;
             }
         }
     }
-
     const Uint8 *keyboard = (const Uint8 *)SDL_GetKeyboardState(NULL);
     gerakinPesawat(&pesawat, keyboard, spasi_dipencet && !spasi_sebelumnya);
 }
 
-void update()
+// Update objek game
+void updateGame()
 {
     updatePesawat(&pesawat);
     jalankanPeluru(&pesawat);
     gerakinMusuh(musuh);
     cekmusuh(musuh);
-
     updateBackground(&background, 1.0f);
     nabrakPeluru(&pesawat, musuh);
 
@@ -70,13 +81,13 @@ void update()
     {
         if (musuh[i].x + musuh[i].w < 0)
         {
-            musuh[i].x = LEBAR_LAYAR;           
-            musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20); 
+            musuh[i].x = LEBAR_LAYAR;
+            musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
         }
     }
 }
 
-void gambar()
+void renderGame()
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
@@ -87,15 +98,85 @@ void gambar()
     SDL_RenderPresent(renderer);
 }
 
+void handleMenuInput()
+{
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_EVENT_QUIT)
+        {
+            gameBerjalan = false;
+        }
+        else if (event.type == SDL_EVENT_MOUSE_MOTION || event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
+        {
+            float x, y;
+            SDL_GetMouseState(&x, &y);
+            menuUpdate(&menu, x, y);
+            if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
+            {
+                if (tombolDiklik(&menu.tombolPlay, x, y))
+                {
+                    state = STATE_GAME;
+                    // Restart game
+                    bikinPesawat(&pesawat);
+                    jumlahmusuh = 5;
+                    bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
+                }
+                else if (tombolDiklik(&menu.tombolAbout, x, y))
+                {
+                    state = STATE_ABOUT;
+                }
+            }
+        }
+    }
+}
+
+void renderMenu()
+{
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    menuRender(&menu, &background);
+    SDL_RenderPresent(renderer);
+}
+
+void handleAboutInput()
+{
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_EVENT_QUIT)
+        {
+            gameBerjalan = false;
+        }
+        else if (event.type == SDL_EVENT_KEY_DOWN && event.key.scancode == SDL_SCANCODE_ESCAPE)
+        {
+            state = STATE_MENU;
+        }
+    }
+    aboutRender();
+}
+
 int SDL_main(int argc, char *argv[])
 {
     mulai();
 
-    while (1)
+    while (gameBerjalan)
     {
-        cekInput();
-        update();
-        gambar();
+        switch (state)
+        {
+        case STATE_MENU:
+            handleMenuInput();
+            renderMenu();
+            break;
+        case STATE_GAME:
+            cekInput();
+            updateGame();
+            renderGame();
+            break;
+        case STATE_ABOUT:
+            handleAboutInput();
+            break;
+        }
         SDL_Delay(16); // buat 60 fps, harusnya sih
     }
 
