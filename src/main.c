@@ -66,14 +66,14 @@ void update()
     updateBackground(&background, 1.0f);
     nabrakPeluru(&pesawat, musuh);
 
-    // for (int i = 0; i < jumlahmusuh; i++)
-    // {
-    //     if (musuh[i].x + musuh[i].w < 0)
-    //     {
-    //         musuh[i].x = LEBAR_LAYAR;           
-    //         musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20); 
-    //     }
-    // }
+    for (int i = 0; i < jumlahmusuh; i++)
+    {
+        if (musuh[i].x + musuh[i].w < 0)
+        {
+            musuh[i].x = LEBAR_LAYAR;           
+            musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20); 
+        }
+    }
 }
 
 void gambar()
