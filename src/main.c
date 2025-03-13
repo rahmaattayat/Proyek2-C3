@@ -22,6 +22,8 @@ Menu menu;
 statusGame state = STATE_MENU;
 bool gameBerjalan = true;
 
+nilai nn;
+
 void mulai()
 {
     SDL_Init(SDL_INIT_VIDEO);
@@ -96,6 +98,7 @@ void renderGame()
     bikinGambarPesawat(renderer, &pesawat);
     bikinGambarPeluru(renderer, &pesawat);
     bikinGambarMusuh(renderer, musuh);
+    tampilskor(renderer, &nn);
     SDL_RenderPresent(renderer);
 }
 
