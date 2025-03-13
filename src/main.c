@@ -76,6 +76,7 @@ void updateGame()
     cekmusuh(musuh);
     updateBackground(&background, 1.0f);
     nabrakPeluru(&pesawat, musuh);
+    nabrakMusuh(&pesawat, musuh);
 
     for (int i = 0; i < jumlahmusuh; i++)
     {
