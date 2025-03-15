@@ -66,6 +66,19 @@ void nabrakPeluru(Pesawat *pesawat, Musuh musuh[])
     }
 }
 
+void nabrakMusuh(Pesawat *pesawat, Musuh musuh[])
+{
+    for (int i = 0; i < jumlahmusuh; i++)
+    {
+        if (musuh[i].aktif &&
+            pesawat->x < musuh[i].x + musuh[i].w && pesawat->x + pesawat->w > musuh[i].x && pesawat->y < musuh[i].y + musuh[i].h && pesawat->y + pesawat->h > musuh[i].y)
+        {
+            SDL_Quit();
+            exit(0);
+        }
+    }
+}
+
 void bikinGambarMusuh(SDL_Renderer *renderer, Musuh musuh[]) {
     SDL_Color warnaTubuh = {50, 255, 70, 255};    // Warna hijau untuk tubuh
     SDL_Color warnaMata = {255, 50, 50, 255};     // Warna merah untuk mata
