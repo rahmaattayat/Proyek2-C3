@@ -22,11 +22,17 @@ Menu menu;
 statusGame state = STATE_MENU;
 bool gameBerjalan = true;
 
+nilai point;
+
 void mulai()
 {
     SDL_Init(SDL_INIT_VIDEO);
     window = SDL_CreateWindow("Space Invaders - Proyek 2 - C3", LEBAR_LAYAR, TINGGI_LAYAR, 0);
     renderer = SDL_CreateRenderer(window, NULL);
+
+    //inisiasi value record point untuk skor
+    point.skor = 0;
+    point.highskor = 0;
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
@@ -96,6 +102,7 @@ void renderGame()
     bikinGambarPesawat(renderer, &pesawat);
     bikinGambarPeluru(renderer, &pesawat);
     bikinGambarMusuh(renderer, musuh);
+    tampilskor(renderer, &point);
     SDL_RenderPresent(renderer);
 }
 
