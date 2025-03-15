@@ -3,7 +3,6 @@
 #include <SDL3/SDL.h>
 #include <stdlib.h>
 #include "fairuz.h"
-#include "alda.h"
 
 int jumlahmusuh = 5;
 
@@ -62,10 +61,6 @@ void nabrakPeluru(Pesawat *pesawat, Musuh musuh[])
                 // matiin musuh kalo kena peluru
                 musuh[j].aktif = 0;
                 pesawat->peluru[i].nyala = false;
-
-                // tambah skor
-                tambahskor(&nn);
-                cekhighskor(&nn);
             }
         }
     }
