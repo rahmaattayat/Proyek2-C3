@@ -32,8 +32,7 @@ void mulai()
 
     //inisiasi value record point untuk skor
     point.skor = 0;
-    point.highskor = 0;
-    //loadhighskor(&point);
+    loadhighskor(&point);
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
@@ -188,7 +187,6 @@ int SDL_main(int argc, char *argv[])
         }
         SDL_Delay(16); // buat 60 fps, harusnya sih
     }
-    //simpanhighskor(&point);
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

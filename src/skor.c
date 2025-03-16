@@ -48,34 +48,40 @@ void cekhighskor(nilai *point)
 }
 
 // Fungsi untuk memuat high score dari file
-// void loadhighskor(nilai *point)
-// {
-//     FILE *file = fopen("highskor.txt", "r");
-//     if (file)
-//     {
-//         fscanf(file, "%d", &point->highskor);
-//         fclose(file);
-//     }
-//     else
-//     {
-//         point->highskor = 70;
-//     }
-// }
+void loadhighskor(nilai *point)
+{
+    FILE *file = fopen("src/highskor.txt", "r");
+    if (file)
+    {
+        if (fscanf(file, "%d", &point->highskor) != 1)
+        {
+            printf("Gagal membaca high score dari file!\n");
+            point->highskor = 0;
+        }
+        fclose(file);
+    }
+    else
+    {
+        printf("File highskor.txt tidak ditemukan!\n");
+        point->highskor = 0;
+    }
+}
 
-// // Fungsi untuk menyimpan high score ke file
-// void simpanhighskor(nilai *point)
-// {
-//     FILE *file = fopen("highskor.txt", "w");
-//     if (file)
-//     {
-//         fprintf(file, "%d", point->highskor);
-//         fclose(file);
-//     }
-//     else
-//     {
-//         printf("Gagal menyimpan high score!\n");
-//     }
-// }
+// Fungsi untuk menyimpan high score ke file
+void simpanhighskor(nilai *point)
+{    
+    FILE *file = fopen("src/highskor.txt", "w");
+    if (file)
+    {
+        fprintf(file, "%d", point->highskor);
+        fclose(file);
+        printf("High score berhasil disimpan!\n");
+    }
+    else
+    {
+        printf("Error menyimpan high score");
+    }
+}
 
 void gameover(SDL_Renderer *renderer, nilai *point)
 {

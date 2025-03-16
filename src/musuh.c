@@ -79,6 +79,7 @@ void nabrakMusuh(SDL_Renderer *renderer,Pesawat *pesawat, Musuh musuh[])
             pesawat->x < musuh[i].x + musuh[i].w && pesawat->x + pesawat->w > musuh[i].x && pesawat->y < musuh[i].y + musuh[i].h && pesawat->y + pesawat->h > musuh[i].y)
         {
             gameover(renderer, &point);
+            simpanhighskor(&point);
             SDL_Delay(3000);
             SDL_Quit();
             exit(0);
