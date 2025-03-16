@@ -6,11 +6,11 @@
 void tampilskor(SDL_Renderer *renderer, nilai *point)
 {
     // Tentukan posisi dan ukuran kotak skor
-    SDL_FRect kotakSkor = { 0, 0, 300, 20 };
+    SDL_FRect kotakSkor = {0, 0, 300, 20};
 
     // Tentukan warna untuk kotak dan teks
-    SDL_Color warnaKotak = { 255, 255, 255, 255 }; // putih
-    SDL_Color warnaTeks = { 0, 0, 0, 255  }; // hitam
+    SDL_Color warnaKotak = {255, 255, 255, 255}; // putih
+    SDL_Color warnaTeks = {0, 0, 0, 255};        // hitam
 
     // Gambar kotak untuk skor
     SDL_SetRenderDrawColor(renderer, warnaKotak.r, warnaKotak.g, warnaKotak.b, warnaKotak.a);
@@ -23,10 +23,10 @@ void tampilskor(SDL_Renderer *renderer, nilai *point)
     snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", point->highskor);
 
     // Tentukan posisi teks
-    float posXSkor = kotakSkor.x + 5; // Menggeser teks sedikit ke kiri
-    float posYSkor = kotakSkor.y + 5; // Menggeser teks sedikit ke bawah
-    float posXHighSkor = kotakSkor.x + 125; // Menambahkan jarak antara teks skor dan high skor
-    float posYHighSkor = kotakSkor.y + 5; // Menggeser teks sedikit ke bawah
+    float posXSkor = kotakSkor.x + 5; 
+    float posYSkor = kotakSkor.y + 5; 
+    float posXHighSkor = kotakSkor.x + 125;
+    float posYHighSkor = kotakSkor.y + 5; 
 
     // Gambar teks skor
     SDL_SetRenderDrawColor(renderer, warnaTeks.r, warnaTeks.g, warnaTeks.b, warnaTeks.a);
@@ -45,4 +45,68 @@ void cekhighskor(nilai *point)
     {
         point->highskor = point->skor;
     }
+}
+
+// Fungsi untuk memuat high score dari file
+// void loadhighskor(nilai *point)
+// {
+//     FILE *file = fopen("highskor.txt", "r");
+//     if (file)
+//     {
+//         fscanf(file, "%d", &point->highskor);
+//         fclose(file);
+//     }
+//     else
+//     {
+//         point->highskor = 70;
+//     }
+// }
+
+// // Fungsi untuk menyimpan high score ke file
+// void simpanhighskor(nilai *point)
+// {
+//     FILE *file = fopen("highskor.txt", "w");
+//     if (file)
+//     {
+//         fprintf(file, "%d", point->highskor);
+//         fclose(file);
+//     }
+//     else
+//     {
+//         printf("Gagal menyimpan high score!\n");
+//     }
+// }
+
+void gameover(SDL_Renderer *renderer, nilai *point)
+{
+    // // Hentikan layar game
+    SDL_RenderClear(renderer);
+
+    const char *title = "GAME OVER";
+    float titleX = (LEBAR_LAYAR - 960) / 2.0f;
+    float titleY = 100;
+    teksRender(title, titleX, titleY, 3.0f, (SDL_Color){255, 0, 0, 255}); 
+
+    // // Tentukan warna untuk teks
+    SDL_Color warnaSkor = {255, 255, 0, 255}; // kuning
+
+    // Siapkan teks untuk skor, dan high skor
+    char teksSkor[50];
+    char teksHighSkor[50];
+    snprintf(teksSkor, sizeof(teksSkor), "Skor: %d", point->skor);
+    snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", point->highskor);
+
+    float posXSkor = LEBAR_LAYAR / 2.0f - 270;
+    float posYSkor = titleX + 100;
+    float posXHighSkor = LEBAR_LAYAR / 2.0f - 290;
+    float posYHighSkor = posYSkor + 30; 
+
+    // Gambar teks skor
+    SDL_SetRenderDrawColor(renderer, warnaSkor.r, warnaSkor.g, warnaSkor.b, warnaSkor.a);
+    SDL_SetRenderScale(renderer, 1.5f, 1.5f);
+    SDL_RenderDebugText(renderer, posXSkor, posYSkor, teksSkor);
+    SDL_RenderDebugText(renderer, posXHighSkor, posYHighSkor, teksHighSkor);
+
+    // Perbarui layar
+    SDL_RenderPresent(renderer);
 }
