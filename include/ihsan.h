@@ -21,6 +21,7 @@ typedef struct
     float dx, dy;
     int w, h;//width height(lebar dan tinggi)
     int cd_tembak;//cooldown = cd
+    int nyawa;
     PeluruStruct peluru[MAX_PELURU];
 } Pesawat;
 

@@ -12,6 +12,7 @@ void bikinPesawat(Pesawat *pesawat)
     pesawat->dx = 0;
     pesawat->dy = 0;
     pesawat->cd_tembak = 0;
+    pesawat->nyawa = 3;
 
     for (int i = 0; i < MAX_PELURU; i++)
     {
