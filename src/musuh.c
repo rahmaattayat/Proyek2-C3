@@ -7,6 +7,7 @@
 #include "gema.h"
 
 int jumlahmusuh = 5;
+extern statusGame state;
 
 void bikinMusuh(Musuh *musuh, int jumlahmusuh, int aktif, int tinggi, int lebar)
 {
@@ -79,10 +80,17 @@ void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh musuh[])
                 gameover(renderer, &point);
                 simpanhighskor(&point);
                 
+                //reset skor untuk game berikutnya
+                point.skor=0;
+                //tunda 3 detik
                 SDL_Delay(3000);
-                SDL_Quit();
-                exit(0);
-                //state= STATE_MENU;
+                //ubah state ke menu
+                state= STATE_MENU;
+                //reset jumlah musuh dan wave untuk game berikutnya
+                jumlahmusuh = 5;
+                waveterbaru = 0;
+
+                return;
             }
         }
     }
