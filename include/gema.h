@@ -40,6 +40,7 @@ typedef struct
 {
     SDL_FRect kotak;
     const char *teks;
+    float skalaTeks;
     bool melayang;
 } Tombol;
 
@@ -49,7 +50,7 @@ typedef struct
     Tombol tombolAbout;
 } Menu;
 
-void tombolInit(Tombol *tombol, const char *teks, float y);
+void tombolInit(Tombol *tombol, const char *teks, float y, float skalaTeks);
 void tombolUpdateHover(Tombol *tombol, float mouseX, float mouseY);
 void tombolRender(Tombol *tombol);
 bool tombolDiklik(Tombol *tombol, float mouseX, float mouseY);

@@ -30,7 +30,7 @@ void mulai()
     window = SDL_CreateWindow("Space Invaders - Proyek 2 - C3", LEBAR_LAYAR, TINGGI_LAYAR, 0);
     renderer = SDL_CreateRenderer(window, NULL);
 
-    //inisiasi value record point untuk skor
+    // inisiasi value record point untuk skor
     point.skor = 0;
     loadhighskor(&point);
 
@@ -174,6 +174,7 @@ int SDL_main(int argc, char *argv[])
         {
         case STATE_MENU:
             handleMenuInput();
+            updateBackground(&background, 1.0f); // Tambahkan ini untuk update background di menu
             renderMenu();
             break;
         case STATE_GAME:
