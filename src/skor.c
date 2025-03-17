@@ -56,7 +56,7 @@ void cekhighskor(nilai *point)
 // Fungsi untuk memuat high score dari file
 void loadhighskor(nilai *point)
 {
-    FILE *file = fopen("src/highskor.txt", "r");
+    FILE *file = fopen("src/highskor.dat", "r");
     if (file)
     {
         if (fscanf(file, "%d", &point->highskor) != 1)
@@ -68,7 +68,7 @@ void loadhighskor(nilai *point)
     }
     else
     {
-        printf("File highskor.txt tidak ditemukan!\n");
+        printf("File highskor.dat tidak ditemukan!\n");
         point->highskor = 0;
     }
 }
@@ -76,7 +76,7 @@ void loadhighskor(nilai *point)
 // Fungsi untuk menyimpan high score ke file
 void simpanhighskor(nilai *point)
 {    
-    FILE *file = fopen("src/highskor.txt", "w");
+    FILE *file = fopen("src/highskor.dat", "w");
     if (file)
     {
         fprintf(file, "%d", point->highskor);
