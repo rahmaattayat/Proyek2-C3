@@ -7,8 +7,8 @@
 #include "ihsan.h"
 #include "config.h"
 
-#define MAX_MUSUH 50
-#define MAX_WAVE 10
+#define MAX_MUSUH 10000
+#define MAX_WAVE 1000
 
 typedef struct
 {

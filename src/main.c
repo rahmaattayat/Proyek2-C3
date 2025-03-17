@@ -16,7 +16,7 @@ Pesawat pesawat;
 Background background;
 Musuh musuh[MAX_MUSUH];
 extern int jumlahmusuh;
-
+Wave wave [MAX_MUSUH];
 Menu menu;
 
 statusGame state = STATE_MENU;
