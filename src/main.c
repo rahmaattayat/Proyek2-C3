@@ -32,7 +32,7 @@ void mulai()
 
     //inisiasi value record point untuk skor
     point.skor = 0;
-    point.highskor = 0;
+    loadhighskor(&point);
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
@@ -82,7 +82,7 @@ void updateGame()
     cekmusuh(musuh);
     updateBackground(&background, 1.0f);
     nabrakPeluru(&pesawat, musuh);
-    nabrakMusuh(&pesawat, musuh);
+    nabrakMusuh(renderer, &pesawat, musuh);
 
     for (int i = 0; i < jumlahmusuh; i++)
     {

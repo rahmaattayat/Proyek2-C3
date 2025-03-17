@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "fairuz.h"
 #include "alda.h"
+#include "gema.h"
 
 int jumlahmusuh = 5;
 
@@ -62,6 +63,7 @@ void nabrakPeluru(Pesawat *pesawat, Musuh musuh[])
                 // matiin musuh kalo kena peluru
                 musuh[j].aktif = 0;
                 pesawat->peluru[i].nyala = false;
+                //tambah skornya
                 tambahskor(&point);
                 cekhighskor(&point);
             }
@@ -69,13 +71,16 @@ void nabrakPeluru(Pesawat *pesawat, Musuh musuh[])
     }
 }
 
-void nabrakMusuh(Pesawat *pesawat, Musuh musuh[])
+void nabrakMusuh(SDL_Renderer *renderer,Pesawat *pesawat, Musuh musuh[])
 {
     for (int i = 0; i < jumlahmusuh; i++)
     {
         if (musuh[i].aktif &&
             pesawat->x < musuh[i].x + musuh[i].w && pesawat->x + pesawat->w > musuh[i].x && pesawat->y < musuh[i].y + musuh[i].h && pesawat->y + pesawat->h > musuh[i].y)
         {
+            gameover(renderer, &point);
+            simpanhighskor(&point);
+            SDL_Delay(3000);
             SDL_Quit();
             exit(0);
         }
