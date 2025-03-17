@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <SDL3/SDL.h>
 #include "alda.h"
+#include "fairuz.h"
 
 void tampilskor(SDL_Renderer *renderer, nilai *point)
 {
@@ -37,6 +38,11 @@ void tampilskor(SDL_Renderer *renderer, nilai *point)
 void tambahskor(nilai *point)
 {
     point->skor += 10;
+}
+
+void kuranginskor (nilai *point)
+{
+    point->skor -= 10;
 }
 
 void cekhighskor(nilai *point)

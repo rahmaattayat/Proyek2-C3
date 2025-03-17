@@ -21,5 +21,6 @@ extern int jumlahmusuh;
 
 void updatewave(Musuh *musuh);
 void cekmusuh(Musuh musuh[]);
+void kuranginskor (nilai *point);
 
 #endif

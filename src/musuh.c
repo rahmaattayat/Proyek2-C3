@@ -31,13 +31,6 @@ void gerakinMusuh(Musuh musuh[])
         if (musuh[i].aktif)
         {
             musuh[i].x += musuh[i].dx;
-
-            // reset posisi musuh kalo udah keluar layar
-            if (musuh[i].x + musuh[i].w < musuh[i].batasKiri)
-            {
-                musuh[i].x = LEBAR_LAYAR;
-                musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
-            }
         }
     }
 }
@@ -63,7 +56,7 @@ void nabrakPeluru(Pesawat *pesawat, Musuh musuh[])
                 // matiin musuh kalo kena peluru
                 musuh[j].aktif = 0;
                 pesawat->peluru[i].nyala = false;
-                //tambah skornya
+                // tambah skornya
                 tambahskor(&point);
                 cekhighskor(&point);
             }
@@ -71,7 +64,7 @@ void nabrakPeluru(Pesawat *pesawat, Musuh musuh[])
     }
 }
 
-void nabrakMusuh(SDL_Renderer *renderer,Pesawat *pesawat, Musuh musuh[])
+void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh musuh[])
 {
     for (int i = 0; i < jumlahmusuh; i++)
     {
@@ -87,13 +80,16 @@ void nabrakMusuh(SDL_Renderer *renderer,Pesawat *pesawat, Musuh musuh[])
     }
 }
 
-void bikinGambarMusuh(SDL_Renderer *renderer, Musuh musuh[]) {
-    SDL_Color warnaTubuh = {50, 255, 70, 255};    // Warna hijau untuk tubuh
-    SDL_Color warnaMata = {255, 50, 50, 255};     // Warna merah untuk mata
+void bikinGambarMusuh(SDL_Renderer *renderer, Musuh musuh[])
+{
+    SDL_Color warnaTubuh = {50, 255, 70, 255};   // Warna hijau untuk tubuh
+    SDL_Color warnaMata = {255, 50, 50, 255};    // Warna merah untuk mata
     SDL_Color warnaDetail = {200, 200, 20, 255}; // Warna kuning untuk detail
 
-    for (int i = 0; i < jumlahmusuh; i++) {
-        if (musuh[i].aktif) {
+    for (int i = 0; i < jumlahmusuh; i++)
+    {
+        if (musuh[i].aktif)
+        {
             float x = musuh[i].x;
             float y = musuh[i].y;
             float w = musuh[i].w;
@@ -102,12 +98,12 @@ void bikinGambarMusuh(SDL_Renderer *renderer, Musuh musuh[]) {
             float TengahanX = x + w / 2;
             float TengahanY = y + h / 2;
 
-            // Kepala 
+            // Kepala
             SDL_FRect kepala = {TengahanX - w * 0.4f, y + h * 0.1f, w * 0.8f, h * 0.5f};
             SDL_SetRenderDrawColor(renderer, warnaTubuh.r, warnaTubuh.g, warnaTubuh.b, warnaTubuh.a);
             SDL_RenderFillRect(renderer, &kepala);
 
-            // Mata 
+            // Mata
             SDL_SetRenderDrawColor(renderer, warnaMata.r, warnaMata.g, warnaMata.b, warnaMata.a);
             SDL_FRect mataKiri = {TengahanX - w * 0.25f, y + h * 0.2f, w * 0.15f, h * 0.15f};
             SDL_FRect mataKanan = {TengahanX + w * 0.10f, y + h * 0.2f, w * 0.15f, h * 0.15f};
@@ -125,7 +121,7 @@ void bikinGambarMusuh(SDL_Renderer *renderer, Musuh musuh[]) {
             SDL_RenderFillRect(renderer, &tanganKiri);
             SDL_RenderFillRect(renderer, &tanganKanan);
 
-            // Tentakel 
+            // Tentakel
             SDL_FRect tentakel1 = {TengahanX - w * 0.25f, y + h * 0.6f, w * 0.1f, h * 0.2f};
             SDL_FRect tentakel2 = {TengahanX - w * 0.05f, y + h * 0.6f, w * 0.1f, h * 0.2f};
             SDL_FRect tentakel3 = {TengahanX + w * 0.15f, y + h * 0.6f, w * 0.1f, h * 0.2f};

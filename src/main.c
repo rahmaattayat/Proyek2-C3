@@ -30,7 +30,7 @@ void mulai()
     window = SDL_CreateWindow("Space Invaders - Proyek 2 - C3", LEBAR_LAYAR, TINGGI_LAYAR, 0);
     renderer = SDL_CreateRenderer(window, NULL);
 
-    //inisiasi value record point untuk skor
+    // inisiasi value record point untuk skor
     point.skor = 0;
     loadhighskor(&point);
 
@@ -88,6 +88,7 @@ void updateGame()
     {
         if (musuh[i].x + musuh[i].w < 0)
         {
+            kuranginskor(&point);
             musuh[i].x = LEBAR_LAYAR;
             musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
         }
