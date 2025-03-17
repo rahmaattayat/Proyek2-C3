@@ -88,6 +88,7 @@ void updateGame()
     {
         if (musuh[i].x + musuh[i].w < 0)
         {
+            kuranginskor(&point);
             musuh[i].x = LEBAR_LAYAR;
             musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
         }
