@@ -142,7 +142,7 @@ void handleMenuInput()
 
 void renderMenu()
 {
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
     menuRender(&menu, &background);
     SDL_RenderPresent(renderer);
