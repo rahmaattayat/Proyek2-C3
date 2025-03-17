@@ -95,8 +95,8 @@ void gameover(SDL_Renderer *renderer, nilai *point)
     SDL_RenderClear(renderer);
 
     const char *title = "GAME OVER";
-    float titleX = (LEBAR_LAYAR - 960) / 2.0f;
-    float titleY = 100;
+    float titleX = (LEBAR_LAYAR - 200) / 2.0f;
+    float titleY = 300;
     teksRender(title, titleX, titleY, 3.0f, (SDL_Color){255, 0, 0, 255}); 
 
     // // Tentukan warna untuk teks
@@ -108,10 +108,10 @@ void gameover(SDL_Renderer *renderer, nilai *point)
     snprintf(teksSkor, sizeof(teksSkor), "Skor: %d", point->skor);
     snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", point->highskor);
 
-    float posXSkor = LEBAR_LAYAR / 2.0f - 270;
-    float posYSkor = titleX + 100;
-    float posXHighSkor = LEBAR_LAYAR / 2.0f - 290;
-    float posYHighSkor = posYSkor + 30; 
+    float posXSkor = titleX - 140;
+    float posYSkor = titleY - 60;
+    float posXHighSkor = posXSkor - 20;
+    float posYHighSkor = posYSkor + 20; 
 
     // Gambar teks skor
     SDL_SetRenderDrawColor(renderer, warnaSkor.r, warnaSkor.g, warnaSkor.b, warnaSkor.a);

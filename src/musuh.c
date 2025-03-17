@@ -73,9 +73,11 @@ void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh musuh[])
         {
             gameover(renderer, &point);
             simpanhighskor(&point);
+
             SDL_Delay(3000);
             SDL_Quit();
             exit(0);
+            //state= STATE_MENU;
         }
     }
 }
