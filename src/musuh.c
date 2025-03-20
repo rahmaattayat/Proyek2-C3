@@ -11,15 +11,15 @@ extern statusGame state;
 
 void bikinMusuh(Musuh *musuh, int jumlahmusuh, int aktif, int tinggi, int lebar)
 {
-    int variasi = 30;
-    int jarak_musuh = 100;
+    int variasi = 50;
+    int jarak_musuh = 120;
     for (int i = 0; i < jumlahmusuh; i++)
     {
         musuh[i].x = LEBAR_LAYAR + i * (jarak_musuh + rand() % variasi);
-        musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
         musuh[i].w = 65;
         musuh[i].h = 65;
-        musuh[i].dx = -2.5f;
+        musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
+        musuh[i].dx = -(2 + rand() % 2);
         musuh[i].batasKiri = -50;
         musuh[i].aktif = 1;
     }
@@ -32,6 +32,16 @@ void gerakinMusuh(Musuh musuh[])
         if (musuh[i].aktif)
         {
             musuh[i].x += musuh[i].dx;
+        }
+    }
+
+    for (int i = 0; i < jumlahmusuh; i++)
+    {
+        if (musuh[i].x + musuh[i].w < 0)
+        {
+            kuranginskor(&point);
+            musuh[i].x = LEBAR_LAYAR;
+            musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
         }
     }
 }

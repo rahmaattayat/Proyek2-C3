@@ -2,7 +2,7 @@
 #include <SDL3/SDL_main.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <stdlib.h> // untuk random
+#include <stdlib.h> 
 #include "config.h"
 #include "ihsan.h"
 #include "rahma.h"
@@ -83,16 +83,6 @@ void updateGame()
     updateBackground(&background, 1.0f);
     nabrakPeluru(&pesawat, musuh);
     nabrakMusuh(renderer, &pesawat, musuh);
-
-    for (int i = 0; i < jumlahmusuh; i++)
-    {
-        if (musuh[i].x + musuh[i].w < 0)
-        {
-            kuranginskor(&point);
-            musuh[i].x = LEBAR_LAYAR;
-            musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
-        }
-    }
 }
 
 void renderGame()
