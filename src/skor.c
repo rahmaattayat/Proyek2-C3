@@ -92,6 +92,7 @@ void simpanhighskor(nilai *point)
 void gameover(SDL_Renderer *renderer, nilai *point)
 {
     // // Hentikan layar game
+    SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255); 
     SDL_RenderClear(renderer);
 
     const char *title = "GAME OVER";

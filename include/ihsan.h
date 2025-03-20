@@ -32,4 +32,5 @@ void bikinGambarPesawat(SDL_Renderer* renderer, Pesawat* pesawat);
 void nembak(Pesawat* pesawat);
 void jalankanPeluru(Pesawat* pesawat);
 void bikinGambarPeluru(SDL_Renderer* renderer, Pesawat* pesawat);
+void tampilNyawa(SDL_Renderer *renderer, Pesawat *pesawat);
 #endif //IHSAN_H

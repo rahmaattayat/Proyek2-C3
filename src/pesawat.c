@@ -150,3 +150,31 @@ void bikinGambarPesawat(SDL_Renderer *renderer, Pesawat *pesawat)
     SDL_RenderFillRect(renderer, &api[3]);
     }
 }
+
+void tampilNyawa(SDL_Renderer *renderer, Pesawat *pesawat) {
+    int baseX = LEBAR_LAYAR - 50;
+    int baseY = 30;
+    int jarak = 30;
+    int radius = 10;
+    
+    SDL_SetRenderDrawColor(renderer, 255, 50, 50, 255);
+    
+    for (int i = 0; i < pesawat->nyawa; i++) {
+        int x = baseX + (i * jarak) - 50;
+        int y = baseY;
+        
+        for (int w = 0; w <= radius*2; w++) {
+            for (int h = 0; h <= radius*2; h++) {
+                int dx = radius - w;
+                int dy = radius - h;
+                if ((dx*dx + dy*dy) <= (radius*radius)) {
+                    SDL_RenderPoint(renderer, x + dx, y + dy);
+                }
+            }
+        }
+    }
+    
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_SetRenderScale(renderer, 1.0f, 1.0f);
+    SDL_RenderDebugText(renderer, LEBAR_LAYAR - 170, baseY - 4, "LIVES:");
+}

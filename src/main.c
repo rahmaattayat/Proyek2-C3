@@ -45,7 +45,6 @@ void mulai()
 void cekInput()
 {
     SDL_Event event;
-    // biar ga spam tembak(debounce)
     static bool spasi_dipencet = false;
     static bool spasi_sebelumnya = false;
     spasi_sebelumnya = spasi_dipencet;
@@ -94,6 +93,7 @@ void renderGame()
     bikinGambarPeluru(renderer, &pesawat);
     bikinGambarMusuh(renderer, musuh);
     tampilskor(renderer, &point);
+    tampilNyawa(renderer, &pesawat);
     SDL_RenderPresent(renderer);
 }
 
@@ -177,7 +177,7 @@ int SDL_main(int argc, char *argv[])
             handleAboutInput();
             break;
         }
-        SDL_Delay(16); // buat 60 fps, harusnya sih
+        SDL_Delay(16);
     }
 
     SDL_DestroyRenderer(renderer);
