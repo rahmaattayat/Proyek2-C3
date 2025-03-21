@@ -9,7 +9,7 @@ void resetKecepatan(Pesawat *pesawat)
     pesawat->dy = 0;
 }
 
-void bikinPeluru(PeluruStruct* peluru)
+void bikinPeluru(PeluruStruct *peluru)
 {
     peluru->nyala = false;
     peluru->x = 0;
@@ -105,11 +105,7 @@ void bikinGambarPesawat(SDL_Renderer *renderer, Pesawat *pesawat)
     gambarSayap(renderer, pesawat);
     gambarKokpit(renderer, pesawat);
     gambarMoncongan(renderer, pesawat);
-    
-    if (pesawat->dx != 0 || pesawat->dy != 0)
-    {
-        gambarNOS(renderer, pesawat);
-    }
+    gambarNOS(renderer, pesawat);
 }
 
 void gambarBadanPesawat(SDL_Renderer *renderer, Pesawat *pesawat)
@@ -213,42 +209,73 @@ void gambarNOS(SDL_Renderer *renderer, Pesawat *pesawat)
     float tengahanY = pesawat->y + pesawat->h / 2;
     int offset = rand() % 6;
     
-    SDL_FRect api[4];
+    SDL_FRect api[2][4];
     
-    api[0].x = pesawat->x - pesawat->w / 1.3;
-    api[0].y = tengahanY - pesawat->h / 3.2 + offset;
-    api[0].w = pesawat->w / 2;
-    api[0].h = pesawat->h / 1.5;
+    //[0]: saat pesawat diem
+    api[0][0].x = pesawat->x - pesawat->w / 2.0;
+    api[0][0].y = tengahanY - pesawat->h / 4.0 + offset;
+    api[0][0].w = pesawat->w / 3.0;
+    api[0][0].h = pesawat->h / 2.2;
     
-    api[1].x = pesawat->x - pesawat->w / 1.5;
-    api[1].y = tengahanY - pesawat->h / 3.2 + offset;
-    api[1].w = pesawat->w / 2.2;
-    api[1].h = pesawat->h / 1.7;
+    api[0][1].x = pesawat->x - pesawat->w / 2.2;
+    api[0][1].y = tengahanY - pesawat->h / 4.0 + offset;
+    api[0][1].w = pesawat->w / 3.5;
+    api[0][1].h = pesawat->h / 2.5;
     
-    api[2].x = pesawat->x - pesawat->w / 1.7;
-    api[2].y = tengahanY - pesawat->h / 3.5 + offset;
-    api[2].w = pesawat->w / 2.5;
-    api[2].h = pesawat->h / 1.9;
+    api[0][2].x = pesawat->x - pesawat->w / 2.4;
+    api[0][2].y = tengahanY - pesawat->h / 4.5 + offset;
+    api[0][2].w = pesawat->w / 4.0;
+    api[0][2].h = pesawat->h / 3.0;
 
-    api[3].x = pesawat->x - pesawat->w / 2.1;
-    api[3].y = tengahanY - pesawat->h / 4.5 + offset;
-    api[3].w = pesawat->w / 2.8;
-    api[3].h = pesawat->h / 2.2;
+    api[0][3].x = pesawat->x - pesawat->w / 2.8;
+    api[0][3].y = tengahanY - pesawat->h / 5.5 + offset;
+    api[0][3].w = pesawat->w / 4.5;
+    api[0][3].h = pesawat->h / 3.5;
     
+    //[1]: saat pesawat gerak
+    api[1][0].x = pesawat->x - pesawat->w / 1.3;
+    api[1][0].y = tengahanY - pesawat->h / 3.2 + offset ;
+    api[1][0].w = pesawat->w / 2.0;
+    api[1][0].h = pesawat->h / 1.5;
+    
+    api[1][1].x = pesawat->x - pesawat->w / 1.5;
+    api[1][1].y = tengahanY - pesawat->h / 3.2 + offset;
+    api[1][1].w = pesawat->w / 2.2;
+    api[1][1].h = pesawat->h / 1.7;
+    
+    api[1][2].x = pesawat->x - pesawat->w / 1.7;
+    api[1][2].y = tengahanY - pesawat->h / 3.5 + offset;
+    api[1][2].w = pesawat->w / 2.5;
+    api[1][2].h = pesawat->h / 1.9;
+
+    api[1][3].x = pesawat->x - pesawat->w / 2.1;
+    api[1][3].y = tengahanY - pesawat->h / 4.5 + offset;
+    api[1][3].w = pesawat->w / 2.8;
+    api[1][3].h = pesawat->h / 2.2;
+    
+    int mode;
+        if (pesawat->dx == 0 && pesawat->dy == 0) {
+        mode = 0;
+    } else {
+        mode = 1;
+    }
+    
+    // Gambar api sesuai mode yang dipilih
     SDL_SetRenderDrawColor(renderer, 255, 50, 0, 255);
-    SDL_RenderFillRect(renderer, &api[0]);
+    SDL_RenderFillRect(renderer, &api[mode][0]);
     
     SDL_SetRenderDrawColor(renderer, 255, 100, 0, 255);
-    SDL_RenderFillRect(renderer, &api[1]);
+    SDL_RenderFillRect(renderer, &api[mode][1]);
     
     SDL_SetRenderDrawColor(renderer, 255, 150, 0, 255);
-    SDL_RenderFillRect(renderer, &api[2]);
+    SDL_RenderFillRect(renderer, &api[mode][2]);
     
     SDL_SetRenderDrawColor(renderer, 255, 200, 0, 255);
-    SDL_RenderFillRect(renderer, &api[3]);
+    SDL_RenderFillRect(renderer, &api[mode][3]);
 }
 
-void tampilNyawa(SDL_Renderer *renderer, Pesawat *pesawat) {
+void tampilNyawa(SDL_Renderer *renderer, Pesawat *pesawat) 
+{
     gambarTeksNyawa(renderer);
     
     int baseX = LEBAR_LAYAR - 50;
@@ -263,13 +290,15 @@ void tampilNyawa(SDL_Renderer *renderer, Pesawat *pesawat) {
     }
 }
 
-void gambarTeksNyawa(SDL_Renderer *renderer) {
+void gambarTeksNyawa(SDL_Renderer *renderer) 
+{
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     SDL_SetRenderScale(renderer, 1.0f, 1.0f);
     SDL_RenderDebugText(renderer, LEBAR_LAYAR - 170, 26, "LIVES:");
 }
 
-void gambarIkonNyawa(SDL_Renderer *renderer, int x, int y, int radius) {
+void gambarIkonNyawa(SDL_Renderer *renderer, int x, int y, int radius) 
+{
     SDL_SetRenderDrawColor(renderer, 255, 50, 50, 255);
     
     for (int w = 0; w <= radius*2; w++) {
