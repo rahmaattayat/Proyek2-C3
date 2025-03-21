@@ -19,43 +19,64 @@ void nembak(Pesawat *pesawat)
     }
 }
 
+void updatePosisiPeluru(PeluruStruct *peluru)
+{
+    peluru->x += peluru->dx;
+    peluru->y += peluru->dy;
+}
+
+void cekPeluruKeluarLayar(PeluruStruct *peluru)
+{
+    if (peluru->x > LEBAR_LAYAR)
+    {
+        peluru->nyala = false;
+    }
+}
+
 void jalankanPeluru(Pesawat *pesawat)
 {
     for (int i = 0; i < MAX_PELURU; i++)
     {
         if (pesawat->peluru[i].nyala)
         {
-            pesawat->peluru[i].x += pesawat->peluru[i].dx;
-            pesawat->peluru[i].y += pesawat->peluru[i].dy;
-
-            // matiin peluru klo udh keluar layar
-            if (pesawat->peluru[i].x > LEBAR_LAYAR)
-            {
-                pesawat->peluru[i].nyala = false;
-            }
+            updatePosisiPeluru(&pesawat->peluru[i]);
+            cekPeluruKeluarLayar(&pesawat->peluru[i]);
         }
     }
 }
 
+void gambarBadanPeluru(SDL_Renderer *renderer, PeluruStruct *peluru)
+{
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    
+    SDL_FRect kotakpeluru = {
+        peluru->x, 
+        peluru->y - 2,
+        15, 9
+    };
+    SDL_RenderFillRect(renderer, &kotakpeluru);
+}
+
+void gambarTrailPeluru(SDL_Renderer *renderer, PeluruStruct *peluru)
+{
+    SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150);
+    
+    SDL_FRect ekor = {
+        peluru->x - 8, 
+        peluru->y - 1,
+        13, 7
+    };
+    SDL_RenderFillRect(renderer, &ekor);
+}
+
 void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
 {
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);//merah(peluru)
-
     for (int i = 0; i < MAX_PELURU; i++)
     {
         if (pesawat->peluru[i].nyala)
         {
-            SDL_FRect kotakpeluru = {
-                pesawat->peluru[i].x, pesawat->peluru[i].y - 2,
-                15, 9};
-            SDL_RenderFillRect(renderer, &kotakpeluru);
-            // ekor peluru
-            SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150);//kuning ekr
-            SDL_FRect ekor = {
-                pesawat->peluru[i].x - 8, pesawat->peluru[i].y - 1,
-                13, 7};
-            SDL_RenderFillRect(renderer, &ekor);
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);//reset warna
+            gambarTrailPeluru(renderer, &pesawat->peluru[i]);
+            gambarBadanPeluru(renderer, &pesawat->peluru[i]);
         }
     }
 }
