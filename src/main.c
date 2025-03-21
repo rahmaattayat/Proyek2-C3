@@ -2,7 +2,7 @@
 #include <SDL3/SDL_main.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include <stdlib.h> 
+#include <stdlib.h>
 #include "config.h"
 #include "ihsan.h"
 #include "rahma.h"
@@ -16,7 +16,7 @@ Pesawat pesawat;
 Background background;
 Musuh musuh[MAX_MUSUH];
 extern int jumlahmusuh;
-Wave wave [MAX_MUSUH];
+Wave wave[MAX_MUSUH];
 Menu menu;
 
 statusGame state = STATE_MENU;
@@ -94,6 +94,8 @@ void renderGame()
     bikinGambarMusuh(renderer, musuh);
     tampilskor(renderer, &point);
     tampilNyawa(renderer, &pesawat);
+    tampilkanWave(renderer);
+    
     SDL_RenderPresent(renderer);
 }
 

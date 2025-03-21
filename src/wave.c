@@ -36,6 +36,15 @@ void updatewave(Musuh *musuh)
     }
 }
 
+void tampilkanWave(SDL_Renderer *renderer)
+{
+    char teksWave[20];
+    sprintf(teksWave, "Wave %d", waveterbaru);
+
+    SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+    SDL_RenderDebugText(renderer, (LEBAR_LAYAR / 2) - 40, 50, teksWave);
+}
+
 void tambahmusuh(Musuh *musuh)
 {
     jumlahmusuh = jumlahmusuh + (waveterbaru * 2);

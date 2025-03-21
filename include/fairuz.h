@@ -6,6 +6,7 @@
 #include "gema.h"
 #include "ihsan.h"
 #include "config.h"
+#include <SDL3/SDL.h>
 
 #define MAX_MUSUH 10000
 #define MAX_WAVE 1000
@@ -23,5 +24,6 @@ void updatewave(Musuh *musuh);
 void cekmusuh(Musuh *musuh);
 void kuranginskor(nilai *point);
 void tambahmusuh(Musuh *musuh);
+void tampilkanWave(SDL_Renderer *renderer);
 
 #endif
