@@ -20,7 +20,8 @@ extern int waveterbaru;
 extern int jumlahmusuh;
 
 void updatewave(Musuh *musuh);
-void cekmusuh(Musuh musuh[]);
-void kuranginskor (nilai *point);
+void cekmusuh(Musuh *musuh);
+void kuranginskor(nilai *point);
+void tambahmusuh(Musuh *musuh);
 
 #endif

@@ -2,9 +2,9 @@
 #include <SDL3/SDL.h>
 #include "rahma.h"
 
-int waveterbaru = 0; 
+int waveterbaru = 0;
 
-void cekmusuh(Musuh musuh[])
+void cekmusuh(Musuh *musuh)
 {
     bool semuaMusuhMati = true; // Anggap semua musuh sudah mati
 
@@ -25,7 +25,7 @@ void updatewave(Musuh *musuh)
     {
         (waveterbaru)++;
 
-        jumlahmusuh = jumlahmusuh + (waveterbaru * 2); // Tambah 2 musuh setiap wave
+        tambahmusuh(musuh);
 
         if (jumlahmusuh > MAX_MUSUH)
         {
@@ -34,4 +34,9 @@ void updatewave(Musuh *musuh)
         SDL_Log("jumlah musuh = %d", jumlahmusuh);
         bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
     }
+}
+
+void tambahmusuh(Musuh *musuh)
+{
+    jumlahmusuh = jumlahmusuh + (waveterbaru * 2);
 }
