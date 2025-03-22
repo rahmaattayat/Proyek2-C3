@@ -53,7 +53,7 @@ void bikinMusuh(Musuh *musuh, int jumlahmusuh, int aktif, int tinggi, int lebar)
     }
 }
 
-void gerakinMusuh(Musuh musuh[])
+void gerakinMusuh(Musuh *musuh)
 {
     for (int i = 0; i < jumlahmusuh; i++)
     {
@@ -81,7 +81,7 @@ void gerakinMusuh(Musuh musuh[])
     }
 }
 
-void nabrakPeluru(Pesawat *pesawat, Musuh musuh[])
+void nabrakPeluru(Pesawat *pesawat, Musuh *musuh)
 {
     for (int i = 0; i < MAX_PELURU; i++)
     {
@@ -109,6 +109,7 @@ void nabrakPeluru(Pesawat *pesawat, Musuh musuh[])
                     // tambah skor berdasarkan tipe musuh
                     if (musuh[j].tipe == 1)
                     {
+                        // musuh besar 3 poin
                         tambahskormusuhbesar(&point);
                     }
                     else
@@ -126,7 +127,7 @@ void nabrakPeluru(Pesawat *pesawat, Musuh musuh[])
     }
 }
 
-void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh musuh[])
+void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh)
 {
     for (int i = 0; i < jumlahmusuh; i++)
     {
@@ -169,7 +170,7 @@ void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh musuh[])
     }
 }
 
-void bikinGambarMusuh(SDL_Renderer *renderer, Musuh musuh[])
+void bikinGambarMusuh(SDL_Renderer *renderer, Musuh *musuh)
 {
     // warna buat musuh biasa
     SDL_Color warnaTubuh = {50, 255, 70, 255};   // hijau
