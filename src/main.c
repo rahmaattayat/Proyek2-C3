@@ -56,10 +56,6 @@ void cekInput()
         }
         else if (event.type == SDL_EVENT_KEY_DOWN)
         {
-            if (event.key.scancode == SDL_SCANCODE_ESCAPE)
-            {
-                state = STATE_MENU;
-            }
             if (event.key.scancode == SDL_SCANCODE_SPACE)
             {
                 spasi_dipencet = true;
@@ -93,8 +89,19 @@ void renderGame()
     tampilskor(renderer, &point);
     tampilNyawa(renderer, &pesawat);
     tampilkanWave(renderer);
-    
+
     SDL_RenderPresent(renderer);
+}
+
+void restartGame()
+{
+    point.skor = 0;
+    loadhighskor(&point);
+
+    bikinPesawat(&pesawat);
+    jumlahmusuh = 5;
+    bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
+    bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
 }
 
 void handleMenuInput()
@@ -110,35 +117,40 @@ void handleMenuInput()
         {
             float x, y;
             SDL_GetMouseState(&x, &y);
-            menuUpdate(&menu, x, y);
+            updateMenu(&menu, x, y);
             if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
             {
                 if (tombolDiklik(&menu.tombolPlay, x, y))
                 {
                     state = STATE_GAME;
-                    // Restart game
-                    bikinPesawat(&pesawat);
-                    jumlahmusuh = 5;
-                    bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
+                    restartGame();
                 }
                 else if (tombolDiklik(&menu.tombolAbout, x, y))
                 {
                     state = STATE_ABOUT;
+                }
+                else if (tombolDiklik(&menu.tombolTutorial, x, y))
+                {
+                    state = STATE_TUTORIAL;
+                }
+                else if (tombolDiklik(&menu.tombolExit, x, y))
+                {
+                    gameBerjalan = false;
                 }
             }
         }
     }
 }
 
-void renderMenu()
+void buatMenu()
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
-    menuRender(&menu, &background);
+    renderMenu(&menu, &background);
     SDL_RenderPresent(renderer);
 }
 
-void handleAboutInput()
+void inputAbout()
 {
     SDL_Event event;
     while (SDL_PollEvent(&event))
@@ -152,7 +164,24 @@ void handleAboutInput()
             state = STATE_MENU;
         }
     }
-    aboutRender();
+    renderAbout();
+}
+
+void inputTutorial()
+{
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_EVENT_QUIT)
+        {
+            gameBerjalan = false;
+        }
+        else if (event.type == SDL_EVENT_KEY_DOWN && event.key.scancode == SDL_SCANCODE_ESCAPE)
+        {
+            state = STATE_MENU;
+        }
+    }
+    renderTutorial();
 }
 
 int SDL_main(int argc, char *argv[])
@@ -166,7 +195,7 @@ int SDL_main(int argc, char *argv[])
         case STATE_MENU:
             handleMenuInput();
             updateBackground(&background, 1.0f); // Tambahkan ini untuk update background di menu
-            renderMenu();
+            buatMenu();
             break;
         case STATE_GAME:
             cekInput();
@@ -174,7 +203,11 @@ int SDL_main(int argc, char *argv[])
             renderGame();
             break;
         case STATE_ABOUT:
-            handleAboutInput();
+            inputAbout();
+            break;
+        case STATE_TUTORIAL:
+            inputTutorial();
+            renderTutorial();
             break;
         }
         SDL_Delay(16);
