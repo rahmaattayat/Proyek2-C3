@@ -42,7 +42,7 @@ void tampilkanWave(SDL_Renderer *renderer)
     sprintf(teksWave, "WAVE %d", waveterbaru);
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
-    SDL_RenderDebugText(renderer, (LEBAR_LAYAR / 2) - 40, 50, teksWave);
+    SDL_RenderDebugText(renderer, (LEBAR_LAYAR / 2) - 40, 22, teksWave);
 }
 
 void tambahmusuh(Musuh *musuh)
