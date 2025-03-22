@@ -95,6 +95,17 @@ void renderGame()
     SDL_RenderPresent(renderer);
 }
 
+void restartGame()
+{
+    point.skor = 0;
+    loadhighskor(&point);
+
+    bikinPesawat(&pesawat);
+    jumlahmusuh = 5;
+    bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
+    bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
+}
+
 void handleMenuInput()
 {
     SDL_Event event;
@@ -114,10 +125,7 @@ void handleMenuInput()
                 if (tombolDiklik(&menu.tombolPlay, x, y))
                 {
                     state = STATE_GAME;
-                    // Restart game
-                    bikinPesawat(&pesawat);
-                    jumlahmusuh = 5;
-                    bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
+                    restartGame();
                 }
                 else if (tombolDiklik(&menu.tombolAbout, x, y))
                 {
