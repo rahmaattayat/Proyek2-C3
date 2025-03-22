@@ -1,14 +1,20 @@
 #include "ihsan.h"
 #include "config.h"
 #include <SDL3/SDL.h>
+#include <stdio.h>
 
 void nembak(Pesawat *pesawat)
 {
-    //find peluru gaaktif
+    if (pesawat->peluru_sekarang <= 0 || pesawat->sedang_reload)
+    {
+        return;
+    }
+
     for (int i = 0; i < MAX_PELURU; i++)
     {
         if (!pesawat->peluru[i].nyala)
         {
+            pesawat->peluru_sekarang--;
             pesawat->peluru[i].nyala = true;
             pesawat->peluru[i].x = pesawat->x + pesawat->w + 13;
             pesawat->peluru[i].y = pesawat->y + pesawat->h / 2;
@@ -66,4 +72,41 @@ void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
             SDL_RenderFillRect(renderer, &kotakpeluru);
        }
     }
+}
+
+void reload(Pesawat *pesawat)
+{
+    if (!pesawat->sedang_reload && pesawat->peluru_sekarang < pesawat->magasin)
+    {
+        pesawat->sedang_reload = true;
+        pesawat->waktu_reload = 90;
+    }
+}
+
+void updateReload(Pesawat *pesawat)
+{
+    if (pesawat->sedang_reload)
+    {
+        pesawat->waktu_reload--;
+        if (pesawat->waktu_reload <= 0)
+        {
+            pesawat->peluru_sekarang = pesawat->magasin;
+            pesawat->sedang_reload = false;
+        }
+    }
+}
+
+void tampilAmunisi(SDL_Renderer *renderer, Pesawat *pesawat)
+{
+    char text[64];
+    
+    if (pesawat->sedang_reload)
+    {
+        SDL_SetRenderDrawColor(renderer, 255, 50, 50, 255);
+        SDL_RenderDebugText(renderer, 20, 45, "RELOADING...");
+    }
+    
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    sprintf(text, "AMMO: %d/%d", pesawat->peluru_sekarang, pesawat->magasin);
+    SDL_RenderDebugText(renderer, 20, 30, text);
 }

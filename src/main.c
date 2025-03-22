@@ -60,6 +60,10 @@ void cekInput()
             {
                 spasi_dipencet = true;
             }
+            else if (event.key.scancode == SDL_SCANCODE_R)
+            {
+                reload(&pesawat);
+            }
         }
     }
     const Uint8 *keyboard = (const Uint8 *)SDL_GetKeyboardState(NULL);
@@ -70,6 +74,7 @@ void cekInput()
 void updateGame()
 {
     updatePesawat(&pesawat);
+    updateReload(&pesawat);
     jalankanPeluru(&pesawat);
     gerakinMusuh(musuh);
     cekmusuh(musuh);
@@ -88,6 +93,7 @@ void renderGame()
     bikinGambarMusuh(renderer, musuh);
     tampilskor(renderer, &point);
     tampilNyawa(renderer, &pesawat);
+    tampilAmunisi(renderer, &pesawat);
     tampilkanWave(renderer);
 
     SDL_RenderPresent(renderer);

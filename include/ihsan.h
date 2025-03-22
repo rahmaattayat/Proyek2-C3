@@ -23,6 +23,10 @@ typedef struct
     int w, h;//width height(lebar dan tinggi)
     int cd_tembak;//cooldown = cd
     int nyawa;
+    int magasin;
+    int peluru_sekarang;
+    bool sedang_reload;
+    int waktu_reload;
     PeluruStruct peluru[MAX_PELURU];
 } Pesawat;
 
@@ -42,5 +46,8 @@ void gambarNOS(SDL_Renderer* renderer, Pesawat* pesawat);
 void bikinGambarPeluru(SDL_Renderer* renderer, Pesawat* pesawat);
 void tampilNyawa(SDL_Renderer* renderer, Pesawat* pesawat);
 void gambarNyawa(SDL_Renderer* renderer, int x, int y, int radius);
+void reload(Pesawat* pesawat);
+void updateReload(Pesawat* pesawat);
+void tampilAmunisi(SDL_Renderer* renderer, Pesawat* pesawat);
 
 #endif //IHSAN_H

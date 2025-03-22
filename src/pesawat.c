@@ -30,6 +30,10 @@ void bikinPesawat(Pesawat *pesawat)
     pesawat->dy = 0;
     pesawat->cd_tembak = 0;
     pesawat->nyawa = 3;
+    pesawat->magasin = 20;
+    pesawat->peluru_sekarang = pesawat->magasin;
+    pesawat->sedang_reload = false;
+    pesawat->waktu_reload = 90;
 
     for (int i = 0; i < MAX_PELURU; i++)
     {
