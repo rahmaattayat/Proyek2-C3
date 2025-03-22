@@ -9,6 +9,11 @@
 int jumlahmusuh = 5;
 extern statusGame state;
 
+int musuhAtribut[JENIS_MUSUH][3] = {
+    {1, 65, 65},  // musuh biasa: hp, width, height
+    {3, 85, 85}   // musuh kuat: hp, width, height
+};
+
 void bikinMusuh(Musuh *musuh, int jumlahmusuh, int aktif, int tinggi, int lebar)
 {
     int variasi = 30; // buat variasi posisi x
@@ -32,21 +37,17 @@ void bikinMusuh(Musuh *musuh, int jumlahmusuh, int aktif, int tinggi, int lebar)
         musuh[i].batasKiri = -10;
         musuh[i].aktif = 1;
 
-        if (jumlahMusuhKuat > 0 && (rand() % 100 < 50))
-        {
-            musuh[i].tipe = 1; // musuh kuat
-            musuh[i].hp = 3;
-            musuh[i].w = 85;
-            musuh[i].h = 85;
+        if (jumlahMusuhKuat > 0 && (rand() % 100 < 50)) {
+            musuh[i].tipe = 1;  // musuh kuat
             jumlahMusuhKuat--;
+        } else {
+            musuh[i].tipe = 0;  // musuh biasa
         }
-        else
-        {
-            musuh[i].tipe = 0; // musuh biasa
-            musuh[i].hp = 1;
-            musuh[i].w = 65;
-            musuh[i].h = 65;
-        }
+        
+        musuh[i].hp = musuhAtribut[musuh[i].tipe][0];
+        musuh[i].w = musuhAtribut[musuh[i].tipe][1];
+        musuh[i].h = musuhAtribut[musuh[i].tipe][2];
+        
         musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
     }
 }
