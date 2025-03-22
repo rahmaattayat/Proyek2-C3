@@ -18,10 +18,10 @@ typedef struct {
     int tipe;
 } Musuh;
 
-void bikinMusuh(Musuh* musuh,int jumlahmusuh, int aktif, int tinggi, int lebar);
+void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif, int tinggi, int lebar);
 void gerakinMusuh(Musuh* musuh);
-void nabrakPeluru(Pesawat *pesawat, Musuh musuh[]);
+void nabrakPeluru(Pesawat *pesawat, Musuh *musuh);
 void bikinGambarMusuh(SDL_Renderer* renderer, Musuh* musuh);
-void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh musuh[]);
+void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh);
 
 #endif // RAHMA_H
