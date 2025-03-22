@@ -19,14 +19,10 @@ void nembak(Pesawat *pesawat)
     }
 }
 
-void updatePosisiPeluru(PeluruStruct *peluru)
+void updatePeluru(PeluruStruct *peluru)
 {
     peluru->x += peluru->dx;
     peluru->y += peluru->dy;
-}
-
-void cekPeluruKeluarLayar(PeluruStruct *peluru)
-{
     if (peluru->x > LEBAR_LAYAR)
     {
         peluru->nyala = false;
@@ -39,34 +35,9 @@ void jalankanPeluru(Pesawat *pesawat)
     {
         if (pesawat->peluru[i].nyala)
         {
-            updatePosisiPeluru(&pesawat->peluru[i]);
-            cekPeluruKeluarLayar(&pesawat->peluru[i]);
+            updatePeluru(&pesawat->peluru[i]);
         }
     }
-}
-
-void gambarBadanPeluru(SDL_Renderer *renderer, PeluruStruct *peluru)
-{
-    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-    
-    SDL_FRect kotakpeluru = {
-        peluru->x, 
-        peluru->y - 2,
-        15, 9
-    };
-    SDL_RenderFillRect(renderer, &kotakpeluru);
-}
-
-void gambarTrailPeluru(SDL_Renderer *renderer, PeluruStruct *peluru)
-{
-    SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150);
-    
-    SDL_FRect ekor = {
-        peluru->x - 8, 
-        peluru->y - 1,
-        13, 7
-    };
-    SDL_RenderFillRect(renderer, &ekor);
 }
 
 void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
@@ -75,8 +46,24 @@ void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
     {
         if (pesawat->peluru[i].nyala)
         {
-            gambarTrailPeluru(renderer, &pesawat->peluru[i]);
-            gambarBadanPeluru(renderer, &pesawat->peluru[i]);
-        }
+            //ekor peluru
+            SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150);//kuning ekr
+            SDL_FRect ekor = {
+                pesawat->peluru[i].x - 8,
+                pesawat->peluru[i].y,
+                pesawat->peluru[i].w, 
+                pesawat->peluru[i].h
+            };
+            SDL_RenderFillRect(renderer, &ekor);
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);//reset warna
+            //kotak depan
+            SDL_FRect kotakpeluru = {
+                pesawat->peluru[i].x,
+                pesawat->peluru[i].y, 
+                pesawat->peluru[i].w, 
+                pesawat->peluru[i].h
+            };
+            SDL_RenderFillRect(renderer, &kotakpeluru);
+       }
     }
 }
