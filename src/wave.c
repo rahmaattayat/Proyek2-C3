@@ -47,5 +47,5 @@ void tampilkanWave(SDL_Renderer *renderer)
 
 void tambahmusuh(Musuh *musuh)
 {
-    jumlahmusuh = jumlahmusuh + (waveterbaru * 2);
+    jumlahmusuh = jumlahmusuh + waveterbaru;
 }
