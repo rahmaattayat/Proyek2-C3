@@ -79,7 +79,7 @@ void reload(Pesawat *pesawat)
     if (!pesawat->sedang_reload && pesawat->peluru_sekarang < pesawat->magasin)
     {
         pesawat->sedang_reload = true;
-        pesawat->waktu_reload = 90;
+        pesawat->waktu_reload = 60;
     }
 }
 

@@ -30,10 +30,10 @@ void bikinPesawat(Pesawat *pesawat)
     pesawat->dy = 0;
     pesawat->cd_tembak = 0;
     pesawat->nyawa = 3;
-    pesawat->magasin = 20;
+    pesawat->magasin = 30;
     pesawat->peluru_sekarang = pesawat->magasin;
     pesawat->sedang_reload = false;
-    pesawat->waktu_reload = 90;
+    pesawat->waktu_reload = 60;
 
     for (int i = 0; i < MAX_PELURU; i++)
     {
@@ -63,7 +63,7 @@ void prosesInput(Pesawat *pesawat, const Uint8 *keyboard, bool pencetSpasi)
     if (pencetSpasi && pesawat->cd_tembak <= 0)
     {
         nembak(pesawat);
-        pesawat->cd_tembak = 25;
+        pesawat->cd_tembak = 20;
     }
 }
 
