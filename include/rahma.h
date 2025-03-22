@@ -14,6 +14,8 @@ typedef struct {
     int batasAtas, batasBawah; 
     int batasKiri, batasKanan; 
     int aktif;
+    int hp;
+    int tipe;
 } Musuh;
 
 void bikinMusuh(Musuh* musuh,int jumlahmusuh, int aktif, int tinggi, int lebar);
