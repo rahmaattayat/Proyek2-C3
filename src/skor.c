@@ -45,6 +45,11 @@ void kuranginskor (nilai *point)
     point->skor -= 10;
 }
 
+void kuranginskormusuhbesar(nilai *point)
+{
+    point->skor -= 30;
+}
+
 void cekhighskor(nilai *point)
 {
     if (point->skor > point->highskor)

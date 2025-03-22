@@ -19,5 +19,6 @@ void cekmusuh(Musuh *musuh);
 void kuranginskor(nilai *point);
 void tambahmusuh(Musuh *musuh);
 void tampilkanWave(SDL_Renderer *renderer);
+void kuranginskormusuhbesar(nilai *point);
 
 #endif
