@@ -97,8 +97,13 @@ void renderAbout()
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
-    teksRender("Dibuat oleh: Nama Anda", 200, 100, 2.0f, (SDL_Color){255, 255, 255, 255});
-    teksRender("Tekan ESC untuk kembali", 200, 200, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("Dibuat oleh: Kelompok C3", 200, 100, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("1. Alda Pujama (241511066)", 200, 130, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("2. Fairuz Sheva M (241511073)", 200, 160, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("3. Gema Adzan F (241511075)", 200, 190, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("4. Muhammad Ihsan R (241511083)", 200, 220, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("5. Rahma Attaya T (241511088)", 200, 250, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("Tekan ESC untuk kembali", 200, 350, 2.0f, (SDL_Color){255, 255, 255, 255});
     SDL_RenderPresent(renderer);
 }
 
@@ -110,6 +115,6 @@ void renderTutorial()
     teksRender("'SPACE' UNTUK MENEMBAK", 200, 130, 2.0f, (SDL_Color){255, 255, 255, 255});
     teksRender("'R' UNTUK MENGISI AMUNISI", 200, 160, 2.0f, (SDL_Color){255, 255, 255, 255});
     teksRender("Pastikan jangan ada musuh yang terlewat", 200, 190, 2.0f, (SDL_Color){255, 255, 255, 255});
-    teksRender("Tekan ESC untuk kembali", 200, 220, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("Tekan ESC untuk kembali", 200, 290, 2.0f, (SDL_Color){255, 255, 255, 255});
     SDL_RenderPresent(renderer);
 }
