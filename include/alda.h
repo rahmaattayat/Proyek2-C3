@@ -16,6 +16,7 @@ extern nilai point;
 
 void tampilskor(SDL_Renderer *renderer, nilai *point);
 void tambahskor(nilai *point);
+void tambahskormusuhbesar(nilai *point);
 void cekhighskor(nilai *point);
 void loadhighskor(nilai *point);
 void simpanhighskor(nilai *point);

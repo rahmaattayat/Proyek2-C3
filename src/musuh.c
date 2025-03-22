@@ -109,7 +109,7 @@ void nabrakPeluru(Pesawat *pesawat, Musuh musuh[])
                     // tambah skor berdasarkan tipe musuh
                     if (musuh[j].tipe == 1)
                     {
-                        // musuh kuat 3 poin
+                        tambahskormusuhbesar(&point);
                     }
                     else
                     {

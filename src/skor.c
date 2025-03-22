@@ -40,6 +40,11 @@ void tambahskor(nilai *point)
     point->skor += 10;
 }
 
+void tambahskormusuhbesar(nilai *point)
+{
+    point->skor += 30;
+}
+
 void kuranginskor (nilai *point)
 {
     point->skor -= 10;
