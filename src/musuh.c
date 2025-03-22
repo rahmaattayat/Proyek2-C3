@@ -98,7 +98,7 @@ void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh musuh[])
                 state= STATE_MENU;
                 //reset jumlah musuh dan wave untuk game berikutnya
                 jumlahmusuh = 5;
-                waveterbaru = 0;
+                waveterbaru = 1;
 
                 return;
             }

@@ -2,7 +2,7 @@
 #include <SDL3/SDL.h>
 #include "rahma.h"
 
-int waveterbaru = 0;
+int waveterbaru = 1;
 
 void cekmusuh(Musuh *musuh)
 {

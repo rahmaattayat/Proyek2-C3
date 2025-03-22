@@ -11,12 +11,6 @@
 #define MAX_MUSUH 10000
 #define MAX_WAVE 1000
 
-typedef struct
-{
-    int wave;
-} Wave;
-
-/// k
 extern int waveterbaru;
 extern int jumlahmusuh;
 

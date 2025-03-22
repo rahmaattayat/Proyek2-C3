@@ -8,7 +8,7 @@
 #include "config.h"
 
 // background
-#define MAKSIMAL_BINTANG 200
+#define MAX_BINTANG 200
 
 typedef struct
 {
@@ -22,7 +22,7 @@ Bintang bikinBintang(float x, float y, float ukuran, float kecepatan);
 
 typedef struct
 {
-    Bintang bintang[MAKSIMAL_BINTANG]; // Array bintang
+    Bintang bintang[MAX_BINTANG];
     int jumlah;
     int lebarLayar;
     int tinggiLayar;
@@ -41,32 +41,34 @@ typedef struct
     SDL_FRect kotak;
     const char *teks;
     float skalaTeks;
-    bool melayang;
+    bool hover;
 } Tombol;
 
 typedef struct
 {
     Tombol tombolPlay;
     Tombol tombolAbout;
+    Tombol tombolTutorial;
+    Tombol tombolExit;
 } Menu;
 
 void tombolInit(Tombol *tombol, const char *teks, float y, float skalaTeks);
 void tombolUpdateHover(Tombol *tombol, float mouseX, float mouseY);
-void tombolRender(Tombol *tombol);
+void renderTombol(Tombol *tombol);
 bool tombolDiklik(Tombol *tombol, float mouseX, float mouseY);
 void teksRender(const char *teks, float x, float y, float skala, SDL_Color warna);
 void menuInit(Menu *menu);
-void menuUpdate(Menu *menu, float mouseX, float mouseY);
-void menuRender(Menu *menu, const Background *background);
-void aboutRender();
-void aboutInput(SDL_Event *e, bool *tampilAbout);
-
+void updateMenu(Menu *menu, float mouseX, float mouseY);
+void renderMenu(Menu *menu, const Background *background);
+void renderAbout();
+void renderTutorial();
 // status game
 typedef enum
 {
     STATE_MENU,
     STATE_GAME,
-    STATE_ABOUT
+    STATE_ABOUT,
+    STATE_TUTORIAL
 } statusGame;
 
 #endif // GEMA_H
