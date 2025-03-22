@@ -108,7 +108,8 @@ void renderTutorial()
     SDL_RenderClear(renderer);
     teksRender("'WASD' UNTUK MENGGERAKAN PESAWAT", 200, 100, 2.0f, (SDL_Color){255, 255, 255, 255});
     teksRender("'SPACE' UNTUK MENEMBAK", 200, 130, 2.0f, (SDL_Color){255, 255, 255, 255});
-    teksRender("Pastikan jangan ada musuh yang terlewat", 200, 160, 2.0f, (SDL_Color){255, 255, 255, 255});
-    teksRender("Tekan ESC untuk kembali", 200, 200, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("'R' UNTUK MENGISI AMUNISI", 200, 160, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("Pastikan jangan ada musuh yang terlewat", 200, 190, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("Tekan ESC untuk kembali", 200, 220, 2.0f, (SDL_Color){255, 255, 255, 255});
     SDL_RenderPresent(renderer);
 }
