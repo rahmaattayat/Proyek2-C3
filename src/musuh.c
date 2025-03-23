@@ -140,25 +140,16 @@ void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh)
         if (musuh[i].aktif && pesawat->x < musuh[i].x + musuh[i].w && pesawat->x + pesawat->w > musuh[i].x &&
             pesawat->y < musuh[i].y + musuh[i].h && pesawat->y + pesawat->h > musuh[i].y) 
         {
-            pesawat->nyawa = pesawat->nyawa - 1;
-
+            if (musuh[i].tipe == 1) {
+                pesawat->nyawa = pesawat->nyawa - 2; 
+            } else {
+                pesawat->nyawa = pesawat->nyawa - 1; 
+            }
             musuh[i].aktif = 0; 
 
             if (pesawat->nyawa <= 0)
             {
-                gameover(renderer, &point);
-                simpanhighskor(&point);
-                
-                //reset skor untuk game berikutnya
-                point.skor=0;
-                //tunda 3 detik
-                SDL_Delay(2000);
-                //ubah state ke menu
-                state= STATE_MENU;
-                //reset jumlah musuh dan wave untuk game berikutnya
-                jumlahmusuh = 5;
-                waveterbaru = 0;
-
+                kelolaGameOver(renderer); 
                 return;
             }
         }
