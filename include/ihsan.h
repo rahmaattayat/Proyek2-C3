@@ -69,5 +69,6 @@ void renderSuplai(SDL_Renderer* renderer);
 void loadTeksturSuplai(SDL_Renderer* renderer);
 void hapusTeksturSuplai(); 
 bool nabrakSuplai(Suplai* suplai, Pesawat* pesawat);
+void penambahanBuff(Suplai* suplai, Pesawat* pesawat);
 
 #endif //IHSAN_H
