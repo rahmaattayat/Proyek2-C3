@@ -32,6 +32,9 @@ void mulai()
     window = SDL_CreateWindow("Space Invaders - Proyek 2 - C3", LEBAR_LAYAR, TINGGI_LAYAR, 0);
     renderer = SDL_CreateRenderer(window, NULL);
 
+    initAudio();
+    playMusic(menuMusic);
+
     // inisiasi value record point untuk skor
     point.skor = 0;
     loadhighskor(&point);
@@ -66,6 +69,7 @@ void cekInput()
             if (event.key.scancode == SDL_SCANCODE_SPACE)
             {
                 spasi_dipencet = true;
+                playShootSound();
             }
             else if (event.key.scancode == SDL_SCANCODE_R)
             {
@@ -155,20 +159,25 @@ void handleMenuInput()
             if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
             {
                 if (tombolDiklik(&menu.tombolPlay, x, y))
-                {
+                {                      
+                    playClickSound();
+                    playMusic(gameMusic);
                     state = STATE_GAME;
                     restartGame();
                 }
                 else if (tombolDiklik(&menu.tombolAbout, x, y))
                 {
+                    playClickSound();
                     state = STATE_ABOUT;
                 }
                 else if (tombolDiklik(&menu.tombolTutorial, x, y))
                 {
+                    playClickSound();
                     state = STATE_TUTORIAL;
                 }
                 else if (tombolDiklik(&menu.tombolExit, x, y))
                 {
+                    playClickSound();
                     gameBerjalan = false;
                 }
             }
@@ -248,6 +257,9 @@ int SDL_main(int argc, char *argv[])
         SDL_Delay(16);
     }
     hapusTeksturSuplai();
+
+    stopMusic();
+    closeAudio();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

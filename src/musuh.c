@@ -121,6 +121,7 @@ void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int i, int j)
     if (musuh[j].hp <= 0) 
     {
         musuh[j].aktif = 0;
+        playEnemyDeathSound();
         // tambah skor berdasarkan tipe musuh
         if (musuh[j].tipe == 1) 
         {
@@ -145,6 +146,7 @@ void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh)
             } else {
                 pesawat->nyawa = pesawat->nyawa - 1; 
             }
+            playPlayerHitSound();
             musuh[i].aktif = 0; 
 
             if (pesawat->nyawa <= 0)
@@ -158,15 +160,17 @@ void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh)
 
 void kelolaGameOver(SDL_Renderer *renderer) 
 {
+    playMusic(gameOverMusic);
     gameover(renderer, &point);
     simpanhighskor(&point); 
 
     // reset skor untuk game berikutnya
     point.skor = 0; 
     // tunda 2 detik
-    SDL_Delay(2000); 
+    SDL_Delay(4000); 
     // ubah state ke menu
-    state = STATE_MENU; 
+    state = STATE_MENU;
+    playMusic(menuMusic); 
     // reset jumlah musuh dan wave untuk game berikutnya
     jumlahmusuh = 5; 
     waveterbaru = 1; 
