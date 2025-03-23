@@ -19,13 +19,20 @@ Space Invaders adalah game di mana pemain mengendalikan pesawat luar angkasa dan
 # Fitur Game dan Pembagian Tugas:
 ### 1. Alda Pujama - Bertanggung jawab dalam pembuatan skor dan highskor, gameover, audio.
     A. Skor
-        Game state yang berguna untuk memungkinkan user berada di menu utama, dalam game, dan lainnya (penjelasan skor dan mekanisme perhitungan poin).
+        Membuat sistem skor bagi player dimana jika musuh berhasil mati terkena peluru player maka skor bertamabah dan menampilkannya.
     B. Highskor
-        Game state yang berguna untuk memungkinkan user berada di menu utama, dalam game, dan lainnya (penyimpanan skor tertinggi dan penampilan high score).
+        Mencatat skor tertinggi yang didapat selama bermain, highskor ini berubah hanya jika skor yang didapat lebih besar dari highskor dan bisa menampilkan highskor yang didapat sebelumnya.
     C. Gameover
-        Game state yang berguna untuk memungkinkan user berada di menu utama, dalam game, dan lainnya (penanganan akhir permainan dan reset).
+        Membuat tampilan saat pemain sudah kehabisan nyawa atau game over disertai catatan skor dan highskor yang didapatkan. Kemudian mengembalikan ke state menu lagi setelah waktu tertentu.
     D. Audio dengan SDL_Mixer
-        Mengintegrasikan audio menggunakan SDL_Mixer sehingga game memberikan suara saat pemain menembak, musuh dihancurkan, atau terjadi game ove
+        Mengintegrasikan audio menggunakan sdl mixer sehingga game bisa menggeluarkan suara atau audio. Audio dikeluarkan saat : 
+            - Menu game ditampilkan
+            - Button di tekan
+            - Mulainya game
+            - Player mengeluarkan peluru
+            - Musuh mati
+            - nyawa player beekurang
+            - Tampilan game over
 
 ### 2. Fairuz Sheva Muhammad - Bertanggung jawab dalam pengembangan gameplay seperti wave dan pengurangan skor.
     A. Membuat Sistem Wave
