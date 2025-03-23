@@ -115,10 +115,17 @@ void renderTutorial()
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
-    teksRender("'WASD' UNTUK MENGGERAKAN PESAWAT", 200, 100, 2.0f, (SDL_Color){255, 255, 255, 255});
-    teksRender("'SPACE' UNTUK MENEMBAK", 200, 130, 2.0f, (SDL_Color){255, 255, 255, 255});
-    teksRender("'R' UNTUK MENGISI AMUNISI", 200, 160, 2.0f, (SDL_Color){255, 255, 255, 255});
-    teksRender("Pastikan jangan ada musuh yang terlewat", 200, 190, 2.0f, (SDL_Color){255, 255, 255, 255});
-    teksRender("Tekan ESC untuk kembali", 200, 290, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("1.Pada layar menu, pilih opsi PLAY untuk memulai permainan", 200, 100, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("2.Gunakan W untuk bergerak ke atas, S untuk bergerak ke bawah,", 200, 140, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("A untuk bergerak ke kiri, dan D untuk bergerak ke kanan.", 200, 170, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("3.Tekan tombol SPACE untuk menembakkan peluru ke arah musuh.", 200, 210, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("Perhatikan bahwa ada jeda (cooldown) antar tembakan", 200, 240, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("4.Jika amunisi habis, tekan tombol R untuk melakukan reload.", 200, 280, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("5.Saat power-up muncul, arahkan pesawat untuk menabraknya untuk", 200, 320, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("mendapatkan tambahan nyawa atau amunisi.", 200, 350, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("6.Hindari tabrakan dengan musuh, karena hal ini akan mengurangi", 200, 390, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRender("nyawa pesawat.", 200, 420, 2.0f, (SDL_Color){255, 255, 255, 255});
+
+    teksRender("Tekan ESC untuk kembali", 200, 520, 2.0f, (SDL_Color){255, 255, 255, 255});
     SDL_RenderPresent(renderer);
 }
