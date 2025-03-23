@@ -3,12 +3,6 @@
 #include <SDL3/SDL.h>
 #include <stdlib.h>
 
-void resetKecepatan(Pesawat *pesawat)
-{
-    pesawat->dx = 0;
-    pesawat->dy = 0;
-}
-
 void bikinPeluru(PeluruStruct *peluru)
 {
     peluru->nyala = false;
@@ -67,19 +61,15 @@ void prosesInput(Pesawat *pesawat, const Uint8 *keyboard, bool pencetSpasi)
     }
 }
 
-void kurangiCooldown(Pesawat *pesawat)
+void gerakinPesawat(Pesawat *pesawat, const Uint8 *keyboard, bool pencetSpasi)
 {
+    pesawat->dx = 0;
+    pesawat->dy = 0;
+    prosesInput(pesawat, keyboard, pencetSpasi);
     if (pesawat->cd_tembak > 0)
     {
         pesawat->cd_tembak--;
     }
-}
-
-void gerakinPesawat(Pesawat *pesawat, const Uint8 *keyboard, bool pencetSpasi)
-{
-    resetKecepatan(pesawat);
-    prosesInput(pesawat, keyboard, pencetSpasi);
-    kurangiCooldown(pesawat);
 }
 
 void batesinGerakanPesawat(Pesawat *pesawat)

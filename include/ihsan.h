@@ -7,6 +7,8 @@
 
 //var global
 #define MAX_PELURU 50
+#define MAX_SUPLAI 2
+#define JENIS_SUPLAI 2
 
 typedef struct
 {
@@ -15,6 +17,15 @@ typedef struct
     int w, h;
     bool nyala;
 } PeluruStruct;
+
+typedef struct
+{
+    float x, y;
+    float dx, dy;
+    int w, h;
+    bool aktif;
+    int jenis;
+} Suplai;
 
 typedef struct
 {
@@ -30,12 +41,15 @@ typedef struct
     PeluruStruct peluru[MAX_PELURU];
 } Pesawat;
 
+extern Suplai suplai[JENIS_SUPLAI][MAX_SUPLAI];
+
+extern Uint32 waktuTerakhirSuplai;
+extern Uint32 rentangSpawnSuplai;
+
 void bikinPesawat(Pesawat* pesawat);
 void bikinPeluru(PeluruStruct* peluru);
-void resetKecepatan(Pesawat* pesawat);
 void gerakinPesawat(Pesawat* pesawat, const Uint8* keyboard, bool pencetSpasi);
 void prosesInput(Pesawat* pesawat, const Uint8* keyboard, bool pencetSpasi);
-void kurangiCooldown(Pesawat* pesawat);
 void batesinGerakanPesawat(Pesawat* pesawat);
 void updatePesawat(Pesawat* pesawat);
 void nembak(Pesawat* pesawat);
@@ -49,5 +63,11 @@ void gambarNyawa(SDL_Renderer* renderer, int x, int y, int radius);
 void reload(Pesawat* pesawat);
 void updateReload(Pesawat* pesawat);
 void tampilAmunisi(SDL_Renderer* renderer, Pesawat* pesawat);
+void spawnSuplai(int jenis);
+void updateSuplai(Pesawat* pesawat);
+void renderSuplai(SDL_Renderer* renderer);
+void loadTeksturSuplai(SDL_Renderer* renderer);
+void hapusTeksturSuplai(); 
+bool nabrakSuplai(Suplai* powerUp, Pesawat* pesawat);
 
 #endif //IHSAN_H

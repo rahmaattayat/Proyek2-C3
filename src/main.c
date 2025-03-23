@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+#include <time.h>
 #include "config.h"
 #include "ihsan.h"
 #include "rahma.h"
@@ -22,6 +23,9 @@ bool gameBerjalan = true;
 
 nilai point;
 
+int rentangMinimum = 30;
+int rentangMaksimum = 45;
+
 void mulai()
 {
     SDL_Init(SDL_INIT_VIDEO);
@@ -36,8 +40,12 @@ void mulai()
     jumlahmusuh = 5;
     bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
+    loadTeksturSuplai(renderer);
 
     menuInit(&menu);
+    waktuTerakhirSuplai = SDL_GetTicks();
+    rentangSpawnSuplai = (rand() % (rentangMaksimum - rentangMinimum + 1) + rentangMinimum) * 1000;
+
 }
 
 void cekInput()
@@ -81,6 +89,16 @@ void updateGame()
     updateBackground(&background, 1.0f);
     nabrakPeluru(&pesawat, musuh);
     nabrakMusuh(renderer, &pesawat, musuh);
+    updateSuplai(&pesawat);
+
+    Uint32 waktuSekarang = SDL_GetTicks();
+    if (waktuSekarang - waktuTerakhirSuplai >= rentangSpawnSuplai)
+    {
+        int jenis = rand() % JENIS_SUPLAI;
+        spawnSuplai(jenis);
+        waktuTerakhirSuplai = waktuSekarang;
+        rentangSpawnSuplai = (rand() % (rentangMaksimum - rentangMinimum + 1) + rentangMinimum) * 1000;
+    }
 }
 
 void renderGame()
@@ -91,6 +109,7 @@ void renderGame()
     bikinGambarPesawat(renderer, &pesawat);
     bikinGambarPeluru(renderer, &pesawat);
     bikinGambarMusuh(renderer, musuh);
+    renderSuplai(renderer);
     tampilskor(renderer, &point);
     tampilNyawa(renderer, &pesawat);
     tampilAmunisi(renderer, &pesawat);
@@ -108,6 +127,14 @@ void restartGame()
     jumlahmusuh = 5;
     bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
+
+    for (int jenis = 0; jenis < JENIS_SUPLAI; jenis++)
+    {
+        for (int i = 0; i < MAX_SUPLAI; i++)
+        {
+            suplai[jenis][i].aktif = false;
+        }
+    }
 }
 
 void handleMenuInput()
@@ -192,6 +219,7 @@ void inputTutorial()
 
 int SDL_main(int argc, char *argv[])
 {
+    srand(time(NULL));
     mulai();
 
     while (gameBerjalan)
@@ -218,6 +246,7 @@ int SDL_main(int argc, char *argv[])
         }
         SDL_Delay(16);
     }
+    hapusTeksturSuplai();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
