@@ -45,7 +45,6 @@ void mulai()
     menuInit(&menu);
     waktuTerakhirSuplai = SDL_GetTicks();
     rentangSpawnSuplai = (rand() % (rentangMaksimum - rentangMinimum + 1) + rentangMinimum) * 1000;
-
 }
 
 void cekInput()
@@ -128,6 +127,7 @@ void restartGame()
     jumlahmusuh = 5;
     bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
+    bonus = 1;
 
     for (int jenis = 0; jenis < JENIS_SUPLAI; jenis++)
     {
