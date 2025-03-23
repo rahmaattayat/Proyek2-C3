@@ -9,69 +9,80 @@
 int jumlahmusuh = 5;
 extern statusGame state;
 
-int musuhAtribut[JENIS_MUSUH][3] = {
-    {1, 65, 65},  // musuh biasa: hp, width, height
-    {3, 85, 85}   // musuh kuat: hp, width, height
+int musuhAtribut[JENIS_MUSUH][3] = 
+{
+    {1, 65, 65}, // musuh biasa: hp, width, height
+    {3, 85, 85}  // musuh kuat: hp, width, height
 };
 
-void bikinMusuh(Musuh *musuh, int jumlahmusuh, int aktif, int tinggi, int lebar)
+void inisialisasiMusuh(Musuh* musuh, int jumlahmusuh) 
 {
     int variasi = 30; // buat variasi posisi x
     int jarak_musuh = 100;
 
-    // nentuin musuh berdasarkan wave
-    int jumlahMusuhKuat = 0;
-    if (waveterbaru >= 5)
-    {
-        jumlahMusuhKuat = waveterbaru - 4; // musuh kuat bertambah kalo wave bertambah
-        if (jumlahMusuhKuat > jumlahmusuh / 3)
-        {
-            jumlahMusuhKuat = jumlahmusuh / 3;
-        }
-    }
-
-    for (int i = 0; i < jumlahmusuh; i++)
+    for (int i = 0; i < jumlahmusuh; i++) 
     {
         musuh[i].x = LEBAR_LAYAR + i * (jarak_musuh + rand() % variasi);
         musuh[i].dx = -(2 + rand() % 2); // kecepatan random musuh
         musuh[i].batasKiri = -10;
         musuh[i].aktif = 1;
-
-        if (jumlahMusuhKuat > 0 && (rand() % 100 < 50)) {
-            musuh[i].tipe = 1;  // musuh kuat
-            jumlahMusuhKuat--;
-        } else {
-            musuh[i].tipe = 0;  // musuh biasa
-        }
-        
-        musuh[i].hp = musuhAtribut[musuh[i].tipe][0];
-        musuh[i].w = musuhAtribut[musuh[i].tipe][1];
-        musuh[i].h = musuhAtribut[musuh[i].tipe][2];
-        
         musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
     }
 }
 
-void gerakinMusuh(Musuh *musuh)
+void tipeMusuh(Musuh* musuh, int jumlahmusuh, int jumlahMusuhKuat) 
 {
-    for (int i = 0; i < jumlahmusuh; i++)
+    for (int i = 0; i < jumlahmusuh; i++) 
     {
-        if (musuh[i].aktif)
+        if (jumlahMusuhKuat > 0 && (rand() % 100 < 50)) 
         {
-            musuh[i].x += musuh[i].dx; // gerak musuh yg kecepatan dx
+            musuh[i].tipe = 1; // musuh kuat
+            jumlahMusuhKuat--;
+        } else {
+            musuh[i].tipe = 0; // musuh biasa
+        }
+        musuh[i].hp = musuhAtribut[musuh[i].tipe][0];
+        musuh[i].w = musuhAtribut[musuh[i].tipe][1];
+        musuh[i].h = musuhAtribut[musuh[i].tipe][2];
+        musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
+    }
+}
+
+void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif, int tinggi, int lebar) 
+{
+    // nentuin musuh berdasarkan wave
+    int jumlahMusuhKuat = 0;
+    if (waveterbaru >= 5) {
+        jumlahMusuhKuat = waveterbaru - 4; // musuh kuat bertambah kalo wave bertambah
+        if (jumlahMusuhKuat > jumlahmusuh / 3) 
+        {
+            jumlahMusuhKuat = jumlahmusuh / 3;
         }
     }
 
-    for (int i = 0; i < jumlahmusuh; i++)
+    inisialisasiMusuh(musuh, jumlahmusuh);
+    tipeMusuh(musuh, jumlahmusuh, jumlahMusuhKuat);
+}
+
+void gerakinMusuh(Musuh* musuh) 
+{
+    for (int i = 0; i < jumlahmusuh; i++) 
     {
-        if (musuh[i].x + musuh[i].w < 0)
-        {
-            if (musuh[i].tipe == 1)
+        if (musuh[i].aktif) {
+            musuh[i].x += musuh[i].dx; // gerak musuh yg kecepatan dx
+        }
+    }
+}
+
+void musuhKeluarLayar(Musuh* musuh) 
+{
+    for (int i = 0; i < jumlahmusuh; i++) 
+    {
+        if (musuh[i].x + musuh[i].w < 0) {
+            if (musuh[i].tipe == 1) 
             {
                 kuranginskormusuhbesar(&point);
-            }
-            else
-            {
+            } else {
                 kuranginskor(&point);
             }
             musuh[i].x = LEBAR_LAYAR + 10;
@@ -80,93 +91,94 @@ void gerakinMusuh(Musuh *musuh)
     }
 }
 
-void nabrakPeluru(Pesawat *pesawat, Musuh *musuh)
+void nabrakPeluru(Pesawat *pesawat, Musuh *musuh) 
 {
-    for (int i = 0; i < MAX_PELURU; i++)
+    for (int i = 0; i < MAX_PELURU; i++) 
     {
-        if (!pesawat->peluru[i].nyala)
+        if (!pesawat->peluru[i].nyala) 
             continue;
 
-        for (int j = 0; j < jumlahmusuh; j++)
+        for (int j = 0; j < jumlahmusuh; j++) 
         {
-            if (!musuh[j].aktif)
+            if (!musuh[j].aktif) 
                 continue;
 
-            // ngecek tabrakan apa ngga
-            if (pesawat->peluru[i].x < musuh[j].x + musuh[j].w &&
-                pesawat->peluru[i].x + 10 > musuh[j].x &&
-                pesawat->peluru[i].y < musuh[j].y + musuh[j].h &&
-                pesawat->peluru[i].y + 4 > musuh[j].y)
+            // ngecek kena peluru apa ngga
+            if (pesawat->peluru[i].x < musuh[j].x + musuh[j].w && pesawat->peluru[i].x + 10 > musuh[j].x &&
+                pesawat->peluru[i].y < musuh[j].y + musuh[j].h && pesawat->peluru[i].y + 4 > musuh[j].y) 
             {
-                // kurangi hp musuh
-                musuh[j].hp--;
-
-                // matiin musuh yg hp nya habis
-                if (musuh[j].hp <= 0)
-                {
-                    musuh[j].aktif = 0;
-                    // tambah skor berdasarkan tipe musuh
-                    if (musuh[j].tipe == 1)
-                    {
-                        // musuh besar 3 poin
-                        tambahskormusuhbesar(&point);
-                    }
-                    else
-                    {
-                        // musuh biasa 1 poin
-                        tambahskor(&point);
-                    }
-                    cekhighskor(&point);
-                }
-
-                // matiin peluru yang udah kena musuh
-                pesawat->peluru[i].nyala = false;
+                efekNabrakPeluru(pesawat, musuh, i, j);
             }
         }
     }
 }
 
-void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh)
+void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int i, int j) 
 {
-    for (int i = 0; i < jumlahmusuh; i++)
+    // kurangi hp musuh
+    musuh[j].hp--;
+    // matiin musuh yg hp nya habis
+    if (musuh[j].hp <= 0) 
     {
-        if (musuh[i].aktif &&
-            pesawat->x < musuh[i].x + musuh[i].w &&
-            pesawat->x + pesawat->w > musuh[i].x &&
-            pesawat->y < musuh[i].y + musuh[i].h &&
-            pesawat->y + pesawat->h > musuh[i].y)
+        musuh[j].aktif = 0;
+        // tambah skor berdasarkan tipe musuh
+        if (musuh[j].tipe == 1) 
         {
-            if (musuh[i].tipe == 1)
-            {
-                pesawat->nyawa = pesawat->nyawa - 2;
-            }
-            else
-            {
-                pesawat->nyawa = pesawat->nyawa - 1;
-            }
+            tambahskormusuhbesar(&point);
+        } else {
+            tambahskor(&point);
+        }
+        cekhighskor(&point);
+    }
+    pesawat->peluru[i].nyala = false;
+}
 
-            musuh[i].aktif = 0;
+void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh) 
+{
+    for (int i = 0; i < jumlahmusuh; i++) 
+    {
+        if (musuh[i].aktif && pesawat->x < musuh[i].x + musuh[i].w && pesawat->x + pesawat->w > musuh[i].x &&
+            pesawat->y < musuh[i].y + musuh[i].h && pesawat->y + pesawat->h > musuh[i].y) 
+        {
+            pesawat->nyawa = pesawat->nyawa - 1;
 
-            // kalo nyawa pesawat habis, game over
+            musuh[i].aktif = 0; 
+
             if (pesawat->nyawa <= 0)
             {
                 gameover(renderer, &point);
                 simpanhighskor(&point);
-
-                // reset skor untuk game berikutnya
-                point.skor = 0;
-                // tunda 2 detik
+                
+                //reset skor untuk game berikutnya
+                point.skor=0;
+                //tunda 3 detik
                 SDL_Delay(2000);
-                // ubah state ke menu
-                state = STATE_MENU;
-                // reset jumlah musuh dan wave untuk game berikutnya
+                //ubah state ke menu
+                state= STATE_MENU;
+                //reset jumlah musuh dan wave untuk game berikutnya
                 jumlahmusuh = 5;
-                waveterbaru = 1;
+                waveterbaru = 0;
 
                 return;
             }
         }
     }
+}
+
+void kelolaGameOver(SDL_Renderer *renderer) 
+{
+    gameover(renderer, &point);
+    simpanhighskor(&point); 
+
+    // reset skor untuk game berikutnya
+    point.skor = 0; 
+    // tunda 2 detik
+    SDL_Delay(2000); 
+    // ubah state ke menu
+    state = STATE_MENU; 
+    // reset jumlah musuh dan wave untuk game berikutnya
+    jumlahmusuh = 5; 
+    waveterbaru = 1; 
 }
 
 void bikinGambarMusuh(SDL_Renderer *renderer, Musuh *musuh)

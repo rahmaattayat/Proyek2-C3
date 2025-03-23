@@ -21,10 +21,17 @@ typedef struct {
     int tipe;
 } Musuh;
 
+void inisialisasiMusuh(Musuh* musuh, int jumlahmusuh);
+void tipeMusuh(Musuh* musuh, int jumlahmusuh, int jumlahMusuhKuat);
 void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif, int tinggi, int lebar);
 void gerakinMusuh(Musuh* musuh);
+void musuhKeluarLayar(Musuh* musuh);
+
 void nabrakPeluru(Pesawat *pesawat, Musuh *musuh);
-void bikinGambarMusuh(SDL_Renderer* renderer, Musuh* musuh);
 void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh);
+void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int i, int j);
+void kelolaGameOver(SDL_Renderer *renderer);
+
+void bikinGambarMusuh(SDL_Renderer* renderer, Musuh* musuh);
 
 #endif // RAHMA_H
