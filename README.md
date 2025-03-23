@@ -18,19 +18,30 @@ Space Invaders adalah game di mana pemain mengendalikan pesawat luar angkasa dan
 
 # Fitur Game dan Pembagian Tugas:
 ### 1. Alda Pujama - Bertanggung jawab dalam pembuatan skor dan highskor, gameover, audio.
-    A. Skor
-        Game state yang berguna untuk memungkinkan user berada di menu utama, dalam game, dan lainnya (penjelasan skor dan mekanisme perhitungan poin).
-    B. Highskor
-        Game state yang berguna untuk memungkinkan user berada di menu utama, dalam game, dan lainnya (penyimpanan skor tertinggi dan penampilan high score).
-    C. Gameover
-        Game state yang berguna untuk memungkinkan user berada di menu utama, dalam game, dan lainnya (penanganan akhir permainan dan reset).
-    D. Audio dengan SDL_Mixer
-        Mengintegrasikan audio menggunakan SDL_Mixer sehingga game memberikan suara saat pemain menembak, musuh dihancurkan, atau terjadi game ove
+    A. SKOR
+        Membuat sistem skor bagi pemain, di mana jika musuh berhasil ditaklukkan oleh peluru pemain, skor akan bertambah dan ditampilkan di layar.
+
+    B. HIGHSKOR
+        Mencatat skor tertinggi yang diperoleh selama permainan. Jika skor baru melebihi highskor sebelumnya, maka highskor akan diperbarui secara otomatis.
+
+    C. GAMEOVER
+        Membuat tampilan saat pemain kehabisan nyawa atau mengalami game over, menampilkan skor serta highskor yang telah dicapai. Setelah itu, pemain dikembalikan ke menu utama setelah jeda tertentu.
+
+    D. AUDIO DENGAN SDL MIXER
+        Mengintegrasikan audio menggunakan SDL Mixer, sehingga game dapat mengeluarkan suara atau efek audio di berbagai momen, seperti:
+        a). Saat menu game ditampilkan
+        b). Ketika tombol ditekan
+        c). Saat permainan dimulai
+        d). Ketika pemain menembakkan peluru
+        e). Ketika musuh mati
+        f). Saat nyawa pemain berkurang
+        g). Ketika game over muncul
 
 ### 2. Fairuz Sheva Muhammad - Bertanggung jawab dalam pengembangan gameplay seperti wave dan pengurangan skor.
     A. Membuat Sistem Wave
         a). Membuat sistem wave untuk memberikan tantangan kepada player, dengan sistem ketika semua musuh mati dalam wave tersebut, maka akan lanjut ke wave selanjutnya.
         b). Menampilkan juga wave yang sedang dihadapi.
+        c). Membuat wavebonus dimana pada wave tersebut poin yang didapatkan digandakan 2.
     B. Membuat Sistem Pengurangan Skor
         a). Ketika musuh melewati batas/pemain, maka hal tersebut akan menyebabkan pengurangan skor.
         b). Pengurangan skor dibagi menjadi dua, untuk musuh biasa dan musuh besar.
