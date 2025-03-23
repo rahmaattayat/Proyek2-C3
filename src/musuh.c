@@ -26,7 +26,6 @@ void inisialisasiMusuh(Musuh* musuh, int jumlahmusuh)
         musuh[i].dx = -(2 + rand() % 2); // kecepatan random musuh
         musuh[i].batasKiri = -10;
         musuh[i].aktif = 1;
-        musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
     }
 }
 
@@ -49,7 +48,7 @@ void tipeMusuh(Musuh* musuh, int jumlahmusuh, int jumlahMusuhKuat) {
     }
 }
 
-void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif, int tinggi, int lebar) 
+void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif) 
 {
     // nentuin musuh berdasarkan wave
     int jumlahMusuhKuat = 0;
@@ -60,7 +59,6 @@ void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif, int tinggi, int lebar)
             jumlahMusuhKuat = jumlahmusuh / 3;
         }
     }
-
     inisialisasiMusuh(musuh, jumlahmusuh);
     tipeMusuh(musuh, jumlahmusuh, jumlahMusuhKuat);
 }

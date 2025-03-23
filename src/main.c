@@ -38,7 +38,7 @@ void mulai()
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
-    bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
+    bikinMusuh(musuh, jumlahmusuh, 1);
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
     loadTeksturSuplai(renderer);
 
@@ -125,7 +125,7 @@ void restartGame()
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
-    bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
+    bikinMusuh(musuh, jumlahmusuh, 1);
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
     bonus = 1;
 
