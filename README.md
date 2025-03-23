@@ -14,28 +14,75 @@
 | Rahma Attaya Tamimah | 241511088 |
 
 # Deskripsi
-Space Invaders adalah game di mana pemain mengendalikan pesawat yang bisa menembakkan peluru untuk menghancurkan musuh. Musuh dalam game ini terdiri dari dua jenis, yang memiliki kemampuan untuk bergerak naik-turun dan juga menembakkan peluru ke arah pemain. Semakin lama pemain bertahan, semakin banyak jumlah musuh yang muncul, sehingga tingkat kesulitannya meningkat seiring waktu. Dalam pengerjaan proyek ini, kelompok kami menggunakan sistem branch programmer untuk membagi tugas secara lebih efektif. 
+Space Invaders adalah game di mana pemain mengendalikan pesawat luar angkasa dan bertugas menghancurkan musuh yang datang berdasarkan wave. Terdapat dua jenis musuh dalam permainan ini: musuh biasa dengan HP rendah dan musuh kuat dengan HP lebih tinggi, yang bergerak dari kanan ke kiri layar. Untuk membantu pemain bertahan lebih lama, permainan ini menyediakan power-up yang dapat menambah nyawa dan amunisi. Dalam permainan ini, pesawat dikendalikan langsung melalui keyboard. Pemain dapat menembak dengan sistem yang memiliki jeda (cooldown) dan harus melakukan reload jika amunisi habis. Musuh muncul secara acak dengan variasi posisi dan kecepatan, sehingga masing-masing memiliki pola pergerakan yang berbeda. Setelah satu gelombang musuh dikalahkan, jumlah musuh akan bertambah dan tingkat kesulitannya meningkat. Sistem collision detection akan mendeteksi benturan antara peluru dan musuh atau antara pesawat dan musuh, yang akan mempengaruhi jumlah nyawa dan skor pemain.
 
 # Fitur Game dan Pembagian Tugas:
-### Pesawat (Player, Peluru, Collision) – Ihsan
-1. Pemain dapat mengendalikan pesawat dengan tombol WASD untuk menghindari serangan musuh.
-2. Pesawat dapat menembakkan peluru untuk menyerang musuh.
-3. Jika peluru mengenai musuh, musuh akan menghilang (tereliminasi) dan pemain mendapatkan skor.
-4. Jika pesawat terkena peluru dari musuh, game akan berakhir.
+### 1. Alda Pujama - Bertanggung jawab dalam pembuatan skor dan highskor, gameover, audio.
+    A. Skor
+        Game state yang berguna untuk memungkinkan user berada di menu utama, dalam game, dan lainnya (penjelasan skor dan mekanisme perhitungan poin).
+    B. Highskor
+        Game state yang berguna untuk memungkinkan user berada di menu utama, dalam game, dan lainnya (penyimpanan skor tertinggi dan penampilan high score).
+    C. Gameover
+        Game state yang berguna untuk memungkinkan user berada di menu utama, dalam game, dan lainnya (penanganan akhir permainan dan reset).
+    D. Audio dengan SDL_Mixer
+        Mengintegrasikan audio menggunakan SDL_Mixer sehingga game memberikan suara saat pemain menembak, musuh dihancurkan, atau terjadi game ove
 
-### Musuh (Gambar Musuh, Peluru, Collision) – Rahma & Gema
-1. Terdapat dua jenis musuh dengan tampilan dan perilaku yang berbeda.
-2. Musuh dapat bergerak secara dinamis (naik-turun) untuk membuat pola serangan lebih sulit.
-3. Musuh juga dapat menembakkan peluru ke arah pemain.
-4. Jika peluru pemain mengenai musuh, musuh akan dihancurkan dan skor bertambah.
+### 2. Fairuz Sheva Muhammad - Bertanggung jawab dalam pengembangan gameplay seperti wave dan pengurangan skor.
+    A. Membuat Sistem Wave
+        a). Membuat sistem wave untuk memberikan tantangan kepada player, dengan sistem ketika semua musuh mati dalam wave tersebut, maka akan lanjut ke wave selanjutnya.
+        b). Menampilkan juga wave yang sedang dihadapi.
+    B. Membuat Sistem Pengurangan Skor
+        a). Ketika musuh melewati batas/pemain, maka hal tersebut akan menyebabkan pengurangan skor.
+        b). Pengurangan skor dibagi menjadi dua, untuk musuh biasa dan musuh besar.
 
-### Menu Utama (Tampilan Menu Utama, High Score, About Developer) – Gema
-1. Tampilan menu utama dengan opsi Start Game, High Score, dan About Developer.
-2. High Score System yang menyimpan skor tertinggi pemain secara otomatis.
-3. Halaman About Developer yang berisi informasi tentang tim pengembang game.
+### 3. Gema Adzan F - Bertanggung jawab dalam pembuatan menu utama, background, dan game state.
+    A. Background
+        Membuat background bintang agar ambience luar angkasa dari game Space Invaders terasa.
+    B. Menu Utama
+        Menu utama dari game Space Invaders yang terdiri dari 4 tombol, yaitu:
+        a). Play: Untuk memulai permainan.
+        b). About: Untuk menampilkan profil Kelompok C3.
+        c). Tutorial: Untuk menampilkan cara memainkan permainan.
+        d). Quit: Untuk keluar dari game.
+    C. Game State
+        Game state yang berguna untuk memungkinkan user berada di menu utama, dalam game, dan lainnya.
 
-### Gameplay (Alur Game: Tampilan, Musuh Bertambah, Skor, Save Progress) – Fairuz & Alda
-1. Musuh akan terus bertambah seiring waktu untuk meningkatkan tingkat kesulitan.
-2. Tampilan game yang interaktif dan responsif.
-3. Sistem skor otomatis yang menghitung poin berdasarkan jumlah musuh yang berhasil dihancurkan.
-4. Save progress, sehingga skor tertinggi pemain tetap tersimpan meskipun game ditutup.
+### 4.  M. Ihsan Ramadhan - Bertanggung jawab dalam pengembangan sistem pesawat pemain, peluru, dan power-up (buff), yaitu:
+    A. Sistem Pesawat Pemain
+        1. Gerakan Pesawat
+            a). Mengatur pergerakan pesawat menggunakan input pemain (WASD).
+            b). Menentukan batas gerakan agar pesawat tidak keluar dari layar.
+        2. Penanganan Tabrakan dengan Suplai
+            a). Memeriksa apakah pesawat menabrak power-up (buff).
+            b). Menambahkan efek ketika suplai diambil, seperti menambah nyawa atau amunisi.
+        3. Efek Visual Pesawat
+            a). Membuat tampilan pesawat dengan SDL_Renderer.
+            b). Membuat efek api beranimasi di bagian belakang pesawat; jika pesawat diam, apinya kecil, dan jika bergerak, apinya membesar.
+    B. Sistem Peluru
+        1. Membuat Visualisasi Peluru
+            a). Mengatur ukuran dan warna peluru beserta trail (ekor).
+        2. Menembakkan Peluru, Mengatur Kecepatan dan Jalurnya
+            a). Membuat fungsi nembak() agar pesawat bisa menembakkan peluru.
+            b). Mengatur kecepatan peluru menggunakan dx dan dy, memastikan peluru menghilang saat keluar dari layar.
+        3. Menambah Amunisi dan Menampilkan Amunisi
+            a). Menambahkan pembatasan amunisi awal (30 peluru).
+            b).Menampilkan jumlah peluru yang tersisa dalam magasin menggunakan fungsi         tampilAmunisi().
+        4. Mekanisme Reload Peluru
+            a). Jika amunisi habis, pemain harus menunggu reload selesai sebelum bisa menembak lagi.
+            b). Menampilkan teks “RELOADING...” di layar saat reload berlangsung.
+
+### 5. Rahma Attaya Tamimah - Bertanggung jawab untuk merancang dan mengimplementasikan yang berkaitan dengan musuh, yaitu:
+    A. Struktur dan Atribut Musuh
+        a). Mendefinisikan 2 jenis musuh, yaitu Musuh Biasa (tipe 0) dengan HP rendah dan Musuh Kuat (tipe 1) dengan HP lebih tinggi. 
+        b). Menyimpan atribut HP, lebar, dan tinggi di dalam variabel global musuhAtribut.
+    B. Inisialisasi Musuh
+        a). Mengatur posisi awal setiap musuh secara acak, menetapkan kecepatan horizontal (dx) dalam rentang 2–3 piksel.
+        b). Mengatur tipe musuh kuat sesuai kebutuhan wave.
+    C. Pergerakan Musuh
+        Menggerakkan musuh dengan menambahkan nilai dx ke posisi X, lalu me-reset posisi musuh yang keluar layar ke sisi kanan yang belum terkena peluru.
+    D. Collision & Efek Tabrakan
+        Menangani tabrakan antara peluru dan musuh lalu menonaktifkan musuh serta peluru.
+    E. Tampilan Visual Musuh
+        a). Menggambar tubuh, mata, antena, tangan, dan tentakel.
+        b). Mmembedakan warna untuk musuh biasa dan kuat.
+        c). Menampilkan HP bar di atas musuh kuat untuk memperlihatkan sisa HP.
