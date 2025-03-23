@@ -85,6 +85,7 @@ void updateGame()
     updateReload(&pesawat);
     jalankanPeluru(&pesawat);
     gerakinMusuh(musuh);
+    musuhKeluarLayar(musuh);
     cekmusuh(musuh);
     updateBackground(&background, 1.0f);
     nabrakPeluru(&pesawat, musuh);
