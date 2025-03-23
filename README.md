@@ -52,12 +52,12 @@ Space Invaders adalah game di mana pemain mengendalikan pesawat luar angkasa dan
         1. Gerakan Pesawat
             a). Mengatur pergerakan pesawat menggunakan input pemain (WASD).
             b). Menentukan batas gerakan agar pesawat tidak keluar dari layar.
-        2. Penanganan Tabrakan dengan Suplai
-            a). Memeriksa apakah pesawat menabrak power-up (buff).
-            b). Menambahkan efek ketika suplai diambil, seperti menambah nyawa atau amunisi.
+        2. Penanganan Tabrakan dengan Musuh
+            a). Memeriksa apakah pesawat menyentuh musuh.    
+            b). Pengurangan nyawa saat bertabrakan dengan musuh
         3. Efek Visual Pesawat
             a). Membuat tampilan pesawat dengan SDL_Renderer.
-            b). Membuat efek api beranimasi di bagian belakang pesawat; jika pesawat diam, apinya kecil, dan jika bergerak, apinya membesar.
+            b). Membuat efek api beranimasi di bagian belakang pesawat. jika pesawat diam, apinya kecil, dan jika bergerak, apinya membesar.
     B. Sistem Peluru
         1. Membuat Visualisasi Peluru
             a). Mengatur ukuran dan warna peluru beserta trail (ekor).
@@ -66,10 +66,19 @@ Space Invaders adalah game di mana pemain mengendalikan pesawat luar angkasa dan
             b). Mengatur kecepatan peluru menggunakan dx dan dy, memastikan peluru menghilang saat keluar dari layar.
         3. Menambah Amunisi dan Menampilkan Amunisi
             a). Menambahkan pembatasan amunisi awal (30 peluru).
-            b).Menampilkan jumlah peluru yang tersisa dalam magasin menggunakan fungsi         tampilAmunisi().
+            b).Menampilkan jumlah peluru yang tersisa dalam magasin menggunakan fungsi tampilAmunisi().
         4. Mekanisme Reload Peluru
             a). Jika amunisi habis, pemain harus menunggu reload selesai sebelum bisa menembak lagi.
             b). Menampilkan teks “RELOADING...” di layar saat reload berlangsung.
+    C. Sistem Power-Ups
+        1. Spawn suplai (nyawa dan amunisi)
+            a). Mengatur power-ups muncul secara acak di layar.
+            b). Menentukan jenis power-ups yang muncul (nyawa atau amunisi).
+        2. Visualisasi Power-Ups
+            a). Merender dan menggambar Power-Ups sesuai jenisnya menggunakan SDL_Texture.
+        3. Deteksi tabrakan suplai dengan pesawat
+            a). Memeriksa apakah pesawat menyentuh Power-Ups.
+            b). Jika terkena, Power-Ups akan memberikan efek sesuai jenisnya. Jika nyawa maka menambah nyawa, dan jika amunisi maka menambah amunisi.
 
 ### 5. Rahma Attaya Tamimah - Bertanggung jawab untuk merancang dan mengimplementasikan yang berkaitan dengan musuh, yaitu:
     A. Struktur dan Atribut Musuh
