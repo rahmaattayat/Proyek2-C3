@@ -63,13 +63,5 @@ void updateMenu(Menu *menu, float mouseX, float mouseY);
 void renderMenu(Menu *menu, const Background *background, nilai *point);
 void renderAbout();
 void renderTutorial();
-// status game
-typedef enum
-{
-    STATE_MENU,
-    STATE_GAME,
-    STATE_ABOUT,
-    STATE_TUTORIAL
-} statusGame;
 
 #endif // GEMA_H
