@@ -89,7 +89,7 @@ void updateGame()
     updateBackground(&background, 1.0f);
     nabrakPeluru(&pesawat, musuh);
     nabrakMusuh(renderer, &pesawat, musuh);
-    updateSuplai(&pesawat);
+    updateSuplai(renderer, &pesawat);
 
     Uint32 waktuSekarang = SDL_GetTicks();
     if (waktuSekarang - waktuTerakhirSuplai >= rentangSpawnSuplai)
