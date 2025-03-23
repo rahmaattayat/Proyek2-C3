@@ -57,7 +57,7 @@ void prosesInput(Pesawat *pesawat, const Uint8 *keyboard, bool pencetSpasi)
     if (pencetSpasi && pesawat->cd_tembak <= 0)
     {
         nembak(pesawat);
-        pesawat->cd_tembak = 20;
+        pesawat->cd_tembak = 15;
     }
 }
 

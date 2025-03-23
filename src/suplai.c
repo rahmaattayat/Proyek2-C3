@@ -1,17 +1,17 @@
 #include "ihsan.h"
 #include <stdlib.h>
 
-SDL_Texture* teksturSuplaiNyawa = NULL;
-SDL_Texture* teksturSuplaiAmunisi = NULL;
+SDL_Texture *teksturSuplaiNyawa = NULL;
+SDL_Texture *teksturSuplaiAmunisi = NULL;
 
 Suplai suplai[JENIS_SUPLAI][MAX_SUPLAI];
 
 Uint32 waktuTerakhirSuplai = 0;
 Uint32 rentangSpawnSuplai = 0;
 
-void loadTeksturSuplai(SDL_Renderer* renderer)
+void loadTeksturSuplai(SDL_Renderer *renderer)
 {
-    SDL_Surface* gambarNyawa = SDL_LoadBMP("assets/gambar/nyawa.bmp");
+    SDL_Surface *gambarNyawa = SDL_LoadBMP("assets/gambar/nyawa.bmp");
     if (gambarNyawa)
     {
         teksturSuplaiNyawa = SDL_CreateTextureFromSurface(renderer, gambarNyawa);
@@ -22,7 +22,7 @@ void loadTeksturSuplai(SDL_Renderer* renderer)
         SDL_Log("Gagal memuat gambar assets/gambar/nyawa.bmp: %s", SDL_GetError());
     }
 
-    SDL_Surface* gambarAmunisi = SDL_LoadBMP("assets/gambar/amunisi.bmp");
+    SDL_Surface *gambarAmunisi = SDL_LoadBMP("assets/gambar/amunisi.bmp");
     if (gambarAmunisi)
     {
         teksturSuplaiAmunisi = SDL_CreateTextureFromSurface(renderer, gambarAmunisi);
@@ -58,7 +58,7 @@ void spawnSuplai(int jenis)
             suplai[jenis][i].y = rand() % (TINGGI_LAYAR - 50);
             suplai[jenis][i].w = 45;
             suplai[jenis][i].h = 45;
-            suplai[jenis][i].dx = -2.0f;
+            suplai[jenis][i].dx = -2.0f - rand() % 3;
             suplai[jenis][i].dy = 0;
             suplai[jenis][i].aktif = true;
             suplai[jenis][i].jenis = jenis;
@@ -79,6 +79,20 @@ bool nabrakSuplai(Suplai *suplai, Pesawat *pesawat)
     return false;
 }
 
+void penambahanBuff(Suplai *suplai, Pesawat *pesawat)
+{
+    if (suplai->jenis == 0 && pesawat->nyawa < 3)
+    {
+        pesawat->nyawa++;
+    }
+    else if (suplai->jenis == 1)
+    {
+        pesawat->magasin += 5;
+        pesawat->peluru_sekarang = pesawat->magasin;
+    }
+    suplai->aktif = false;
+}
+
 void updateSuplai(Pesawat *pesawat)
 {
     for (int jenis = 0; jenis < JENIS_SUPLAI; jenis++)
@@ -91,15 +105,7 @@ void updateSuplai(Pesawat *pesawat)
 
                 if (nabrakSuplai(&suplai[jenis][i], pesawat))
                 {
-                    if (jenis == 0 && pesawat->nyawa < 3)
-                    {
-                        pesawat->nyawa++;
-                    }
-                    else if (jenis == 1)
-                    {
-                        pesawat->magasin += 5;
-                    }
-                    suplai[jenis][i].aktif = false;
+                    penambahanBuff(&suplai[jenis][i], pesawat);
                 }
 
                 if (suplai[jenis][i].x + suplai[jenis][i].w < 0)
@@ -111,7 +117,7 @@ void updateSuplai(Pesawat *pesawat)
     }
 }
 
-void renderSuplai(SDL_Renderer* renderer)
+void renderSuplai(SDL_Renderer *renderer)
 {
     for (int jenis = 0; jenis < JENIS_SUPLAI; jenis++)
     {
@@ -119,7 +125,7 @@ void renderSuplai(SDL_Renderer* renderer)
         {
             if (suplai[jenis][i].aktif)
             {
-                SDL_Texture* tekstur = NULL;
+                SDL_Texture *tekstur = NULL;
                 if (jenis == 0)
                 {
                     tekstur = teksturSuplaiNyawa;
