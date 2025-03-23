@@ -67,33 +67,7 @@ void spawnSuplai(int jenis)
     }
 }
 
-bool nabrakSuplai(Suplai *suplai, Pesawat *pesawat)
-{
-    if (suplai->x < pesawat->x + pesawat->w &&
-        suplai->x + suplai->w > pesawat->x &&
-        suplai->y < pesawat->y + pesawat->h &&
-        suplai->y + suplai->h > pesawat->y)
-    {
-        return true;
-    }
-    return false;
-}
-
-void penambahanBuff(Suplai *suplai, Pesawat *pesawat)
-{
-    if (suplai->jenis == 0 && pesawat->nyawa < 3)
-    {
-        pesawat->nyawa++;
-    }
-    else if (suplai->jenis == 1)
-    {
-        pesawat->magasin += 5;
-        pesawat->peluru_sekarang = pesawat->magasin;
-    }
-    suplai->aktif = false;
-}
-
-void updateSuplai(Pesawat *pesawat)
+void updateSuplai(SDL_Renderer *renderer, Pesawat *pesawat)
 {
     for (int jenis = 0; jenis < JENIS_SUPLAI; jenis++)
     {
@@ -103,9 +77,21 @@ void updateSuplai(Pesawat *pesawat)
             {
                 suplai[jenis][i].x += suplai[jenis][i].dx;
 
-                if (nabrakSuplai(&suplai[jenis][i], pesawat))
+                if (suplai[jenis][i].x < pesawat->x + pesawat->w &&
+                    suplai[jenis][i].x + suplai[jenis][i].w > pesawat->x &&
+                    suplai[jenis][i].y < pesawat->y + pesawat->h &&
+                    suplai[jenis][i].y + suplai[jenis][i].h > pesawat->y)
                 {
-                    penambahanBuff(&suplai[jenis][i], pesawat);
+                    if (jenis == 0 && pesawat->nyawa < 3)
+                    {
+                        pesawat->nyawa++;
+                    }
+                    else if (jenis == 1)
+                    {
+                        pesawat->magasin += 5;
+                        pesawat->peluru_sekarang = pesawat->magasin;
+                    }
+                    suplai[jenis][i].aktif = false;
                 }
 
                 if (suplai[jenis][i].x + suplai[jenis][i].w < 0)

@@ -25,23 +25,18 @@ void nembak(Pesawat *pesawat)
     }
 }
 
-void updatePeluru(PeluruStruct *peluru)
-{
-    peluru->x += peluru->dx;
-    peluru->y += peluru->dy;
-    if (peluru->x > LEBAR_LAYAR)
-    {
-        peluru->nyala = false;
-    }
-}
-
 void jalankanPeluru(Pesawat *pesawat)
 {
     for (int i = 0; i < MAX_PELURU; i++)
     {
         if (pesawat->peluru[i].nyala)
         {
-            updatePeluru(&pesawat->peluru[i]);
+            pesawat->peluru[i].x += pesawat->peluru[i].dx;
+            pesawat->peluru[i].y += pesawat->peluru[i].dy;
+            if (pesawat->peluru[i].x > LEBAR_LAYAR)
+            {
+                pesawat->peluru[i].nyala = false;
+            }
         }
     }
 }
@@ -103,10 +98,10 @@ void tampilAmunisi(SDL_Renderer *renderer, Pesawat *pesawat)
     if (pesawat->sedang_reload)
     {
         SDL_SetRenderDrawColor(renderer, 255, 50, 50, 255);
-        SDL_RenderDebugText(renderer, 20, 45, "RELOADING...");
+        SDL_RenderDebugText(renderer, 20, 640, "RELOADING...");
     }
     
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     sprintf(text, "AMMO: %d/%d", pesawat->peluru_sekarang, pesawat->magasin);
-    SDL_RenderDebugText(renderer, 20, 30, text);
+    SDL_RenderDebugText(renderer, 20, 665, text);
 }

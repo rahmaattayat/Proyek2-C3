@@ -49,26 +49,19 @@ extern Uint32 rentangSpawnSuplai;
 void bikinPesawat(Pesawat* pesawat);
 void bikinPeluru(PeluruStruct* peluru);
 void gerakinPesawat(Pesawat* pesawat, const Uint8* keyboard, bool pencetSpasi);
-void prosesInput(Pesawat* pesawat, const Uint8* keyboard, bool pencetSpasi);
-void batesinGerakanPesawat(Pesawat* pesawat);
 void updatePesawat(Pesawat* pesawat);
 void nembak(Pesawat* pesawat);
 void jalankanPeluru(Pesawat* pesawat);
-void updatePeluru(PeluruStruct* peluru);
 void bikinGambarPesawat(SDL_Renderer* renderer, Pesawat* pesawat);
-void gambarNOS(SDL_Renderer* renderer, Pesawat* pesawat);
 void bikinGambarPeluru(SDL_Renderer* renderer, Pesawat* pesawat);
 void tampilNyawa(SDL_Renderer* renderer, Pesawat* pesawat);
-void gambarNyawa(SDL_Renderer* renderer, int x, int y, int radius);
 void reload(Pesawat* pesawat);
 void updateReload(Pesawat* pesawat);
 void tampilAmunisi(SDL_Renderer* renderer, Pesawat* pesawat);
 void spawnSuplai(int jenis);
-void updateSuplai(Pesawat* pesawat);
+void updateSuplai(SDL_Renderer *renderer, Pesawat* pesawat);
 void renderSuplai(SDL_Renderer* renderer);
 void loadTeksturSuplai(SDL_Renderer* renderer);
 void hapusTeksturSuplai(); 
-bool nabrakSuplai(Suplai* suplai, Pesawat* pesawat);
-void penambahanBuff(Suplai* suplai, Pesawat* pesawat);
 
 #endif //IHSAN_H
