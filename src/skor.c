@@ -37,12 +37,12 @@ void tampilskor(SDL_Renderer *renderer, nilai *point)
 
 void tambahskor(nilai *point)
 {
-    point->skor += 10;
+    point->skor += 10 * bonus;
 }
 
 void tambahskormusuhbesar(nilai *point)
 {
-    point->skor += 30;
+    point->skor += 30 * bonus;
 }
 
 void kuranginskor (nilai *point)
