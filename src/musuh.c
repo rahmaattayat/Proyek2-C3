@@ -26,29 +26,29 @@ void inisialisasiMusuh(Musuh* musuh, int jumlahmusuh)
         musuh[i].dx = -(2 + rand() % 2); // kecepatan random musuh
         musuh[i].batasKiri = -10;
         musuh[i].aktif = 1;
-        musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
     }
 }
 
-void tipeMusuh(Musuh* musuh, int jumlahmusuh, int jumlahMusuhKuat) 
-{
-    for (int i = 0; i < jumlahmusuh; i++) 
-    {
-        if (jumlahMusuhKuat > 0 && (rand() % 100 < 50)) 
-        {
+void aturAtributMusuh(Musuh* musuh) {
+    musuh->hp = musuhAtribut[musuh->tipe][0];
+    musuh->w = musuhAtribut[musuh->tipe][1];
+    musuh->h = musuhAtribut[musuh->tipe][2];
+    musuh->y = 10 + rand() % (TINGGI_LAYAR - musuh->h - 20);
+}
+
+void tipeMusuh(Musuh* musuh, int jumlahmusuh, int jumlahMusuhKuat) {
+    for (int i = 0; i < jumlahmusuh; i++) {
+        if (jumlahMusuhKuat > 0 && (rand() % 100 < 50)) {
             musuh[i].tipe = 1; // musuh kuat
             jumlahMusuhKuat--;
         } else {
             musuh[i].tipe = 0; // musuh biasa
         }
-        musuh[i].hp = musuhAtribut[musuh[i].tipe][0];
-        musuh[i].w = musuhAtribut[musuh[i].tipe][1];
-        musuh[i].h = musuhAtribut[musuh[i].tipe][2];
-        musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
+        aturAtributMusuh(&musuh[i]); 
     }
 }
 
-void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif, int tinggi, int lebar) 
+void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif) 
 {
     // nentuin musuh berdasarkan wave
     int jumlahMusuhKuat = 0;
@@ -59,7 +59,6 @@ void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif, int tinggi, int lebar)
             jumlahMusuhKuat = jumlahmusuh / 3;
         }
     }
-
     inisialisasiMusuh(musuh, jumlahmusuh);
     tipeMusuh(musuh, jumlahmusuh, jumlahMusuhKuat);
 }

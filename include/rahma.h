@@ -23,7 +23,8 @@ typedef struct {
 
 void inisialisasiMusuh(Musuh* musuh, int jumlahmusuh);
 void tipeMusuh(Musuh* musuh, int jumlahmusuh, int jumlahMusuhKuat);
-void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif, int tinggi, int lebar);
+void aturAtributMusuh(Musuh* musuh);
+void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif);
 void gerakinMusuh(Musuh* musuh);
 void musuhKeluarLayar(Musuh* musuh);
 

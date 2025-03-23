@@ -34,7 +34,7 @@ void updatewave(Musuh *musuh)
             jumlahmusuh = MAX_MUSUH;
         }
         SDL_Log("jumlah musuh = %d", jumlahmusuh);
-        bikinMusuh(musuh, jumlahmusuh, 1, LEBAR_LAYAR, TINGGI_LAYAR);
+        bikinMusuh(musuh, jumlahmusuh, 1);
     }
 }
 
