@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include <SDL3/SDL.h>
 #include "config.h"
-#include "gema.h"
 
 typedef struct
 {
@@ -14,6 +13,7 @@ typedef struct
 
 extern nilai point;
 
+#include "gema.h"
 void tampilskor(SDL_Renderer *renderer, nilai *point);
 void tambahskor(nilai *point);
 void tambahskormusuhbesar(nilai *point);

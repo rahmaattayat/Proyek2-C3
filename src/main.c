@@ -152,7 +152,7 @@ void buatMenu()
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
-    renderMenu(&menu, &background);
+    renderMenu(&menu, &background, &point);
     SDL_RenderPresent(renderer);
 }
 

@@ -79,12 +79,16 @@ void updateMenu(Menu *menu, float mouseX, float mouseY)
     tombolUpdateHover(&menu->tombolExit, mouseX, mouseY);
 }
 
-void renderMenu(Menu *menu, const Background *background)
+void renderMenu(Menu *menu, const Background *background, nilai *point)
 {
     renderBackground(background, renderer);
 
     SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
     teksRender("C3 - SPACE INVADERS", LEBAR_LAYAR / 3.0f, 120, 3.0f, (SDL_Color){255, 255, 0, 255});
+
+    char teksHighSkor[50];
+    snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", point->highskor);
+    teksRender(teksHighSkor, LEBAR_LAYAR / 2.3f, 180, 1.5f, (SDL_Color){255, 255, 0, 255});
 
     // Render tombol-tombol
     renderTombol(&menu->tombolPlay);

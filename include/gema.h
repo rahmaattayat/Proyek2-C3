@@ -6,6 +6,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "config.h"
+#include "alda.h"
 
 // background
 #define MAX_BINTANG 200
@@ -59,7 +60,7 @@ bool tombolDiklik(Tombol *tombol, float mouseX, float mouseY);
 void teksRender(const char *teks, float x, float y, float skala, SDL_Color warna);
 void menuInit(Menu *menu);
 void updateMenu(Menu *menu, float mouseX, float mouseY);
-void renderMenu(Menu *menu, const Background *background);
+void renderMenu(Menu *menu, const Background *background, nilai *point);
 void renderAbout();
 void renderTutorial();
 // status game
