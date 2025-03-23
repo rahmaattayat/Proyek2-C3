@@ -25,7 +25,7 @@ OBJ_DIRS = $(sort $(dir $(OBJ)))
 TARGET = $(BUILD_DIR)/main.exe
 
 # DLL to copy
-DLL = $(BIN_DIR)/SDL3.dll
+DLL = $(BIN_DIR)/SDL3.dll $(BIN_DIR)/SDL3_mixer.dll
 
 # Default target
 all: $(TARGET)
