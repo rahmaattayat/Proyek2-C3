@@ -69,7 +69,6 @@ void cekInput()
             if (event.key.scancode == SDL_SCANCODE_SPACE)
             {
                 spasi_dipencet = true;
-                playShootSound();
             }
             else if (event.key.scancode == SDL_SCANCODE_R)
             {

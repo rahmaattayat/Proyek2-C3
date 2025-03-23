@@ -2,6 +2,7 @@
 #include "config.h"
 #include <SDL3/SDL.h>
 #include <stdio.h>
+#include "rahma.h"
 
 void nembak(Pesawat *pesawat)
 {
@@ -18,9 +19,10 @@ void nembak(Pesawat *pesawat)
             pesawat->peluru[i].nyala = true;
             pesawat->peluru[i].x = pesawat->x + pesawat->w + 13;
             pesawat->peluru[i].y = pesawat->y + pesawat->h / 2;
-            pesawat->peluru[i].dx = 15.0f;//kec tembak
+            pesawat->peluru[i].dx = 15.0f; // kec tembak
             pesawat->peluru[i].dy = 0;
-            return;//debounce
+            playShootSound();
+            return; // debounce
         }
     }
 }
@@ -47,25 +49,23 @@ void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
     {
         if (pesawat->peluru[i].nyala)
         {
-            //ekor peluru
-            SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150);//kuning ekr
+            // ekor peluru
+            SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150); // kuning ekr
             SDL_FRect ekor = {
                 pesawat->peluru[i].x - 8,
                 pesawat->peluru[i].y,
-                pesawat->peluru[i].w, 
-                pesawat->peluru[i].h
-            };
+                pesawat->peluru[i].w,
+                pesawat->peluru[i].h};
             SDL_RenderFillRect(renderer, &ekor);
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);//reset warna
-            //kotak depan
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // reset warna
+            // kotak depan
             SDL_FRect kotakpeluru = {
                 pesawat->peluru[i].x,
-                pesawat->peluru[i].y, 
-                pesawat->peluru[i].w, 
-                pesawat->peluru[i].h
-            };
+                pesawat->peluru[i].y,
+                pesawat->peluru[i].w,
+                pesawat->peluru[i].h};
             SDL_RenderFillRect(renderer, &kotakpeluru);
-       }
+        }
     }
 }
 
@@ -94,13 +94,13 @@ void updateReload(Pesawat *pesawat)
 void tampilAmunisi(SDL_Renderer *renderer, Pesawat *pesawat)
 {
     char text[64];
-    
+
     if (pesawat->sedang_reload)
     {
         SDL_SetRenderDrawColor(renderer, 255, 50, 50, 255);
         SDL_RenderDebugText(renderer, 20, 640, "RELOADING...");
     }
-    
+
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     sprintf(text, "AMMO: %d/%d", pesawat->peluru_sekarang, pesawat->magasin);
     SDL_RenderDebugText(renderer, 20, 665, text);
