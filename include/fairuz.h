@@ -17,10 +17,10 @@ extern int bonus;
 
 void updatewave(Musuh *musuh);
 void cekmusuh(Musuh *musuh);
-void kuranginskor(nilai *point);
+int  kuranginskor(int skor);
 void tambahmusuh(Musuh *musuh);
 void tampilkanWave(SDL_Renderer *renderer);
-void kuranginskormusuhbesar(nilai *point);
+int  kuranginskormusuhbesar(int skor);
 void bonuswave(int waveterbaru);
 
 #endif
