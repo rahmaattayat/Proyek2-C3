@@ -24,10 +24,10 @@ void tampilskor(SDL_Renderer *renderer, nilai *point)
     snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", point->highskor);
 
     // Tentukan posisi teks
-    float posXSkor = kotakSkor.x + 5; 
-    float posYSkor = kotakSkor.y + 5; 
+    float posXSkor = kotakSkor.x + 5;
+    float posYSkor = kotakSkor.y + 5;
     float posXHighSkor = kotakSkor.x + 125;
-    float posYHighSkor = kotakSkor.y + 5; 
+    float posYHighSkor = kotakSkor.y + 5;
 
     // Gambar teks skor
     SDL_SetRenderDrawColor(renderer, warnaTeks.r, warnaTeks.g, warnaTeks.b, warnaTeks.a);
@@ -45,14 +45,14 @@ void tambahskormusuhbesar(nilai *point)
     point->skor += 30 * bonus;
 }
 
-void kuranginskor (nilai *point)
+int kuranginskor(int skor)
 {
-    point->skor -= 10;
+    return skor - 10;
 }
 
-void kuranginskormusuhbesar(nilai *point)
+int kuranginskormusuhbesar(int skor)
 {
-    point->skor -= 30;
+    return skor - 30;
 }
 
 void cekhighskor(nilai *point)
@@ -85,7 +85,7 @@ void loadhighskor(nilai *point)
 
 // Fungsi untuk menyimpan high score ke file
 void simpanhighskor(nilai *point)
-{    
+{
     FILE *file = fopen("src/highskor.dat", "w");
     if (file)
     {
@@ -102,13 +102,13 @@ void simpanhighskor(nilai *point)
 void gameover(SDL_Renderer *renderer, nilai *point)
 {
     // // Hentikan layar game
-    SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255); 
+    SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
 
     const char *title = "GAME OVER";
     float titleX = (LEBAR_LAYAR - 200) / 2.0f;
     float titleY = 300;
-    teksRender(title, titleX, titleY, 3.0f, (SDL_Color){255, 0, 0, 255}); 
+    teksRender(title, titleX, titleY, 3.0f, (SDL_Color){255, 0, 0, 255});
 
     // // Tentukan warna untuk teks
     SDL_Color warnaSkor = {255, 255, 0, 255}; // kuning
@@ -122,7 +122,7 @@ void gameover(SDL_Renderer *renderer, nilai *point)
     float posXSkor = titleX - 140;
     float posYSkor = titleY - 60;
     float posXHighSkor = posXSkor - 20;
-    float posYHighSkor = posYSkor + 20; 
+    float posYHighSkor = posYSkor + 20;
 
     // Gambar teks skor
     SDL_SetRenderDrawColor(renderer, warnaSkor.r, warnaSkor.g, warnaSkor.b, warnaSkor.a);
