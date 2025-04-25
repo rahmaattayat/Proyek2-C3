@@ -19,7 +19,7 @@ void nembak(Pesawat *pesawat)
             pesawat->peluru[i].nyala = true;
             pesawat->peluru[i].x = pesawat->x + pesawat->w + 13;
             pesawat->peluru[i].y = pesawat->y + pesawat->h / 2;
-            pesawat->peluru[i].dx = 15.0f; // kec tembak
+            pesawat->peluru[i].dx = 15;
             pesawat->peluru[i].dy = 0;
             playShootSound();
             return; // debounce

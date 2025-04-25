@@ -58,7 +58,7 @@ void spawnSuplai(int jenis)
             suplai[jenis][i].y = rand() % (TINGGI_LAYAR - 50);
             suplai[jenis][i].w = 45;
             suplai[jenis][i].h = 45;
-            suplai[jenis][i].dx = -2.0f - rand() % 3;
+            suplai[jenis][i].dx = -2.0 - rand() % 3;
             suplai[jenis][i].dy = 0;
             suplai[jenis][i].aktif = true;
             suplai[jenis][i].jenis = jenis;
