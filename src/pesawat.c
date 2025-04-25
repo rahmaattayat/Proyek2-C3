@@ -41,19 +41,19 @@ void gerakinPesawat(Pesawat *pesawat, const Uint8 *keyboard, bool pencetSpasi)
     pesawat->dy = 0;
     if (keyboard[SDL_SCANCODE_W])
     {
-        pesawat->dy = -6.0f;
+        pesawat->dy = -6;
     }
     if (keyboard[SDL_SCANCODE_S])
     {
-        pesawat->dy = 6.0f;
+        pesawat->dy = 6;
     }
     if (keyboard[SDL_SCANCODE_A])
     {
-        pesawat->dx = -6.0f;
+        pesawat->dx = -6;
     }
     if (keyboard[SDL_SCANCODE_D])
     {
-        pesawat->dx = 6.0f;
+        pesawat->dx = 6;
     }
 
     if (pencetSpasi && pesawat->cd_tembak <= 0)
