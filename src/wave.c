@@ -27,7 +27,7 @@ void updatewave(Musuh *musuh)
         (waveterbaru)++;
 
         bonuswave(waveterbaru);
-        tambahmusuh(musuh);
+        jumlahmusuh = tambahmusuh (jumlahmusuh,waveterbaru);
 
         if (jumlahmusuh > MAX_MUSUH)
         {
@@ -56,9 +56,9 @@ void tampilkanWave(SDL_Renderer *renderer)
     SDL_RenderDebugText(renderer, (LEBAR_LAYAR / 2) - 40, 22, teksWave);
 }
 
-void tambahmusuh(Musuh *musuh)
+int tambahmusuh(int jumlahmusuh, int waveterbaru)
 {
-    jumlahmusuh = jumlahmusuh + waveterbaru;
+    return jumlahmusuh + waveterbaru;
 }
 
 void bonuswave(int waveterbaru)
