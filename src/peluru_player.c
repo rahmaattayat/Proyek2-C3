@@ -4,11 +4,11 @@
 #include <stdio.h>
 #include "rahma.h"
 
-void nembak(Pesawat *pesawat)
+int nembak(Pesawat *pesawat)
 {
     if (pesawat->peluru_sekarang <= 0 || pesawat->sedang_reload)
     {
-        return;
+        return 0;
     }
 
     for (int i = 0; i < MAX_PELURU; i++)
@@ -22,9 +22,10 @@ void nembak(Pesawat *pesawat)
             pesawat->peluru[i].dx = 15;
             pesawat->peluru[i].dy = 0;
             playShootSound();
-            return; // debounce
+            return 1;
         }
     }
+    return 0;
 }
 
 void jalankanPeluru(Pesawat *pesawat)
@@ -69,13 +70,15 @@ void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
     }
 }
 
-void reload(Pesawat *pesawat)
+int reload(Pesawat *pesawat)
 {
     if (!pesawat->sedang_reload && pesawat->peluru_sekarang < pesawat->magasin)
     {
         pesawat->sedang_reload = true;
         pesawat->waktu_reload = 60;
+        return 1;
     }
+    return 0;
 }
 
 void updateReload(Pesawat *pesawat)

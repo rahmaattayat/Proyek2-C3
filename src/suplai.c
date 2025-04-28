@@ -48,7 +48,7 @@ void hapusTeksturSuplai()
     }
 }
 
-void spawnSuplai(int jenis)
+int spawnSuplai(int jenis)
 {
     for (int i = 0; i < MAX_SUPLAI; i++)
     {
@@ -62,9 +62,10 @@ void spawnSuplai(int jenis)
             suplai[jenis][i].dy = 0;
             suplai[jenis][i].aktif = true;
             suplai[jenis][i].jenis = jenis;
-            break;
+            return 1;
         }
     }
+    return 0;
 }
 
 void updateSuplai(SDL_Renderer *renderer, Pesawat *pesawat)
