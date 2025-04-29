@@ -16,6 +16,108 @@
 # Deskripsi
 Space Invaders adalah game di mana pemain mengendalikan pesawat luar angkasa dan bertugas menghancurkan musuh yang datang berdasarkan wave. Terdapat dua jenis musuh dalam permainan ini: musuh biasa dengan HP rendah dan musuh kuat dengan HP lebih tinggi, yang bergerak dari kanan ke kiri layar. Untuk membantu pemain bertahan lebih lama, permainan ini menyediakan power-up yang dapat menambah nyawa dan amunisi. Dalam permainan ini, pesawat dikendalikan langsung melalui keyboard. Pemain dapat menembak dengan sistem yang memiliki jeda (cooldown) dan harus melakukan reload jika amunisi habis. Musuh muncul secara acak dengan variasi posisi dan kecepatan, sehingga masing-masing memiliki pola pergerakan yang berbeda. Setelah satu gelombang musuh dikalahkan, jumlah musuh akan bertambah dan tingkat kesulitannya meningkat. Sistem collision detection akan mendeteksi benturan antara peluru dan musuh atau antara pesawat dan musuh, yang akan mempengaruhi jumlah nyawa dan skor pemain.
 
+# Struktur File Proyek
+```
+Proyek2-C3/
+├── assets/
+│   ├── audio/
+│   ├── gambar/
+├── bin/
+├── include/
+│   ├── SDL3/
+│   ├── alda.h
+│   ├── config.h
+│   ├── fairuz.h
+│   ├── gema.h
+│   ├── ihsan.h
+│   ├── rahma.h
+├── lib/
+│   ├── cmake/
+│   ├── pkgconfig/
+│   ├── libSDL3_test.a
+│   ├── libSDL3.dll.a
+│   ├── SDL3_mixer.lib
+├── share/
+│   ├── license/
+├── src/
+│   ├── audio.c
+│   ├── background.c
+│   ├── highskor.dat
+│   ├── main.c
+│   ├── menu.c
+│   ├── musuh.c
+│   ├── peluru_player.c
+│   ├── pesawat.c
+│   ├── skor.c
+│   ├── star.c
+│   ├── suplai.c
+│   ├── wave.c
+├── makefile
+└── README.md
+```
+
+
+# Deskripsi File-File Utama dalam Game
+## **main.c**
+- Program utama (game loop)
+- Insisialisasi window utama
+- Logika utama permainan
+- Penanganan input dari pemain
+- Perpindahan antar state (menu, game, about dan tutorial)
+
+## **config.h**
+- Deklarasi ukuran window utama
+- Deklarasi state dalam game (menu, game, about dan tutorial)
+
+## **alda.h**
+- Deklarasi dan inisialisasi audio(SDL_Mixer)
+- Sistem skor pemain
+- Tampilan saat game over
+
+## **fairuz.h**
+- Deklarasi jumlah maksimal musuh dan wave
+- Sistem wave musuh dalam game
+- Sistem pengurangan skor
+- Sistem bonus wave
+
+## **gema.h**
+- Deklarasi jumlah maksimal bintang
+- Deklarasi bagian menu
+- Deklarasi background saat memulai permainan
+
+## **ihsan.h**
+- Deklarasi jumlah maksimal peluru, suplai dan berapa jenis suplai yang ada
+- Sistem pesawat pemain
+- Sistem peluru(tembakan pesawat)
+- Sistem suplai di dalam game
+
+## **rahma.h**
+- Deklarasi berapa jenis musuh
+- Sistem musuh dan jenis musuh
+- Sistem collision pesawat dengan musuh
+- Sistem suplai di dalam game
+
+**Kompilasi**
+Menggunakan Makefile:
+
+```
+make
+```
+pada terminal git bash
+
+**Syarat**
+-Compiler C(MinGW/GCC)
+
+**Kontrol Pemain**
+| Tombol | Fungsi |
+| ---- | --- |
+| W | Bergerak ke arah atas |
+| S | Bergerak ke arah bawah |
+| A | Bergerak ke arah kiri |
+| D | Bergerak ke arah kanan |
+| Spasi | Menembak |
+| R | Mengisi ulang amnunisi(reload) |
+
 # Fitur Game dan Pembagian Tugas:
 ### 1. Alda Pujama - Bertanggung jawab dalam pembuatan skor dan highskor, gameover, audio.
     A. Skor
