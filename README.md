@@ -19,40 +19,40 @@ Space Invaders adalah game di mana pemain mengendalikan pesawat luar angkasa dan
 # Struktur File Proyek
 Proyek2-C3/
 ├── assets/
-│   ├── audio/           
-│   ├── gambar/          
-├── bin/                 
-├── include/  
-│   ├── SDL3/ 
-│   ├── alda.h        
-│   ├── config.h     
-│   ├── fairuz.h   
-│   ├── gema.h   
-│   ├── ihsan.h  
-│   ├── rahma.h   
-├── lib/  
-│   ├── cmake/ 
-│   ├── pkgconfig/ 
-│   ├── libSDL3_test.a   
-│   ├── libSDL3.dll.a    
-│   ├── SDL3_mixer.lib  
-├── share/  
-│   ├── license/        
+│   ├── audio/
+│   ├── gambar/
+├── bin/
+├── include/
+│   ├── SDL3/
+│   ├── alda.h
+│   ├── config.h
+│   ├── fairuz.h
+│   ├── gema.h
+│   ├── ihsan.h
+│   ├── rahma.h
+├── lib/
+│   ├── cmake/
+│   ├── pkgconfig/
+│   ├── libSDL3_test.a
+│   ├── libSDL3.dll.a
+│   ├── SDL3_mixer.lib
+├── share/
+│   ├── license/
 ├── src/
-│   ├── audio.c         
-│   ├── background.c 
-│   ├── highskor.dat 
-│   ├── main.c           
-│   ├── menu.c    
+│   ├── audio.c
+│   ├── background.c
+│   ├── highskor.dat
+│   ├── main.c
+│   ├── menu.c
 │   ├── musuh.c
 │   ├── peluru_player.c
 │   ├── pesawat.c
 │   ├── skor.c
 │   ├── star.c
-│   ├── suplai.c   
-│   ├── wave.c  
-├── makefile             
-└── README.md           
+│   ├── suplai.c
+│   ├── wave.c
+├── makefile
+└── README.md    
 
 # Deskripsi File-File Utama dalam Game
 ## **main.c**
