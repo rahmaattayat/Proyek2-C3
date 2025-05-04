@@ -18,6 +18,12 @@ typedef struct
     bool nyala;
 } PeluruStruct;
 
+typedef struct PeluruNode {
+    PeluruStruct info;
+    struct PeluruNode* prev;
+    struct PeluruNode* next;
+} PeluruNode;
+
 typedef struct
 {
     float x, y;
