@@ -22,6 +22,8 @@ statusGame state = STATE_MENU;
 bool gameBerjalan = true;
 
 nilai point;
+user pilot;
+address head=NULL, tail=NULL;
 
 int rentangMinimum = 30;
 int rentangMaksimum = 45;

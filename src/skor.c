@@ -6,7 +6,7 @@
 
 void tampilskor(SDL_Renderer *renderer, nilai *point)
 {
-    // Tentukan posisi dan ukuran kotak skor
+    // Tentukan posisi kotak skor
     SDL_FRect kotakSkor = {0, 0, 300, 20};
 
     // Tentukan warna untuk kotak dan teks
@@ -35,14 +35,13 @@ void tampilskor(SDL_Renderer *renderer, nilai *point)
     SDL_RenderDebugText(renderer, posXHighSkor, posYHighSkor, teksHighSkor);
 }
 
-void tambahskor(nilai *point)
+int tambahskormusuhbesar (int skor)
 {
-    point->skor += 10 * bonus;
+    return skor + 10 * bonus;
 }
-
-void tambahskormusuhbesar(nilai *point)
+int tambahskor (int skor)
 {
-    point->skor += 30 * bonus;
+    return skor + 10 * bonus;
 }
 
 int kuranginskor(int skor)
