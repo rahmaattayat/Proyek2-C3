@@ -12,12 +12,22 @@ typedef struct
     int highskor;
 } nilai;
 
+typedef struct tuser *address;
+typedef struct tuser
+{
+    address prev;
+    char *username;
+    int hskor;
+    address next;
+}user;
+
 extern nilai point;
+extern user pilot;
 
 #include "gema.h"
 void tampilskor(SDL_Renderer *renderer, nilai *point);
-void tambahskor(nilai *point);
-void tambahskormusuhbesar(nilai *point);
+int tambahskormusuhbesar (int skor);
+int tambahskor (int skor);
 void cekhighskor(nilai *point);
 void loadhighskor(nilai *point);
 void simpanhighskor(nilai *point);

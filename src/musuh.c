@@ -135,11 +135,11 @@ void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int i, int j)
         // tambah skor berdasarkan tipe musuh
         if (musuh[j].tipe == 1)
         {
-            tambahskormusuhbesar(&point);
+            point.skor = tambahskormusuhbesar(point.skor);
         }
         else
         {
-            tambahskor(&point);
+            point.skor = tambahskor(point.skor);
         }
         cekhighskor(&point);
     }
