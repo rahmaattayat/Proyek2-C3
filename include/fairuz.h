@@ -15,17 +15,6 @@ extern int waveterbaru;
 extern int jumlahmusuh;
 extern int bonus;
 
-typedef struct Node
-{
-    int waveNumber;    // Menyimpan nomor wave
-    struct Node *next; // Pointer ke node berikutnya
-} Node;
-
-void addWave(Node **head, int waveNumber);
-void printWaves(Node *head);
-void freeWaves(Node *head);
-
-// Fungsi lainnya
 void updatewave(Musuh *musuh);
 void cekmusuh(Musuh *musuh);
 int kuranginskor(int skor);
