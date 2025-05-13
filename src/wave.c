@@ -105,13 +105,13 @@ void addWave(Node **head, int waveNumber)
     }
 }
 
-// // Fungsi untuk menampilkan semua nomor wave
-// void printWaves(Node *head)
-// {
-//     Node *temp = head;
-//     while (temp != NULL)
-//     {
-//         SDL_Log("Wave: %d", temp->waveNumber);
-//         temp = temp->next;
-//     }
-// }
+// Fungsi untuk menampilkan semua nomor wave
+void printWaves(Node *head)
+{
+    Node *temp = head;
+    while (temp != NULL)
+    {
+        SDL_Log("Wave: %d", temp->waveNumber);
+        temp = temp->next;
+    }
+}
