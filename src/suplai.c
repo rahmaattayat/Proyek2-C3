@@ -4,7 +4,7 @@
 SDL_Texture *teksturSuplaiNyawa = NULL;
 SDL_Texture *teksturSuplaiAmunisi = NULL;
 
-SuplaiNode* suplai[JENIS_SUPLAI] = {NULL, NULL};
+Suplai suplai[JENIS_SUPLAI][MAX_SUPLAI];
 
 Uint32 waktuTerakhirSuplai = 0;
 Uint32 rentangSpawnSuplai = 0;
@@ -130,41 +130,4 @@ void renderSuplai(SDL_Renderer *renderer)
             }
         }
     }
-}
-
-SuplaiNode *buatNode(Suplai info) 
-{
-    SuplaiNode *node = (SuplaiNode*)malloc(sizeof(SuplaiNode));
-    if (node) {
-        node->info = info;
-        node->prev = NULL;
-        node->next = NULL;
-    }
-    return node;
-}
-
-void tambahNode(SuplaiNode** head, Suplai info) {
-    SuplaiNode *node = buatNodeSuplai(info);
-    if (!node) return;
-
-    if (*head == NULL) {
-        *head = node;
-    } else {
-        SuplaiNode *current = *head;
-        while (current->next != NULL) {
-            current = current->next;
-        }
-        current->next = node;
-        node->prev = current;
-    }
-}
-
-void hapusSemuaNode(SuplaiNode** head) {
-    SuplaiNode* current = *head;
-    while (current != NULL) {
-        SuplaiNode* temp = current;
-        current = current->next;
-        free(temp);
-    }
-    *head = NULL;
 }

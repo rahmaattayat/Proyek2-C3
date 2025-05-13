@@ -18,6 +18,12 @@ typedef struct
     bool nyala;
 } PeluruStruct;
 
+typedef struct PeluruNode {
+    PeluruStruct info;
+    struct PeluruNode* prev;
+    struct PeluruNode* next;
+} PeluruNode;
+
 typedef struct
 {
     float x, y;
@@ -26,13 +32,6 @@ typedef struct
     bool aktif;
     int jenis;
 } Suplai;
-
-typedef struct SuplaiNode
-{
-    Suplai info;
-    struct SuplaiNode* prev;
-    struct SuplaiNode* next;
-} SuplaiNode;
 
 typedef struct
 {
@@ -48,7 +47,7 @@ typedef struct
     PeluruStruct peluru[MAX_PELURU];
 } Pesawat;
 
-extern Suplai suplai[JENIS_SUPLAI];
+extern Suplai suplai[JENIS_SUPLAI][MAX_SUPLAI];
 
 extern Uint32 waktuTerakhirSuplai;
 extern Uint32 rentangSpawnSuplai;
@@ -70,8 +69,5 @@ void updateSuplai(SDL_Renderer *renderer, Pesawat* pesawat);
 void renderSuplai(SDL_Renderer* renderer);
 void loadTeksturSuplai(SDL_Renderer* renderer);
 void hapusTeksturSuplai(); 
-SuplaiNode* buatNode(Suplai info);
-void tambahNode(SuplaiNode** head, Suplai info);
-void hapusSemuaNode(SuplaiNode** head);
 
 #endif //IHSAN_H
