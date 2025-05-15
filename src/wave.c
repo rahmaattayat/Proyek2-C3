@@ -73,3 +73,25 @@ void bonuswave(int waveterbaru)
         bonus = 1; // Normal wave
     }
 }
+
+// Fungsi untuk menambah node baru ke linked list
+void addWave(Node **head, int waveNumber)
+{
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    newNode->waveNumber = waveNumber;
+    newNode->next = NULL;
+
+    if (*head == NULL)
+    {
+        *head = newNode;
+    }
+    else
+    {
+        Node *temp = *head;
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}

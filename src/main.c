@@ -22,11 +22,10 @@ statusGame state = STATE_MENU;
 bool gameBerjalan = true;
 
 nilai point;
-user pilot;
-address head=NULL, tail=NULL;
+// user pilot;
 
 int rentangMinimum = 30;
-int rentangMaksimum = 45;
+int rentangMaksimum = 40;
 
 void mulai()
 {
@@ -134,13 +133,7 @@ void restartGame()
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
     bonus = 1;
 
-    for (int jenis = 0; jenis < JENIS_SUPLAI; jenis++)
-    {
-        for (int i = 0; i < MAX_SUPLAI; i++)
-        {
-            suplai[jenis][i].aktif = false;
-        }
-    }
+    freeListSuplai();
 }
 
 void handleMenuInput()
@@ -160,7 +153,7 @@ void handleMenuInput()
             if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
             {
                 if (tombolDiklik(&menu.tombolPlay, x, y))
-                {                      
+                {
                     playClickSound();
                     playMusic(gameMusic);
                     state = STATE_GAME;
@@ -239,7 +232,7 @@ int SDL_main(int argc, char *argv[])
         {
         case STATE_MENU:
             handleMenuInput();
-            updateBackground(&background, 1.0f); // Tambahkan ini untuk update background di menu
+            updateBackground(&background, 1.0f);
             buatMenu();
             break;
         case STATE_GAME:
@@ -258,6 +251,7 @@ int SDL_main(int argc, char *argv[])
         SDL_Delay(16);
     }
     hapusTeksturSuplai();
+    freeListSuplai();
 
     stopMusic();
     closeAudio();
