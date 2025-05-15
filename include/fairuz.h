@@ -22,7 +22,6 @@ typedef struct Node
 } Node;
 
 void addWave(Node **head, int waveNumber);
-void printWaves(Node *head);
 void freeWaves(Node *head);
 
 // Fungsi lainnya

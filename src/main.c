@@ -22,8 +22,7 @@ statusGame state = STATE_MENU;
 bool gameBerjalan = true;
 
 nilai point;
-user pilot;
-address head=NULL, tail=NULL;
+// user pilot;
 
 int rentangMinimum = 30;
 int rentangMaksimum = 45;
@@ -160,7 +159,7 @@ void handleMenuInput()
             if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
             {
                 if (tombolDiklik(&menu.tombolPlay, x, y))
-                {                      
+                {
                     playClickSound();
                     playMusic(gameMusic);
                     state = STATE_GAME;

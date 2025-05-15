@@ -60,9 +60,6 @@ void tampilkanWave(SDL_Renderer *renderer)
     }
 
     SDL_RenderDebugText(renderer, (LEBAR_LAYAR / 2) - 40, 22, teksWave);
-
-    // Menampilkan seluruh wave yang ada
-    printWaves(head);
 }
 
 int tambahmusuh(int jumlahmusuh, int waveterbaru)
@@ -104,14 +101,3 @@ void addWave(Node **head, int waveNumber)
         temp->next = newNode;
     }
 }
-
-// // Fungsi untuk menampilkan semua nomor wave
-// void printWaves(Node *head)
-// {
-//     Node *temp = head;
-//     while (temp != NULL)
-//     {
-//         SDL_Log("Wave: %d", temp->waveNumber);
-//         temp = temp->next;
-//     }
-// }
