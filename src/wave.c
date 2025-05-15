@@ -2,6 +2,8 @@
 #include <SDL3/SDL.h>
 #include "rahma.h"
 
+Node *head = NULL;
+
 int waveterbaru = 1;
 int bonus = 1;
 
@@ -26,8 +28,11 @@ void updatewave(Musuh *musuh)
     {
         (waveterbaru)++;
 
+        // Tambahkan nomor wave ke dalam linked list
+        addWave(&head, waveterbaru);
+
         bonuswave(waveterbaru);
-        jumlahmusuh = tambahmusuh (jumlahmusuh,waveterbaru);
+        jumlahmusuh = tambahmusuh(jumlahmusuh, waveterbaru);
 
         if (jumlahmusuh > MAX_MUSUH)
         {
@@ -49,6 +54,7 @@ void tampilkanWave(SDL_Renderer *renderer)
     }
     else
     {
+        // Menampilkan wave terbaru
         sprintf(teksWave, "WAVE %d", waveterbaru);
         SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
     }
@@ -71,5 +77,27 @@ void bonuswave(int waveterbaru)
     else
     {
         bonus = 1; // Normal wave
+    }
+}
+
+// Fungsi untuk menambah node baru ke linked list
+void addWave(Node **head, int waveNumber)
+{
+    Node *newNode = (Node *)malloc(sizeof(Node));
+    newNode->waveNumber = waveNumber;
+    newNode->next = NULL;
+
+    if (*head == NULL)
+    {
+        *head = newNode;
+    }
+    else
+    {
+        Node *temp = *head;
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next = newNode;
     }
 }
