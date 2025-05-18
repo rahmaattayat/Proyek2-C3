@@ -17,13 +17,14 @@ int musuhAtribut[JENIS_MUSUH][3] =
 
 void inisialisasiMusuh(Musuh *musuh, int jumlahmusuh)
 {
-    int variasi = 30; // buat variasi posisi x
-    int jarak_musuh = 100;
+    int jarak_musuh = 100; 
+    int jarak_vertikal = 80; 
 
     for (int i = 0; i < jumlahmusuh; i++)
     {
-        musuh[i].x = LEBAR_LAYAR + i * (jarak_musuh + rand() % variasi);
-        musuh[i].dx = -(2 + rand() % 2); // kecepatan random musuh
+        musuh[i].x = LEBAR_LAYAR + i * jarak_musuh;
+        musuh[i].y = 10 + (i % 5) * jarak_vertikal; 
+        musuh[i].dx = -(2 + rand() % 2); 
         musuh[i].batasKiri = -10;
         musuh[i].aktif = 1;
     }
