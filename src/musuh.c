@@ -81,8 +81,9 @@ void gerakinMusuh(Musuh *musuh)
     }
 }
 
-void musuhKeluarLayar(Musuh *musuh)
+int musuhKeluarLayar(Musuh *musuh)
 {
+    int countReset = 0;
     for (int i = 0; i < jumlahmusuh; i++)
     {
         if (musuh[i].x + musuh[i].w < 0)
@@ -97,12 +98,15 @@ void musuhKeluarLayar(Musuh *musuh)
             }
             musuh[i].x = LEBAR_LAYAR + 10;
             musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
+            countReset++;
         }
     }
+    return countReset;
 }
 
-void nabrakPeluru(Pesawat *pesawat, Musuh *musuh)
+int nabrakPeluru(Pesawat *pesawat, Musuh *musuh)
 {
+    int hitCount = 0;
     for (int i = 0; i < MAX_PELURU; i++)
     {
         if (!pesawat->peluru[i].nyala)
@@ -113,14 +117,17 @@ void nabrakPeluru(Pesawat *pesawat, Musuh *musuh)
             if (!musuh[j].aktif)
                 continue;
 
-            // ngecek kena peluru apa ngga
-            if (pesawat->peluru[i].x < musuh[j].x + musuh[j].w && pesawat->peluru[i].x + 10 > musuh[j].x &&
-                pesawat->peluru[i].y < musuh[j].y + musuh[j].h && pesawat->peluru[i].y + 4 > musuh[j].y)
+            if (pesawat->peluru[i].x < musuh[j].x + musuh[j].w &&
+                pesawat->peluru[i].x + 10 > musuh[j].x &&
+                pesawat->peluru[i].y < musuh[j].y + musuh[j].h &&
+                pesawat->peluru[i].y + 4 > musuh[j].y)
             {
                 efekNabrakPeluru(pesawat, musuh, i, j);
+                hitCount++;
             }
         }
     }
+    return hitCount;
 }
 
 void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int i, int j)

@@ -26,9 +26,9 @@ void tipeMusuh(Musuh* musuh, int jumlahmusuh, int jumlahMusuhKuat);
 void aturAtributMusuh(Musuh* musuh);
 void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif);
 void gerakinMusuh(Musuh* musuh);
-void musuhKeluarLayar(Musuh* musuh);
+int musuhKeluarLayar(Musuh* musuh);
 
-void nabrakPeluru(Pesawat *pesawat, Musuh *musuh);
+int nabrakPeluru(Pesawat *pesawat, Musuh *musuh);
 void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh);
 void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int i, int j);
 void kelolaGameOver(SDL_Renderer *renderer);
