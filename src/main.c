@@ -149,27 +149,28 @@ void handleMenuInput()
         {
             float x, y;
             SDL_GetMouseState(&x, &y);
-            updateMenu(&menu, x, y);
-            if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN)
+            updateMenu(&menu, x, y); // update hover status
+
+            if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN && event.button.button == SDL_BUTTON_LEFT)
             {
-                if (tombolDiklik(&menu.tombolPlay, x, y))
+                if (TombolHover(&menu.tombolPlay, x, y))
                 {
                     playClickSound();
                     playMusic(gameMusic);
                     state = STATE_GAME;
                     restartGame();
                 }
-                else if (tombolDiklik(&menu.tombolAbout, x, y))
+                else if (TombolHover(&menu.tombolAbout, x, y))
                 {
                     playClickSound();
                     state = STATE_ABOUT;
                 }
-                else if (tombolDiklik(&menu.tombolTutorial, x, y))
+                else if (TombolHover(&menu.tombolTutorial, x, y))
                 {
                     playClickSound();
                     state = STATE_TUTORIAL;
                 }
-                else if (tombolDiklik(&menu.tombolExit, x, y))
+                else if (TombolHover(&menu.tombolExit, x, y))
                 {
                     playClickSound();
                     gameBerjalan = false;

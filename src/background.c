@@ -1,6 +1,16 @@
 #include "gema.h"
 #include <stdlib.h>
 
+Bintang bikinBintang(float x, float y, float ukuran, float kecepatan)
+{
+    Bintang s;
+    s.x = x;
+    s.y = y;
+    s.ukuranBintang = ukuran;
+    s.kecepatanBintang = kecepatan;
+    return s;
+}
+
 void bikinBackground(Background *background, int lebar, int tinggi)
 {
     background->jumlah = MAX_BINTANG;
@@ -11,7 +21,7 @@ void bikinBackground(Background *background, int lebar, int tinggi)
     {
         float x = (float)(rand() % lebar);
         float y = (float)(rand() % tinggi);
-        float ukuranBintang = 1.0f + (rand() % 3);
+        float ukuranBintang = 1 + (rand() % 3);
         float kecepatanBintang = 0.5f + (rand() % 3);
         background->bintang[i] = bikinBintang(x, y, ukuranBintang, kecepatanBintang);
     }

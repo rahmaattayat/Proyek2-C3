@@ -54,13 +54,21 @@ typedef struct
 } Menu;
 
 void tombolInit(Tombol *tombol, const char *teks, float y, float skalaTeks);
+bool TombolHover(const Tombol *tombol, float mouseX, float mouseY);
 void tombolUpdateHover(Tombol *tombol, float mouseX, float mouseY);
 void renderTombol(Tombol *tombol);
-bool tombolDiklik(Tombol *tombol, float mouseX, float mouseY);
+
 void teksRender(const char *teks, float x, float y, float skala, SDL_Color warna);
+float posisiTeksTengahX(const char *teks, float skala);
+void teksRenderTengah(const char *teks, float y, float skala, SDL_Color warna);
+void renderHalamanStatik(const char **teks, int jumlahBaris, float startX, float startY, float jarakY);
+
 void menuInit(Menu *menu);
+void tombolUpdateSemua(Menu *menu, float mouseX, float mouseY);
 void updateMenu(Menu *menu, float mouseX, float mouseY);
+void renderTombolMenu(Menu *menu);
 void renderMenu(Menu *menu, const Background *background, nilai *point);
+
 void renderAbout();
 void renderTutorial();
 
