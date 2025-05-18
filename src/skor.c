@@ -35,11 +35,11 @@ void tampilskor(SDL_Renderer *renderer, nilai *point)
     SDL_RenderDebugText(renderer, posXHighSkor, posYHighSkor, teksHighSkor);
 }
 
-int tambahskormusuhbesar (int skor)
+int tambahskormusuhbesar(int skor)
 {
     return skor + 10 * bonus;
 }
-int tambahskor (int skor)
+int tambahskor(int skor)
 {
     return skor + 10 * bonus;
 }

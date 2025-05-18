@@ -233,7 +233,7 @@ int SDL_main(int argc, char *argv[])
         {
         case STATE_MENU:
             handleMenuInput();
-            updateBackground(&background, 1.0f);
+            updateBackground(&background, 1);
             buatMenu();
             break;
         case STATE_GAME:
