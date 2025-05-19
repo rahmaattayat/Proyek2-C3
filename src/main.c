@@ -135,7 +135,7 @@ void restartGame()
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
     bonus = 1;
 
-    freeListSuplai();
+    clearSuplai();
 }
 
 void handleMenuInput()
@@ -254,7 +254,7 @@ int SDL_main(int argc, char *argv[])
         SDL_Delay(16);
     }
     hapusTeksturSuplai();
-    freeListSuplai();
+    clearSuplai();
 
     stopMusic();
     closeAudio();

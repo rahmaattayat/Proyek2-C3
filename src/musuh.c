@@ -108,25 +108,31 @@ int musuhKeluarLayar(Musuh *musuh)
 int nabrakPeluru(Pesawat *pesawat, Musuh *musuh)
 {
     int hitCount = 0;
-    for (int i = 0; i < MAX_PELURU; i++)
+    PeluruNode* current = pesawat->peluruHead;
+    while (current)
     {
-        if (!pesawat->peluru[i].nyala)
-            continue;
-
-        for (int j = 0; j < jumlahmusuh; j++)
+        PeluruNode* next = current->next;
+        if (current->info.nyala)
         {
-            if (!musuh[j].aktif)
-                continue;
-
-            if (pesawat->peluru[i].x < musuh[j].x + musuh[j].w &&
-                pesawat->peluru[i].x + 10 > musuh[j].x &&
-                pesawat->peluru[i].y < musuh[j].y + musuh[j].h &&
-                pesawat->peluru[i].y + 4 > musuh[j].y)
+            for (int j = 0; j < jumlahmusuh; j++)
             {
-                efekNabrakPeluru(pesawat, musuh, i, j);
-                hitCount++;
+                if (!musuh[j].aktif)
+                    continue;
+
+                if (current->info.x < musuh[j].x + musuh[j].w &&
+                    current->info.x + current->info.w > musuh[j].x &&
+                    current->info.y < musuh[j].y + musuh[j].h &&
+                    current->info.y + current->info.h > musuh[j].y)
+                {
+                    // Simulasi indeks i untuk kompatibilitas
+                    efekNabrakPeluru(pesawat, musuh, 0, j); // Indeks i tidak digunakan
+                    hapusPeluruNode(pesawat, current);
+                    hitCount++;
+                    break;
+                }
             }
         }
+        current = next;
     }
     return hitCount;
 }
@@ -151,7 +157,6 @@ void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int i, int j)
         }
         cekhighskor(&point);
     }
-    pesawat->peluru[i].nyala = false;
 }
 
 void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh)

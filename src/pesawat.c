@@ -28,11 +28,7 @@ void bikinPesawat(Pesawat *pesawat)
     pesawat->peluru_sekarang = pesawat->magasin;
     pesawat->sedang_reload = false;
     pesawat->waktu_reload = 60;
-
-    for (int i = 0; i < MAX_PELURU; i++)
-    {
-    bikinPeluru(&pesawat->peluru[i]);
-    }
+    pesawat->peluruHead = NULL;
 }
 
 void gerakinPesawat(Pesawat *pesawat, const Uint8 *keyboard, bool pencetSpasi)

@@ -4,69 +4,126 @@
 #include <stdio.h>
 #include "rahma.h"
 
-int nembak(Pesawat *pesawat)
+PeluruNode* buatPeluruNode()
 {
-    if (pesawat->peluru_sekarang <= 0 || pesawat->sedang_reload)
-    {
-        return 0;
-    }
-
-    for (int i = 0; i < MAX_PELURU; i++)
-    {
-        if (!pesawat->peluru[i].nyala)
-        {
-            pesawat->peluru_sekarang--;
-            pesawat->peluru[i].nyala = true;
-            pesawat->peluru[i].x = pesawat->x + pesawat->w + 13;
-            pesawat->peluru[i].y = pesawat->y + pesawat->h / 2;
-            pesawat->peluru[i].dx = 15;
-            pesawat->peluru[i].dy = 0;
-            playShootSound();
-            return 1;
-        }
-    }
-    return 0;
+    PeluruNode* newNode = (PeluruNode*)malloc(sizeof(PeluruNode));
+    if (!newNode)
+        return NULL;
+    bikinPeluru(&newNode->info);
+    newNode->prev = NULL;
+    newNode->next = NULL;
+    return newNode;
 }
 
-void jalankanPeluru(Pesawat *pesawat)
+void tambahPeluruNode(Pesawat* pesawat, PeluruNode* node)
 {
-    for (int i = 0; i < MAX_PELURU; i++)
+    if (!node)
+        return;
+    if (pesawat->peluruHead == NULL)
     {
-        if (pesawat->peluru[i].nyala)
+        pesawat->peluruHead = node;
+    }
+    else
+    {
+        PeluruNode* last = pesawat->peluruHead;
+        while (last->next != NULL)
+            last = last->next;
+        last->next = node;
+        node->prev = last;
+    }
+}
+
+void hapusPeluruNode(Pesawat* pesawat, PeluruNode* node)
+{
+    if (!node)
+        return;
+    if (node->prev)
+        node->prev->next = node->next;
+    else
+        pesawat->peluruHead = node->next;
+    if (node->next)
+        node->next->prev = node->prev;
+    free(node);
+}
+
+void freePeluruList(Pesawat* pesawat)
+{
+    PeluruNode* current = pesawat->peluruHead;
+    while (current)
+    {
+        PeluruNode* temp = current;
+        current = current->next;
+        free(temp);
+    }
+    pesawat->peluruHead = NULL;
+}
+
+int nembak(Pesawat* pesawat)
+{
+    if (pesawat->cd_tembak > 0 || pesawat->peluru_sekarang <= 0 || pesawat->sedang_reload)
+        return 0;
+
+    PeluruNode* newNode = buatPeluruNode();
+    if (!newNode)
+        return 0;
+
+    newNode->info.x = pesawat->x + pesawat->w;
+    newNode->info.y = pesawat->y + pesawat->h / 2 - newNode->info.h / 2;
+    newNode->info.dx = 15;
+    newNode->info.nyala = true;
+
+    tambahPeluruNode(pesawat, newNode);
+
+    pesawat->peluru_sekarang--;
+    pesawat->cd_tembak = 10;
+    return 1;
+}
+
+void jalankanPeluru(Pesawat* pesawat)
+{
+    PeluruNode* current = pesawat->peluruHead;
+    while (current)
+    {
+        PeluruNode* next = current->next;
+        if (current->info.nyala)
         {
-            pesawat->peluru[i].x += pesawat->peluru[i].dx;
-            pesawat->peluru[i].y += pesawat->peluru[i].dy;
-            if (pesawat->peluru[i].x > LEBAR_LAYAR)
+            current->info.x += current->info.dx;
+            if (current->info.x > LEBAR_LAYAR)
             {
-                pesawat->peluru[i].nyala = false;
+                current->info.nyala = false;
+                hapusPeluruNode(pesawat, current);
             }
         }
+        current = next;
     }
 }
 
-void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
+void bikinGambarPeluru(SDL_Renderer* renderer, Pesawat* pesawat)
 {
-    for (int i = 0; i < MAX_PELURU; i++)
+    PeluruNode* current = pesawat->peluruHead;
+    while (current)
     {
-        if (pesawat->peluru[i].nyala)
+        if (current->info.nyala)
         {
-            // ekor peluru
-            SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150); // kuning ekr
+            SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150);
             SDL_FRect ekor = {
-                pesawat->peluru[i].x - 8,
-                pesawat->peluru[i].y,
-                pesawat->peluru[i].w,
-                pesawat->peluru[i].h};
+                current->info.x - 8,
+                current->info.y,
+                current->info.w,
+                current->info.h
+            };
             SDL_RenderFillRect(renderer, &ekor);
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255); // reset warna
-            // kotak depan
+
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
             SDL_FRect kotakpeluru = {
-                pesawat->peluru[i].x,
-                pesawat->peluru[i].y,
-                pesawat->peluru[i].w,
-                pesawat->peluru[i].h};
+                current->info.x,
+                current->info.y,
+                current->info.w,
+                current->info.h
+            };
             SDL_RenderFillRect(renderer, &kotakpeluru);
         }
+        current = current->next;
     }
 }
 
