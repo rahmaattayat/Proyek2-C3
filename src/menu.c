@@ -1,13 +1,7 @@
 #include "gema.h"
 #include "config.h"
-#include <SDL3_ttf/SDL_ttf.h>
-#include <string.h>
-#include <stdio.h>
 
 extern SDL_Renderer *renderer;
-extern TTF_Font *font;
-
-// --- TOMBOL ---
 
 void tombolInit(Tombol *tombol, const char *teks, float y, float skalaTeks)
 {
@@ -39,21 +33,53 @@ void renderTombol(Tombol *tombol)
     SDL_SetRenderDrawColor(renderer, warna.r, warna.g, warna.b, warna.a);
     SDL_RenderFillRect(renderer, &tombol->kotak);
 
-    // Teks di tengah tombol
-    TTF_SetFontSize(font, (int)(24 * tombol->skalaTeks)); // Apply scaling
-    int w, h;
-    if (!TTF_GetStringSize(font, tombol->teks, 0, &w, &h))
+    int lebarHuruf = 8;
+    int tinggiBaris = 10;
+
+    float lebarTeks = strlen(tombol->teks) * lebarHuruf * tombol->skalaTeks;
+    float tinggiTeks = tinggiBaris * tombol->skalaTeks;
+
+    float posisiXteks = tombol->kotak.x + (tombol->kotak.w - lebarTeks) / 2;
+    float posisiYTeks = tombol->kotak.y + (tombol->kotak.h - tinggiTeks) / 2;
+
+    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+    SDL_SetRenderScale(renderer, tombol->skalaTeks, tombol->skalaTeks);
+    SDL_RenderDebugText(renderer, posisiXteks / tombol->skalaTeks, posisiYTeks / tombol->skalaTeks, tombol->teks);
+    SDL_SetRenderScale(renderer, 1, 1);
+}
+
+// --- TEKS & RENDER UTILITAS ---
+
+void teksRender(const char *teks, float x, float y, float skala, SDL_Color warna)
+{
+    SDL_SetRenderDrawColor(renderer, warna.r, warna.g, warna.b, warna.a);
+    SDL_SetRenderScale(renderer, skala, skala);
+    SDL_RenderDebugText(renderer, x / skala, y / skala, teks);
+    SDL_SetRenderScale(renderer, 1.0f, 1.0f);
+}
+
+float posisiTeksTengahX(const char *teks, float skala)
+{
+    float lebarHuruf = 8;
+    float lebarTeks = strlen(teks) * lebarHuruf * skala;
+    return (LEBAR_LAYAR - lebarTeks) / 2;
+}
+
+void teksRenderTengah(const char *teks, float y, float skala, SDL_Color warna)
+{
+    float x = posisiTeksTengahX(teks, skala);
+    teksRender(teks, x, y, skala, warna);
+}
+
+void renderHalamanStatik(const char **teks, int jumlahBaris, float startX, float startY, float jarakY)
+{
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+    for (int i = 0; i < jumlahBaris; ++i)
     {
-        printf("Failed to measure text: %s\n", SDL_GetError());
-        TTF_SetFontSize(font, 24); // Reset font size
-        return;
+        teksRender(teks[i], startX, startY + i * jarakY, 2.0f, (SDL_Color){255, 255, 255, 255});
     }
-
-    float posisiX = tombol->kotak.x + (tombol->kotak.w - w) / 2;
-    float posisiY = tombol->kotak.y + (tombol->kotak.h - h) / 2;
-
-    renderText(renderer, posisiX, posisiY, tombol->teks, (SDL_Color){255, 255, 255, 255});
-    TTF_SetFontSize(font, 24); // Reset font size
+    SDL_RenderPresent(renderer);
 }
 
 // --- MENU UTAMA ---
@@ -92,52 +118,16 @@ void renderMenu(Menu *menu, const Background *background, nilai *point)
 {
     renderBackground(background, renderer);
 
-    // Judul
-    const char *judul = "C3 - SPACE INVADERS";
-    TTF_SetFontSize(font, (int)(24 * 3.0f)); // Scale for title
-    int w, h;
-    if (!TTF_GetStringSize(font, judul, 0, &w, &h))
-    {
-        printf("Failed to measure title text: %s\n", SDL_GetError());
-        TTF_SetFontSize(font, 24);
-        return;
-    }
+    teksRenderTengah("C3 - SPACE INVADERS", 120, 3.0f, (SDL_Color){255, 255, 0, 255});
 
-    renderText(renderer, (LEBAR_LAYAR - w) / 2, 120, judul, (SDL_Color){255, 255, 0, 255});
-
-    // High Skor
     char teksHighSkor[50];
     snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", point->highskor);
-    TTF_SetFontSize(font, (int)(24 * 1.5f)); // Scale for high score
-    if (!TTF_GetStringSize(font, teksHighSkor, 0, &w, &h))
-    {
-        printf("Failed to measure high score text: %s\n", SDL_GetError());
-        TTF_SetFontSize(font, 24);
-        return;
-    }
-
-    renderText(renderer, (LEBAR_LAYAR - w) / 2, 180, teksHighSkor, (SDL_Color){255, 255, 0, 255});
-    TTF_SetFontSize(font, 24); // Reset font size
+    teksRenderTengah(teksHighSkor, 180, 1.5f, (SDL_Color){255, 255, 0, 255});
 
     renderTombolMenu(menu);
 }
 
 // --- HALAMAN ABOUT DAN TUTORIAL ---
-
-void renderHalamanStatik(const char **teks, int jumlahBaris, float startX, float startY, float jarakY)
-{
-    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-    SDL_RenderClear(renderer);
-
-    TTF_SetFontSize(font, (int)(24 * 1.0f)); // No scaling for static pages
-    for (int i = 0; i < jumlahBaris; ++i)
-    {
-        renderText(renderer, startX, startY + i * jarakY, teks[i], (SDL_Color){255, 255, 255, 255});
-    }
-
-    TTF_SetFontSize(font, 24); // Reset font size
-    SDL_RenderPresent(renderer);
-}
 
 void renderAbout()
 {
