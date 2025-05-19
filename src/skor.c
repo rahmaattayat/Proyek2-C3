@@ -4,8 +4,11 @@
 #include "alda.h"
 #include "fairuz.h"
 
-void tampilskor(SDL_Renderer *renderer, nilai *point)
+void tampilskor(SDL_Renderer *renderer)
 {
+    addressuser user = findUser(currentUsername);
+    if (!user) return;
+
     // Tentukan posisi kotak skor
     SDL_FRect kotakSkor = {0, 0, 300, 20};
 
@@ -20,8 +23,8 @@ void tampilskor(SDL_Renderer *renderer, nilai *point)
     // Siapkan teks untuk skor dan high skor
     char teksSkor[50];
     char teksHighSkor[50];
-    snprintf(teksSkor, sizeof(teksSkor), "Skor: %d", point->skor);
-    snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", point->highskor);
+    snprintf(teksSkor, sizeof(teksSkor), "Skor: %d", user->score);
+    snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", user->hskor);
 
     // Tentukan posisi teks
     float posXSkor = kotakSkor.x + 5;
@@ -37,7 +40,7 @@ void tampilskor(SDL_Renderer *renderer, nilai *point)
 
 int tambahskormusuhbesar (int skor)
 {
-    return skor + 10 * bonus;
+    return skor + 30 * bonus;
 }
 int tambahskor (int skor)
 {
@@ -54,51 +57,75 @@ int kuranginskormusuhbesar(int skor)
     return skor - 30;
 }
 
-void cekhighskor(nilai *point)
+void cekhighskor(addressuser user)
 {
-    if (point->skor > point->highskor)
+    if (!user) return;
+    if (user->score > user->hskor) 
     {
-        point->highskor = point->skor;
+        user->hskor = user->score;
     }
+    // if (point->skor > point->highskor)
+    // {
+    //     point->highskor = point->skor;
+    //     addressuser user = findUser(currentUsername);
+    //     if (user) 
+    //     {
+    //         user->hskor = point->highskor;
+    //     }
+    // }
 }
 
 // Fungsi untuk memuat high score dari file
-void loadhighskor(nilai *point)
-{
-    FILE *file = fopen("src/highskor.dat", "r");
-    if (file)
-    {
-        if (fscanf(file, "%d", &point->highskor) != 1)
-        {
-            printf("Gagal membaca high score dari file!\n");
-            point->highskor = 0;
-        }
-        fclose(file);
-    }
-    else
-    {
-        printf("File highskor.dat tidak ditemukan!\n");
-        point->highskor = 0;
-    }
-}
+//void loadhighskor(nilai *point)
+//{
+    // FILE *file = fopen("src/highskor.dat", "r");
+    // if (file)
+    // {
+    //     if (fscanf(file, "%d", &point->highskor) != 1)
+    //     {
+    //         printf("Gagal membaca high score dari file!\n");
+    //         point->highskor = 0;
+    //     }
+    //     fclose(file);
+    // }
+    // else
+    // {
+    //     printf("File highskor.dat tidak ditemukan!\n");
+    //     point->highskor = 0;
+    // }
+    // addressuser user = findUser(currentUsername);
+    // if(user)
+    // {
+    //     point->skor = user->hskor;
+    // }
+    // else
+    // {
+    //     point->skor = 0;
+    // }
+//}
 
 // Fungsi untuk menyimpan high score ke file
-void simpanhighskor(nilai *point)
-{
-    FILE *file = fopen("src/highskor.dat", "w");
-    if (file)
-    {
-        fprintf(file, "%d", point->highskor);
-        fclose(file);
-        printf("High score berhasil disimpan!\n");
-    }
-    else
-    {
-        printf("Error menyimpan high score");
-    }
-}
+// void simpanhighskor(nilai *point)
+// {
+//     // FILE *file = fopen("src/highskor.dat", "w");
+//     // if (file)
+//     // {
+//     //     fprintf(file, "%d", point->highskor);
+//     //     fclose(file);
+//     //     printf("High score berhasil disimpan!\n");
+//     // }
+//     // else
+//     // {
+//     //     printf("Error menyimpan high score");
+//     // }
+//     addressuser user = findUser(currentUsername);
+//     if (user && point->highskor > user->hskor) {
+//         user->hskor = point->highskor;
+//     }
+//     sortLeaderboard();
+// }
 
-void gameover(SDL_Renderer *renderer, nilai *point)
+void gameover(SDL_Renderer *renderer, addressuser user)
 {
     // // Hentikan layar game
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
@@ -115,8 +142,8 @@ void gameover(SDL_Renderer *renderer, nilai *point)
     // Siapkan teks untuk skor, dan high skor
     char teksSkor[50];
     char teksHighSkor[50];
-    snprintf(teksSkor, sizeof(teksSkor), "Skor: %d", point->skor);
-    snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", point->highskor);
+    snprintf(teksSkor, sizeof(teksSkor), "Skor: %d", user->score);
+    snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", user->hskor);
 
     float posXSkor = titleX - 140;
     float posYSkor = titleY - 60;

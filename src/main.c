@@ -21,9 +21,6 @@ Menu menu;
 statusGame state = STATE_MENU;
 bool gameBerjalan = true;
 
-nilai point;
-// user pilot;
-
 int rentangMinimum = 30;
 int rentangMaksimum = 40;
 
@@ -36,9 +33,7 @@ void mulai()
     initAudio();
     playMusic(menuMusic);
 
-    // inisiasi value record point untuk skor
-    point.skor = 0;
-    loadhighskor(&point);
+    loadLeaderboard();
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
@@ -114,7 +109,7 @@ void renderGame()
     bikinGambarPeluru(renderer, &pesawat);
     bikinGambarMusuh(renderer, musuh);
     renderSuplai(renderer);
-    tampilskor(renderer, &point);
+    tampilskor(renderer);
     tampilNyawa(renderer, &pesawat);
     tampilAmunisi(renderer, &pesawat);
     tampilkanWave(renderer);
@@ -124,8 +119,8 @@ void renderGame()
 
 void restartGame()
 {
-    point.skor = 0;
-    loadhighskor(&point);
+    addressuser user = findUser(currentUsername);
+    if (user) user->score = 0;
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
@@ -184,7 +179,7 @@ void buatMenu()
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
-    renderMenu(&menu, &background, &point);
+    renderMenu(&menu, &background);
     SDL_RenderPresent(renderer);
 }
 
@@ -253,7 +248,8 @@ int SDL_main(int argc, char *argv[])
     }
     hapusTeksturSuplai();
     freeListSuplai();
-
+    freeLeaderboard();
+    saveLeaderboard();
     stopMusic();
     closeAudio();
 

@@ -67,7 +67,7 @@ void menuInit(Menu *menu);
 void tombolUpdateSemua(Menu *menu, float mouseX, float mouseY);
 void updateMenu(Menu *menu, float mouseX, float mouseY);
 void renderTombolMenu(Menu *menu);
-void renderMenu(Menu *menu, const Background *background, nilai *point);
+void renderMenu(Menu *menu, const Background *background);
 
 void renderAbout();
 void renderTutorial();
