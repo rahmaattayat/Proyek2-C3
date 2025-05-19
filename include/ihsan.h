@@ -4,6 +4,7 @@
 #include <SDL3/SDL.h>
 #include <stdbool.h>
 #include "config.h"
+#include "SDL3_ttf/SDL_ttf.h"
 
 //var global
 #define MAX_PELURU 50
@@ -50,6 +51,11 @@ typedef struct
 
 extern Uint32 waktuTerakhirSuplai;
 extern Uint32 rentangSpawnSuplai;
+
+extern TTF_Font* font;
+void initTTF();
+void cleanupTTF();
+void renderText(SDL_Renderer* renderer, int x, int y, const char* text, SDL_Color color);
 
 void bikinPesawat(Pesawat* pesawat);
 void bikinPeluru(PeluruStruct* peluru);

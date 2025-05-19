@@ -36,6 +36,8 @@ void mulai()
     initAudio();
     playMusic(menuMusic);
 
+    initTTF();
+
     // inisiasi value record point untuk skor
     point.skor = 0;
     loadhighskor(&point);
@@ -256,6 +258,8 @@ int SDL_main(int argc, char *argv[])
 
     stopMusic();
     closeAudio();
+
+    cleanupTTF();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);

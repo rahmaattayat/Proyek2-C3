@@ -97,14 +97,14 @@ void updateReload(Pesawat *pesawat)
 void tampilAmunisi(SDL_Renderer *renderer, Pesawat *pesawat)
 {
     char text[64];
+    SDL_Color red = {255, 50, 50, 255};
+    SDL_Color white = {255, 255, 255, 255};
 
     if (pesawat->sedang_reload)
     {
-        SDL_SetRenderDrawColor(renderer, 255, 50, 50, 255);
-        SDL_RenderDebugText(renderer, 20, 640, "RELOADING...");
+        renderText(renderer, 20, 640, "RELOADING...", red);
     }
 
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
     sprintf(text, "AMMO: %d/%d", pesawat->peluru_sekarang, pesawat->magasin);
-    SDL_RenderDebugText(renderer, 20, 665, text);
+    renderText(renderer, 20, 665, text, white);
 }
