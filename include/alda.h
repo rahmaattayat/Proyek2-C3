@@ -6,12 +6,6 @@
 #include <SDL3/SDL_mixer.h>
 #include "config.h"
 
-// typedef struct
-// {
-//     int skor;
-//     int highskor;
-// } nilai;
-
 typedef struct tuser *addressuser;
 typedef struct tuser
 {
@@ -22,7 +16,6 @@ typedef struct tuser
     addressuser nextuser;
 } user;
 
-//extern nilai point;
 extern addressuser headuser;
 extern addressuser tailuser;
 extern char currentUsername[50];
@@ -33,8 +26,6 @@ void tampilskor(SDL_Renderer *renderer);
 int tambahskormusuhbesar(int skor);
 int tambahskor(int skor);
 void cekhighskor(addressuser user);
-// void loadhighskor(nilai *point);
-// void simpanhighskor(nilai *point);
 void gameover(SDL_Renderer *renderer, addressuser user);
 
 extern Mix_Music *menuMusic;

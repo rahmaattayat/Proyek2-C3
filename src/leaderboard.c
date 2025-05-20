@@ -6,8 +6,6 @@ char currentUsername[50] = "";
 
 void loadLeaderboard() 
 {
-    headuser = NULL;
-    tailuser = NULL;
     FILE *file = fopen("src/leaderboard.dat", "r");
     if (file) 
     {

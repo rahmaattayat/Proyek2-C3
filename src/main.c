@@ -24,6 +24,9 @@ bool gameBerjalan = true;
 int rentangMinimum = 30;
 int rentangMaksimum = 40;
 
+addressuser headuser = NULL;
+addressuser tailuser = NULL;
+
 void mulai()
 {
     SDL_Init(SDL_INIT_VIDEO);
