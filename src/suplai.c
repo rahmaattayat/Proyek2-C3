@@ -4,7 +4,7 @@
 SDL_Texture *teksturSuplaiNyawa = NULL;
 SDL_Texture *teksturSuplaiAmunisi = NULL;
 
-SuplaiNode* heads[JENIS_SUPLAI] = {NULL};
+Suplai suplai[JENIS_SUPLAI][MAX_SUPLAI];
 
 Uint32 waktuTerakhirSuplai = 0;
 Uint32 rentangSpawnSuplai = 0;
@@ -48,18 +48,14 @@ void hapusTeksturSuplai()
     }
 }
 
-void freeListSuplai()
+void clearSuplai()
 {
     for (int jenis = 0; jenis < JENIS_SUPLAI; jenis++)
     {
-        SuplaiNode* current = heads[jenis];
-        while (current != NULL)
+        for (int i = 0; i < MAX_SUPLAI; i++)
         {
-            SuplaiNode* temp = current;
-            current = current->next;
-            free(temp);
+            suplai[jenis][i].aktif = false;
         }
-        heads[jenis] = NULL;
     }
 }
 
@@ -75,70 +71,17 @@ void inisiasiSuplai(Suplai* suplai, int jenis)
     suplai->jenis = jenis;
 }
 
-SuplaiNode* buatNode(int jenis)
-{
-    SuplaiNode* newNode = (SuplaiNode*)malloc(sizeof(SuplaiNode));
-    if (!newNode)
-        return NULL;
-    inisiasiSuplai(&newNode->info, jenis);
-    newNode->prev = NULL;
-    newNode->next = NULL;
-    return newNode;
-}
-
-void tambahNode(int jenis, SuplaiNode* node)
-{
-    if (!node)
-        return;
-    if (heads[jenis] == NULL)
-    {
-        heads[jenis] = node;
-    }
-    else
-    {
-        SuplaiNode* last = heads[jenis];
-        while (last->next != NULL)
-            last = last->next;
-        last->next = node;
-        node->prev = last;
-    }
-}
-
-void hapusNode(int jenis, SuplaiNode* node)
-{
-    if (!node)
-        return;
-    if (node->prev)
-        node->prev->next = node->next;
-    else
-        heads[jenis] = node->next;
-    if (node->next)
-        node->next->prev = node->prev;
-    free(node);
-}
-
-int hitungSuplaiAktif(int jenis)
-{
-    int count = 0;
-    SuplaiNode* current = heads[jenis];
-    while (current != NULL)
-    {
-        if (current->info.aktif)
-            count++;
-        current = current->next;
-    }
-    return count;
-}
-
 int spawnSuplai(int jenis)
 {
-    if (hitungSuplaiAktif(jenis) >= MAX_SUPLAI)
-        return 0;
-    SuplaiNode* newNode = buatNode(jenis);
-    if (!newNode)
-        return 0;
-    tambahNode(jenis, newNode);
-    return 1;
+    for (int i = 0; i < MAX_SUPLAI; i++)
+    {
+        if (!suplai[jenis][i].aktif)
+        {
+            inisiasiSuplai(&suplai[jenis][i], jenis);
+            return 1;
+        }
+    }
+    return 0;
 }
 
 void updatePosisiSuplai(Suplai* suplai)
@@ -172,20 +115,13 @@ void updateSuplai(SDL_Renderer *renderer, Pesawat *pesawat)
 {
     for (int jenis = 0; jenis < JENIS_SUPLAI; jenis++)
     {
-        SuplaiNode* current = heads[jenis];
-        while (current != NULL)
+        for (int i = 0; i < MAX_SUPLAI; i++)
         {
-            SuplaiNode* next = current->next;
-            if (current->info.aktif)
+            if (suplai[jenis][i].aktif)
             {
-                updatePosisiSuplai(&current->info);
-                cekTabrakanSuplai(&current->info, pesawat, jenis);
-                if (!current->info.aktif)
-                {
-                    hapusNode(jenis, current);
-                }
+                updatePosisiSuplai(&suplai[jenis][i]);
+                cekTabrakanSuplai(&suplai[jenis][i], pesawat, jenis);
             }
-            current = next;
         }
     }
 }
@@ -194,19 +130,17 @@ void renderSuplai(SDL_Renderer *renderer)
 {
     for (int jenis = 0; jenis < JENIS_SUPLAI; jenis++)
     {
-        SuplaiNode* current = heads[jenis];
-        while (current != NULL)
+        for (int i = 0; i < MAX_SUPLAI; i++)
         {
-            if (current->info.aktif)
+            if (suplai[jenis][i].aktif)
             {
                 SDL_Texture *tekstur = (jenis == 0) ? teksturSuplaiNyawa : teksturSuplaiAmunisi;
                 if (tekstur)
                 {
-                    SDL_FRect suplaiRect = {current->info.x, current->info.y, current->info.w, current->info.h};
-                    SDL_RenderTexture(renderer,tekstur, NULL, &suplaiRect);
+                    SDL_FRect suplaiRect = {suplai[jenis][i].x, suplai[jenis][i].y, suplai[jenis][i].w, suplai[jenis][i].h};
+                    SDL_RenderTexture(renderer, tekstur, NULL, &suplaiRect);
                 }
             }
-            current = current->next;
         }
     }
 }

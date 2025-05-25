@@ -8,26 +8,13 @@
 
 int jumlahmusuh = 5;
 extern statusGame state;
+NodeMusuh* headMusuh = NULL;
 
 int musuhAtribut[JENIS_MUSUH][3] =
     {
         {1, 65, 65}, // musuh biasa: hp, width, height
         {3, 85, 85}  // musuh kuat: hp, width, height
 };
-
-void inisialisasiMusuh(Musuh *musuh, int jumlahmusuh)
-{
-    int variasi = 30; // buat variasi posisi x
-    int jarak_musuh = 100;
-
-    for (int i = 0; i < jumlahmusuh; i++)
-    {
-        musuh[i].x = LEBAR_LAYAR + i * (jarak_musuh + rand() % variasi);
-        musuh[i].dx = -(2 + rand() % 2); // kecepatan random musuh
-        musuh[i].batasKiri = -10;
-        musuh[i].aktif = 1;
-    }
-}
 
 void aturAtributMusuh(Musuh *musuh)
 {
@@ -37,105 +24,163 @@ void aturAtributMusuh(Musuh *musuh)
     musuh->y = 10 + rand() % (TINGGI_LAYAR - musuh->h - 20);
 }
 
-void tipeMusuh(Musuh *musuh, int jumlahmusuh, int jumlahMusuhKuat)
-{
-    for (int i = 0; i < jumlahmusuh; i++)
-    {
-        if (jumlahMusuhKuat > 0 && (rand() % 100 < 50))
-        {
-            musuh[i].tipe = 1; // musuh kuat
-            jumlahMusuhKuat--;
-        }
-        else
-        {
-            musuh[i].tipe = 0; // musuh biasa
-        }
-        aturAtributMusuh(&musuh[i]);
+Musuh buatMusuh(int index, int* jumlahMusuhKuat) {
+    Musuh musuh;
+    musuh.x = LEBAR_LAYAR + index * 100;
+    musuh.y = 10 + (index % 5) * 80;
+    musuh.dx = -(2 + rand() % 2);
+    musuh.batasKiri = -10;
+    musuh.aktif = 1;
+
+    if (*jumlahMusuhKuat > 0 && rand() % 100 < 50) {
+        musuh.tipe = 1;
+        (*jumlahMusuhKuat)--;
+    } else {
+        musuh.tipe = 0;
+    }
+
+    aturAtributMusuh(&musuh);
+    return musuh;
+}
+
+void bikinMusuh(Musuh* musuh, int jumlah, int aktif) {
+    freeMusuh();
+    headMusuh = NULL;
+
+    int jumlahMusuhKuat;
+    if (waveterbaru >= 5) {
+        jumlahMusuhKuat = waveterbaru - 4;
+    } else {
+        jumlahMusuhKuat = 0;
+    }
+
+    if (jumlahMusuhKuat > jumlah / 3) jumlahMusuhKuat = jumlah / 3;
+
+    for (int i = 0; i < jumlah; i++) {
+        Musuh musuh = buatMusuh(i, &jumlahMusuhKuat);
+        tambahNodeMusuh(musuh);
     }
 }
 
-void bikinMusuh(Musuh *musuh, int jumlahmusuh, int aktif)
-{
-    // nentuin musuh berdasarkan wave
-    int jumlahMusuhKuat = 0;
-    if (waveterbaru >= 5)
-    {
-        jumlahMusuhKuat = waveterbaru - 4; // musuh kuat bertambah kalo wave bertambah
-        if (jumlahMusuhKuat > jumlahmusuh / 3)
-        {
-            jumlahMusuhKuat = jumlahmusuh / 3;
-        }
-    }
-    inisialisasiMusuh(musuh, jumlahmusuh);
-    tipeMusuh(musuh, jumlahmusuh, jumlahMusuhKuat);
-}
+void tambahNodeMusuh(Musuh musuh) {
+    NodeMusuh* newNode = (NodeMusuh*)malloc(sizeof(NodeMusuh));
+    newNode->data = musuh;
+    newNode->prev = NULL;
+    newNode->next = NULL;
 
-void gerakinMusuh(Musuh *musuh)
-{
-    for (int i = 0; i < jumlahmusuh; i++)
-    {
-        if (musuh[i].aktif)
-        {
-            musuh[i].x += musuh[i].dx; // gerak musuh yg kecepatan dx
-        }
+    if (headMusuh == NULL) {
+        headMusuh = newNode;
+    } else {
+        NodeMusuh* temp = headMusuh;
+        while (temp->next)
+            temp = temp->next;
+        temp->next = newNode;
+        newNode->prev = temp;
     }
 }
 
-void musuhKeluarLayar(Musuh *musuh)
+void hapusNodeMusuh(NodeMusuh* node) {
+    if (!node) return;
+
+    if (node->prev)
+        node->prev->next = node->next;
+    else
+        headMusuh = node->next;
+
+    if (node->next)
+        node->next->prev = node->prev;
+
+    free(node);
+}
+
+void freeMusuh() {
+    NodeMusuh* current = headMusuh;
+    while (current) {
+        NodeMusuh* temp = current;
+        current = current->next;
+        free(temp);
+    }
+    headMusuh = NULL;
+}
+
+void gerakinMusuh(Musuh* musuh) {
+    NodeMusuh* curr = headMusuh;
+    while (curr) {
+        if (curr->data.aktif)
+            curr->data.x += curr->data.dx;
+        curr = curr->next;
+    }
+}
+
+int musuhKeluarLayar(Musuh* musuh) 
 {
-    addressuser user = findUser(currentUsername);
-    for (int i = 0; i < jumlahmusuh; i++)
+    int countReset = 0;
+    NodeMusuh* curr = headMusuh;
+    while (curr) 
     {
-        if (musuh[i].x + musuh[i].w < 0)
+        if (curr->data.x + curr->data.w < 0) 
         {
-            if (musuh[i].tipe == 1)
-            {
-                user->score = kuranginskormusuhbesar(user->score);
+            if (curr->data.tipe == 1) {
+                point.skor = kuranginskormusuhbesar(point.skor);
+            } else {
+                point.skor = kuranginskor(point.skor);
             }
-            else
-            {
-                user->score = kuranginskor(user->score);
-            }
-            musuh[i].x = LEBAR_LAYAR + 10;
-            musuh[i].y = 10 + rand() % (TINGGI_LAYAR - musuh[i].h - 20);
+            
+            curr->data.x = LEBAR_LAYAR + 10;
+            curr->data.y = 10 + rand() % (TINGGI_LAYAR - curr->data.h - 20);
+            countReset++;
         }
+        curr = curr->next;
     }
+    return countReset;
 }
 
-void nabrakPeluru(Pesawat *pesawat, Musuh *musuh)
+int nabrakPeluru(Pesawat *pesawat, Musuh *musuh) 
 {
-    for (int i = 0; i < MAX_PELURU; i++)
+    int hitCount = 0;
+    PeluruNode* current = pesawat->peluruHead;
+    while (current) 
     {
-        if (!pesawat->peluru[i].nyala)
-            continue;
-
-        for (int j = 0; j < jumlahmusuh; j++)
+        PeluruNode* next = current->next;
+        if (current->info.nyala) 
         {
-            if (!musuh[j].aktif)
-                continue;
-
-            // ngecek kena peluru apa ngga
-            if (pesawat->peluru[i].x < musuh[j].x + musuh[j].w && pesawat->peluru[i].x + 10 > musuh[j].x &&
-                pesawat->peluru[i].y < musuh[j].y + musuh[j].h && pesawat->peluru[i].y + 4 > musuh[j].y)
+            NodeMusuh* musuhNode = headMusuh;
+            while (musuhNode) 
             {
-                efekNabrakPeluru(pesawat, musuh, i, j);
+                Musuh* musuh = &musuhNode->data;
+                if (!musuh->aktif) 
+                {
+                    musuhNode = musuhNode->next;
+                    continue;
+                }
+
+                if (current->info.x < musuh->x + musuh->w &&
+                    current->info.x + current->info.w > musuh->x &&
+                    current->info.y < musuh->y + musuh->h &&
+                    current->info.y + current->info.h > musuh->y) 
+                {
+                    efekNabrakPeluru(pesawat, musuh, 0, 0);
+                    hapusPeluruNode(pesawat, current);
+                    hitCount++;
+                    break;
+                }
+                musuhNode = musuhNode->next;
             }
         }
+        current = next;
     }
+    return hitCount;
 }
 
-void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int i, int j)
+void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int unused1, int unused2)
 {
-    // kurangi hp musuh
-    musuh[j].hp--;
-    // matiin musuh yg hp nya habis
-    if (musuh[j].hp <= 0)
+    musuh->hp--;
+    if (musuh->hp <= 0)
     {
-        musuh[j].aktif = 0;
+        musuh->aktif = 0;
         playEnemyDeathSound();
-        // tambah skor berdasarkan tipe musuh
-        addressuser user = findUser(currentUsername);
-        if (musuh[j].tipe == 1)
+
+        if (musuh->tipe == 1)
         {
             user->score = tambahskormusuhbesar(user->score);
         }
@@ -143,28 +188,31 @@ void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int i, int j)
         {
             user->score = tambahskor(user->score);
         }
-        cekhighskor(user);
+
+        cekhighskor(&point);
     }
-    pesawat->peluru[i].nyala = false;
 }
 
 void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh)
 {
-    for (int i = 0; i < jumlahmusuh; i++)
+    NodeMusuh* node = headMusuh;
+    while (node)
     {
-        if (musuh[i].aktif && pesawat->x < musuh[i].x + musuh[i].w && pesawat->x + pesawat->w > musuh[i].x &&
-            pesawat->y < musuh[i].y + musuh[i].h && pesawat->y + pesawat->h > musuh[i].y)
+        Musuh* musuh = &node->data;
+        if (musuh->aktif &&
+            pesawat->x < musuh->x + musuh->w &&
+            pesawat->x + pesawat->w > musuh->x &&
+            pesawat->y < musuh->y + musuh->h &&
+            pesawat->y + pesawat->h > musuh->y)
         {
-            if (musuh[i].tipe == 1)
-            {
-                pesawat->nyawa = pesawat->nyawa - 2;
+            if (musuh->tipe == 1) {
+                pesawat->nyawa -= 2;
+            } else {
+                pesawat->nyawa -= 1;
             }
-            else
-            {
-                pesawat->nyawa = pesawat->nyawa - 1;
-            }
+
             playPlayerHitSound();
-            musuh[i].aktif = 0;
+            musuh->aktif = 0;
 
             if (pesawat->nyawa <= 0)
             {
@@ -172,6 +220,7 @@ void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh)
                 return;
             }
         }
+        node = node->next;
     }
 }
 
@@ -207,32 +256,24 @@ void bikinGambarMusuh(SDL_Renderer *renderer, Musuh *musuh)
     SDL_Color warnaMataKuat = {255, 200, 0, 255};   // orange
     SDL_Color warnaDetailKuat = {0, 200, 255, 255}; // cyan
 
-    for (int i = 0; i < jumlahmusuh; i++)
+    NodeMusuh* node = headMusuh;
+    while (node)
     {
-        if (musuh[i].aktif)
+        Musuh* musuh = &node->data;
+        if (musuh->aktif)
         {
-            float x = musuh[i].x;
-            float y = musuh[i].y;
-            float w = musuh[i].w;
-            float h = musuh[i].h;
+            float x = musuh->x;
+            float y = musuh->y;
+            float w = musuh->w;
+            float h = musuh->h;
 
             float TengahanX = x + w / 2;
             float TengahanY = y + h / 2;
 
             // warna berdasarkan tipe musuh
-            SDL_Color currentTubuh, currentMata, currentDetail;
-            if (musuh[i].tipe == 1)
-            { // musuh kuat
-                currentTubuh = warnaTubuhKuat;
-                currentMata = warnaMataKuat;
-                currentDetail = warnaDetailKuat;
-            }
-            else
-            { // musuh biasa
-                currentTubuh = warnaTubuh;
-                currentMata = warnaMata;
-                currentDetail = warnaDetail;
-            }
+            SDL_Color currentTubuh = (musuh->tipe == 1) ? warnaTubuhKuat : warnaTubuh;
+            SDL_Color currentMata = (musuh->tipe == 1) ? warnaMataKuat : warnaMata;
+            SDL_Color currentDetail = (musuh->tipe == 1) ? warnaDetailKuat : warnaDetail;
 
             // kepala
             SDL_FRect kepala = {TengahanX - w * 0.4f, y + h * 0.1f, w * 0.8f, h * 0.5f};
@@ -252,9 +293,8 @@ void bikinGambarMusuh(SDL_Renderer *renderer, Musuh *musuh)
             SDL_RenderLine(renderer, TengahanX + w * 0.25f, y + h * 0.1f, TengahanX + w * 0.4f, y);
 
             // indikator hp musuh kuat
-            if (musuh[i].tipe == 1)
+            if (musuh->tipe == 1)
             {
-                // hp bar
                 float hpBarWidth = w * 0.8f;
                 float hpBarHeight = h * 0.05f;
                 float hpBarX = TengahanX - hpBarWidth / 2;
@@ -264,8 +304,7 @@ void bikinGambarMusuh(SDL_Renderer *renderer, Musuh *musuh)
                 SDL_SetRenderDrawColor(renderer, 50, 50, 50, 200);
                 SDL_RenderFillRect(renderer, &hpBarBg);
 
-                // isi hp bar berdasarkan sisa hp
-                float hpFill = (float)musuh[i].hp / 3.0f * hpBarWidth;
+                float hpFill = (float)musuh->hp / 3.0f * hpBarWidth;
                 SDL_FRect hpBarFill = {hpBarX, hpBarY, hpFill, hpBarHeight};
                 SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
                 SDL_RenderFillRect(renderer, &hpBarFill);
@@ -296,5 +335,7 @@ void bikinGambarMusuh(SDL_Renderer *renderer, Musuh *musuh)
             SDL_RenderLine(renderer, TengahanX - w * 0.3f, y + h * 0.17f, TengahanX - w * 0.1f, y + h * 0.23f);
             SDL_RenderLine(renderer, TengahanX + w * 0.1f, y + h * 0.23f, TengahanX + w * 0.3f, y + h * 0.18f);
         }
+
+        node = node->next;
     }
 }

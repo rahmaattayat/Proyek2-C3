@@ -3,7 +3,7 @@ CC = gcc
 
 # Flags
 CFLAGS = -Iinclude -Llib
-LDFLAGS = -lSDL3 -lSDL3_mixer
+LDFLAGS = -lSDL3 -lSDL3_mixer -lSDL3_ttf
 
 # Directories
 BUILD_DIR = build
@@ -25,7 +25,7 @@ OBJ_DIRS = $(sort $(dir $(OBJ)))
 TARGET = $(BUILD_DIR)/main.exe
 
 # DLL to copy
-DLL = $(BIN_DIR)/SDL3.dll $(BIN_DIR)/SDL3_mixer.dll
+DLL = $(BIN_DIR)/SDL3.dll $(BIN_DIR)/SDL3_mixer.dll $(BIN_DIR)/SDL3_ttf.dll
 
 # Default target
 all: $(TARGET)
