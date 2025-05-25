@@ -71,6 +71,7 @@ int nembak(Pesawat* pesawat)
     newNode->info.y = pesawat->y + pesawat->h / 2 - newNode->info.h / 2;
     newNode->info.dx = 15;
     newNode->info.nyala = true;
+    playShootSound();
 
     tambahPeluruNode(pesawat, newNode);
 
