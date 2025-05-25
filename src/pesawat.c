@@ -221,8 +221,9 @@ void bikinGambarPesawat(SDL_Renderer *renderer, Pesawat *pesawat)
 
 void tampilNyawa(SDL_Renderer *renderer, Pesawat *pesawat) 
 {
-    SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-    SDL_RenderDebugText(renderer, 20, 690, "LIVES:");
+    char text[64];
+    SDL_Color putih = {255, 255, 255, 255};
+    renderText(renderer, 20, 680, "LIVES: ", putih);
     
     int baseX = 135;
     int baseY = 693;
