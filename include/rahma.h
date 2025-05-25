@@ -8,7 +8,6 @@
 #include "gema.h"
 
 #define JENIS_MUSUH 2  // 0: musuh biasa, 1: musuh kuat
-extern int musuhAtribut[JENIS_MUSUH][3]; // [tipe][atribut] -> hp, width, height
 
 typedef struct {
     float x, y;       
@@ -21,8 +20,19 @@ typedef struct {
     int tipe;
 } Musuh;
 
-void inisialisasiMusuh(Musuh* musuh, int jumlahmusuh);
-void tipeMusuh(Musuh* musuh, int jumlahmusuh, int jumlahMusuhKuat);
+typedef struct NodeMusuh {
+    Musuh data;
+    struct NodeMusuh* prev;
+    struct NodeMusuh* next;
+} NodeMusuh;
+
+extern int musuhAtribut[JENIS_MUSUH][3]; // [tipe][atribut] -> hp, width, height
+extern NodeMusuh* headMusuh;
+
+void tambahNodeMusuh(Musuh musuh);
+void hapusNodeMusuh(NodeMusuh* node);
+void freeMusuh();
+
 void aturAtributMusuh(Musuh* musuh);
 void bikinMusuh(Musuh* musuh, int jumlahmusuh, int aktif);
 void gerakinMusuh(Musuh* musuh);
@@ -31,6 +41,7 @@ int musuhKeluarLayar(Musuh* musuh);
 int nabrakPeluru(Pesawat *pesawat, Musuh *musuh);
 void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh);
 void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int i, int j);
+
 void kelolaGameOver(SDL_Renderer *renderer);
 
 void bikinGambarMusuh(SDL_Renderer* renderer, Musuh* musuh);

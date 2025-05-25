@@ -9,17 +9,17 @@ int bonus = 1;
 
 void cekmusuh(Musuh *musuh)
 {
+    NodeMusuh* curr = headMusuh;
     bool semuaMusuhMati = true;
 
-    for (int i = 0; i < jumlahmusuh; i++)
-    {
-        if (musuh[i].aktif)
-        {
+    while (curr) {
+        if (curr->data.aktif) {
             semuaMusuhMati = false;
             return;
         }
+        curr = curr->next;
     }
-    updatewave(musuh);
+    updatewave(NULL);
 }
 
 void updatewave(Musuh *musuh)

@@ -15,7 +15,7 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 Pesawat pesawat;
 Background background;
-Musuh musuh[MAX_MUSUH];
+Musuh* musuh = NULL; 
 Menu menu;
 
 statusGame state = STATE_MENU;
