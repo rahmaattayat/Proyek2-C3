@@ -15,7 +15,7 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 Pesawat pesawat;
 Background background;
-Musuh musuh[MAX_MUSUH];
+Musuh* musuh = NULL; 
 Menu menu;
 
 statusGame state = STATE_MENU;
@@ -35,6 +35,8 @@ void mulai()
 
     initAudio();
     playMusic(menuMusic);
+
+    initTTF();
 
     // inisiasi value record point untuk skor
     point.skor = 0;
@@ -133,7 +135,7 @@ void restartGame()
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
     bonus = 1;
 
-    freeListSuplai();
+    clearSuplai();
 }
 
 void handleMenuInput()
@@ -252,10 +254,12 @@ int SDL_main(int argc, char *argv[])
         SDL_Delay(16);
     }
     hapusTeksturSuplai();
-    freeListSuplai();
+    clearSuplai();
 
     stopMusic();
     closeAudio();
+
+    cleanupTTF();
 
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(window);
