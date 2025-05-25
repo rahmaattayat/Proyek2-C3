@@ -7,7 +7,11 @@
 void tampilskor(SDL_Renderer *renderer)
 {
     addressuser user = findUser(currentUsername);
-    if (!user) return;
+    if (!user) 
+    {
+        printf("User tidak ditemukan jadi skor tidak ditampilkan\n");
+        return;
+    }
 
     // Tentukan posisi kotak skor
     SDL_FRect kotakSkor = {0, 0, 300, 20};
@@ -64,66 +68,7 @@ void cekhighskor(addressuser user)
     {
         user->hskor = user->score;
     }
-    // if (point->skor > point->highskor)
-    // {
-    //     point->highskor = point->skor;
-    //     addressuser user = findUser(currentUsername);
-    //     if (user) 
-    //     {
-    //         user->hskor = point->highskor;
-    //     }
-    // }
 }
-
-// Fungsi untuk memuat high score dari file
-//void loadhighskor(nilai *point)
-//{
-    // FILE *file = fopen("src/highskor.dat", "r");
-    // if (file)
-    // {
-    //     if (fscanf(file, "%d", &point->highskor) != 1)
-    //     {
-    //         printf("Gagal membaca high score dari file!\n");
-    //         point->highskor = 0;
-    //     }
-    //     fclose(file);
-    // }
-    // else
-    // {
-    //     printf("File highskor.dat tidak ditemukan!\n");
-    //     point->highskor = 0;
-    // }
-    // addressuser user = findUser(currentUsername);
-    // if(user)
-    // {
-    //     point->skor = user->hskor;
-    // }
-    // else
-    // {
-    //     point->skor = 0;
-    // }
-//}
-
-// Fungsi untuk menyimpan high score ke file
-// void simpanhighskor(nilai *point)
-// {
-//     // FILE *file = fopen("src/highskor.dat", "w");
-//     // if (file)
-//     // {
-//     //     fprintf(file, "%d", point->highskor);
-//     //     fclose(file);
-//     //     printf("High score berhasil disimpan!\n");
-//     // }
-//     // else
-//     // {
-//     //     printf("Error menyimpan high score");
-//     // }
-//     addressuser user = findUser(currentUsername);
-//     if (user && point->highskor > user->hskor) {
-//         user->hskor = point->highskor;
-//     }
-//     sortLeaderboard();
-// }
 
 void gameover(SDL_Renderer *renderer, addressuser user)
 {

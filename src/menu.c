@@ -116,14 +116,13 @@ void renderTombolMenu(Menu *menu)
 
 void renderMenu(Menu *menu, const Background *background)
 {
-    addressuser user = findUser(currentUsername);
     renderBackground(background, renderer);
 
     teksRenderTengah("C3 - SPACE INVADERS", 120, 3.0f, (SDL_Color){255, 255, 0, 255});
 
-    char teksHighSkor[50];
-    snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", user->hskor);
-    teksRenderTengah(teksHighSkor, 180, 1.5f, (SDL_Color){255, 255, 0, 255});
+    // char teksHighSkor[50];
+    // snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", user->hskor);
+    // teksRenderTengah(teksHighSkor, 180, 1.5f, (SDL_Color){255, 255, 0, 255});
 
     renderTombolMenu(menu);
 }
