@@ -21,11 +21,14 @@ Menu menu;
 statusGame state = STATE_MENU;
 bool gameBerjalan = true;
 
-nilai point;
-// user pilot;
+char inputBuffer[50] = "";
+int inputLength = 0;
 
 int rentangMinimum = 30;
 int rentangMaksimum = 40;
+
+addressuser headuser = NULL;
+addressuser tailuser = NULL;
 
 void mulai()
 {
@@ -38,9 +41,7 @@ void mulai()
 
     initTTF();
 
-    // inisiasi value record point untuk skor
-    point.skor = 0;
-    loadhighskor(&point);
+    loadLeaderboard();
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
@@ -116,7 +117,7 @@ void renderGame()
     bikinGambarPeluru(renderer, &pesawat);
     bikinGambarMusuh(renderer, musuh);
     renderSuplai(renderer);
-    tampilskor(renderer, &point);
+    tampilskor(renderer);
     tampilNyawa(renderer, &pesawat);
     tampilAmunisi(renderer, &pesawat);
     tampilkanWave(renderer);
@@ -126,8 +127,8 @@ void renderGame()
 
 void restartGame()
 {
-    point.skor = 0;
-    loadhighskor(&point);
+    addressuser user = findUser(currentUsername);
+    if (user) user->score = 0;
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
@@ -157,10 +158,15 @@ void handleMenuInput()
             {
                 if (TombolHover(&menu.tombolPlay, x, y))
                 {
+                    // playClickSound();
+                    // playMusic(gameMusic);
+                    // state = STATE_GAME;
+                    // restartGame();
                     playClickSound();
-                    playMusic(gameMusic);
-                    state = STATE_GAME;
-                    restartGame();
+                    SDL_StartTextInput(window);  // mulai input teks SDL
+                    inputBuffer[0] = '\0';
+                    inputLength = 0;
+                    state = STATE_USERINPUT;
                 }
                 else if (TombolHover(&menu.tombolAbout, x, y))
                 {
@@ -182,11 +188,56 @@ void handleMenuInput()
     }
 }
 
+void handleInputUsername() {
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_EVENT_QUIT) {
+            gameBerjalan = false;
+        } else if (event.type == SDL_EVENT_KEY_DOWN) {
+            SDL_Scancode sc = event.key.scancode;
+            if (sc == SDL_SCANCODE_RETURN || sc == SDL_SCANCODE_KP_ENTER) {
+                strncpy(currentUsername, inputBuffer, sizeof(currentUsername));
+                currentUsername[sizeof(currentUsername) - 1] = '\0';
+
+                addressuser existing = findUser(currentUsername);
+                if (!existing) {
+                    insertUser(currentUsername, 0, 0);
+                }
+                SDL_StopTextInput(window); 
+                playMusic(gameMusic);
+                state = STATE_GAME;
+                restartGame();
+                inputBuffer[0] = '\0';
+                inputLength = 0;
+            } else if (sc == SDL_SCANCODE_BACKSPACE && inputLength > 0) {
+                inputBuffer[--inputLength] = '\0';
+            }
+        } else if (event.type == SDL_EVENT_TEXT_INPUT) {
+            if (inputLength < sizeof(inputBuffer) - 1) {
+                strcat(inputBuffer, event.text.text);
+                inputLength++;
+            }
+        }
+    }
+}
+
+void renderInputUsername(SDL_Renderer *renderer) 
+{
+    SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
+    SDL_RenderClear(renderer);
+
+    teksRenderTengah("MASUKKAN USERNAME", 180, 2.5f, (SDL_Color){255, 255, 0, 255});
+    teksRenderTengah(inputBuffer, 260, 2.0f, (SDL_Color){255, 255, 255, 255});
+    teksRenderTengah("Tekan ENTER untuk lanjut", 350, 1.0f, (SDL_Color){200, 200, 200, 255});
+
+    SDL_RenderPresent(renderer);
+}
+
 void buatMenu()
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
-    renderMenu(&menu, &background, &point);
+    renderMenu(&menu, &background);
     SDL_RenderPresent(renderer);
 }
 
@@ -238,6 +289,10 @@ int SDL_main(int argc, char *argv[])
             updateBackground(&background, 1.0f);
             buatMenu();
             break;
+        case STATE_USERINPUT:
+            handleInputUsername();
+            renderInputUsername(renderer);            
+            break;
         case STATE_GAME:
             cekInput();
             updateGame();
@@ -255,7 +310,8 @@ int SDL_main(int argc, char *argv[])
     }
     hapusTeksturSuplai();
     clearSuplai();
-
+    saveLeaderboard();
+    freeLeaderboard();
     stopMusic();
     closeAudio();
 

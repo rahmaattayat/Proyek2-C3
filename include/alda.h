@@ -6,32 +6,27 @@
 #include <SDL3/SDL_mixer.h>
 #include "config.h"
 
-typedef struct
+typedef struct tuser *addressuser;
+typedef struct tuser
 {
-    int skor;
-    int highskor;
-} nilai;
+    addressuser prevuser;
+    char username[50];
+    int score;
+    int hskor;
+    addressuser nextuser;
+} user;
 
-// typedef struct tuser *address;
-// typedef struct tuser
-// {
-//     address prev;
-//     char *username;
-//     int hskor;
-//     address next;
-// }user;
+extern addressuser headuser;
+extern addressuser tailuser;
+extern char currentUsername[50];
 
-extern nilai point;
-// extern user pilot;
 
 #include "gema.h"
-void tampilskor(SDL_Renderer *renderer, nilai *point);
+void tampilskor(SDL_Renderer *renderer);
 int tambahskormusuhbesar(int skor);
 int tambahskor(int skor);
-void cekhighskor(nilai *point);
-void loadhighskor(nilai *point);
-void simpanhighskor(nilai *point);
-void gameover(SDL_Renderer *renderer, nilai *point);
+void cekhighskor(addressuser user);
+void gameover(SDL_Renderer *renderer, addressuser user);
 
 extern Mix_Music *menuMusic;
 extern Mix_Music *gameMusic;
@@ -50,4 +45,10 @@ void playPlayerHitSound();
 void stopMusic();
 void closeAudio();
 
+void loadLeaderboard();
+void saveLeaderboard();
+void freeLeaderboard();
+void insertUser(const char *username, int score, int hskor);
+addressuser findUser(const char *username);
+void sortLeaderboard();
 #endif // ALDA_H

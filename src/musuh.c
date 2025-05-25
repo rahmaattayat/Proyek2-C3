@@ -114,6 +114,7 @@ void gerakinMusuh(Musuh* musuh) {
 
 int musuhKeluarLayar(Musuh* musuh) 
 {
+    addressuser user = findUser(currentUsername);
     int countReset = 0;
     NodeMusuh* curr = headMusuh;
     while (curr) 
@@ -121,9 +122,9 @@ int musuhKeluarLayar(Musuh* musuh)
         if (curr->data.x + curr->data.w < 0) 
         {
             if (curr->data.tipe == 1) {
-                point.skor = kuranginskormusuhbesar(point.skor);
+                user->score = kuranginskormusuhbesar(user->score);
             } else {
-                point.skor = kuranginskor(point.skor);
+                user->score = kuranginskor(user->score);
             }
             
             curr->data.x = LEBAR_LAYAR + 10;
@@ -179,17 +180,19 @@ void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int unused1, int unused2)
     {
         musuh->aktif = 0;
         playEnemyDeathSound();
-
-        if (musuh->tipe == 1)
+        addressuser user = findUser(currentUsername);
+        if(user)
         {
-            point.skor = tambahskormusuhbesar(point.skor);
+            if (musuh->tipe == 1)
+            {
+                user->score = tambahskormusuhbesar(user->score);
+            }
+            else
+            {
+                user->score = tambahskor(user->score);
+            }
+            cekhighskor(user);
         }
-        else
-        {
-            point.skor = tambahskor(point.skor);
-        }
-
-        cekhighskor(&point);
     }
 }
 
@@ -226,12 +229,14 @@ void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh)
 
 void kelolaGameOver(SDL_Renderer *renderer)
 {
+    addressuser user = findUser(currentUsername);
     playMusic(gameOverMusic);
-    gameover(renderer, &point);
-    simpanhighskor(&point);
+    gameover(renderer, user);
+    sortLeaderboard();
 
     // reset skor untuk game berikutnya
-    point.skor = 0;
+    if (user) user->score = 0;
+    
     // tunda 2 detik
     SDL_Delay(4000);
     // ubah state ke menu

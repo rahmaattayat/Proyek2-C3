@@ -9,6 +9,7 @@
 typedef enum
 {
     STATE_MENU,
+    STATE_USERINPUT,
     STATE_GAME,
     STATE_ABOUT,
     STATE_TUTORIAL
