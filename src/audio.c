@@ -1,6 +1,6 @@
 #include "alda.h"
 #include <SDL3/SDL_mixer.h>
-
+//deklarasi pointer untuk musik dan efek suara
 Mix_Music *menuMusic = NULL;
 Mix_Music *gameMusic = NULL;
 Mix_Music *gameOverMusic = NULL;
@@ -10,6 +10,7 @@ Mix_Chunk *clickSound = NULL;
 Mix_Chunk *enemyDeathSound = NULL;
 Mix_Chunk *playerHitSound = NULL;
 
+// Fungsi inisialisasi SDL_mixer dan memuat musik serta efek suara
 void initAudio() {
     // Inisialisasi SDL_mixer
     if (Mix_Init(MIX_INIT_MP3) == 0)
@@ -17,7 +18,7 @@ void initAudio() {
         printf("SDL_mixer could not initialize! SDL_mixer Error: %s\n", SDL_GetError());
         return;
     }
-
+    
     if (!Mix_OpenAudio(0, NULL)) 
     { 
         printf("SDL_mixer could not open audio! SDL_mixer Error: %s\n", SDL_GetError());
@@ -35,20 +36,23 @@ void initAudio() {
     enemyDeathSound = Mix_LoadWAV("assets/audio/enemy_death.wav");
     playerHitSound = Mix_LoadWAV("assets/audio/player_hit.wav");
 
+    // Cek apakah semua file audio berhasil dimuat
     if (!menuMusic || !gameMusic || !gameOverMusic ||!shootSound || !clickSound || !enemyDeathSound || !playerHitSound) 
     {
         printf("Failed to load audio files: %s\n", SDL_GetError());
     }
 }
 
+// Fungsi memutar musik yang diberikan di parameter
 void playMusic(Mix_Music *music) 
 {
+    // Cek apakah musik yang diberikan tidak NULL
     if (!music) 
     {
         printf("Music file is NULL! Cannot play.\n");
         return;
     }
-
+    
     Mix_HaltMusic();
 
     // Putar musik menu
@@ -57,20 +61,32 @@ void playMusic(Mix_Music *music)
         printf("Failed to play menu music! SDL_mixer Error: %s\n", SDL_GetError());
     }
 }
-
-void playShootSound() { Mix_PlayChannel(-1, shootSound, 0); }
-
-void playClickSound() { Mix_PlayChannel(-1, clickSound, 0); }
-
-void playEnemyDeathSound() { Mix_PlayChannel(-1, enemyDeathSound, 0); }
-
-void playPlayerHitSound() { Mix_PlayChannel(-1, playerHitSound, 0); }
-
-void stopMusic() {
-    // Hentikan musik yang sedang diputar
+// Fungsi memutar sound efek tembakan
+void playShootSound() 
+{ 
+    Mix_PlayChannel(-1, shootSound, 0); 
+}
+// Fungsi memutar sound efek klik button menu
+void playClickSound() 
+{
+    Mix_PlayChannel(-1, clickSound, 0); 
+}
+// Fungsi memutar sound efek kematian musuh
+void playEnemyDeathSound() 
+{
+    Mix_PlayChannel(-1, enemyDeathSound, 0); 
+}
+// Fungsi memutar sound efek ketika player bertabrakan dengan musuh
+void playPlayerHitSound() 
+{
+    Mix_PlayChannel(-1, playerHitSound, 0); 
+}
+// fungsi untuk menghentikan musik yang sedang diputar
+void stopMusic() 
+{
     Mix_HaltMusic();
 }
-    
+// Fungsi untuk menutup audio dan membebaskan sumber daya
 void closeAudio() 
 {// Bebaskan musik dan tutup SDL_mixer
         Mix_FreeMusic(menuMusic);
