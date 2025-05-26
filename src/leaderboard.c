@@ -1,9 +1,9 @@
 #include <string.h>
 #include "alda.h"
 #include "gema.h"
-
+//deklarasi awal untuk variable currentUsername
 char currentUsername[50] = "";
-
+// Fungsi untuk membuka file leaderboard.dat dan memanggil fungsi insertUser
 void loadLeaderboard() 
 {
     FILE *file = fopen("src/leaderboard.dat", "r");
@@ -24,7 +24,7 @@ void loadLeaderboard()
         fclose(file);
     }
 }
-
+// Fungsi untuk memasukkan user baru ke dalam linked list
 void insertUser(const char *username, int score, int hskor) 
 {
     int count = 0;
@@ -64,7 +64,7 @@ void insertUser(const char *username, int score, int hskor)
         tailuser = newUser;
     }
 }
-
+// Fungsi untuk mencari user berdasarkan username
 addressuser findUser(const char *username) 
 {
     addressuser current = headuser;
@@ -78,7 +78,7 @@ addressuser findUser(const char *username)
     }
     return NULL;
 }
-
+// Fungsi untuk mengurutkan linkedlist berdasarkan highskor tertinggi
 void sortLeaderboard() {
     if (headuser == NULL || headuser->nextuser == NULL) return;
 
@@ -134,7 +134,7 @@ void sortLeaderboard() {
         last = current;
     } while (swapped);
 }
-
+// Fungsi untuk menyimpan data pemain dari linked list ke file leaderboard.dat
 void saveLeaderboard() 
 {
     FILE *file = fopen("src/leaderboard.dat", "w");
@@ -157,7 +157,7 @@ void saveLeaderboard()
         fclose(file);
     }
 }
-
+// Fungsi untuk membebaskan memori yang digunakan oleh linked list
 void freeLeaderboard() 
 {
     addressuser current = headuser;

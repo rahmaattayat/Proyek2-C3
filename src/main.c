@@ -20,16 +20,17 @@ Menu menu;
 
 statusGame state = STATE_MENU;
 bool gameBerjalan = true;
-
+// deklarasi awal variable untuk input username
 char inputBuffer[50] = "";
 int inputLength = 0;
 
 int rentangMinimum = 30;
 int rentangMaksimum = 40;
-
+// deklarasi awal pointer yang menunjuk awal dan akhir linked list
 addressuser headuser = NULL;
 addressuser tailuser = NULL;
 
+// fungsi untuk apa yang harus dilakukan saat program dimulai
 void mulai()
 {
     SDL_Init(SDL_INIT_VIDEO);
@@ -38,9 +39,7 @@ void mulai()
 
     initAudio();
     playMusic(menuMusic);
-
     initTTF();
-
     loadLeaderboard();
 
     bikinPesawat(&pesawat);
@@ -53,7 +52,7 @@ void mulai()
     waktuTerakhirSuplai = SDL_GetTicks();
     rentangSpawnSuplai = (rand() % (rentangMaksimum - rentangMinimum + 1) + rentangMinimum) * 1000;
 }
-
+// fungsi untuk mengelola input dari pengguna saat game
 void cekInput()
 {
     SDL_Event event;
@@ -84,7 +83,7 @@ void cekInput()
     gerakinPesawat(&pesawat, keyboard, spasi_dipencet && !spasi_sebelumnya);
 }
 
-// Update objek game
+// fungsi untuk update objek game
 void updateGame()
 {
     updatePesawat(&pesawat);
@@ -107,7 +106,7 @@ void updateGame()
         rentangSpawnSuplai = (rand() % (rentangMaksimum - rentangMinimum + 1) + rentangMinimum) * 1000;
     }
 }
-
+// fungsi untuk render objek game
 void renderGame()
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
@@ -124,7 +123,7 @@ void renderGame()
 
     SDL_RenderPresent(renderer);
 }
-
+// fungsi untuk mereset game
 void restartGame()
 {
     addressuser user = findUser(currentUsername);
@@ -138,7 +137,7 @@ void restartGame()
 
     clearSuplai();
 }
-
+// fungsi untuk mengelola input dari menu
 void handleMenuInput()
 {
     SDL_Event event;
@@ -187,7 +186,7 @@ void handleMenuInput()
         }
     }
 }
-
+// fungsi untuk menangani input username dan masuk ke state game
 void handleInputUsername() {
     SDL_Event event;
     while (SDL_PollEvent(&event)) {
@@ -220,7 +219,7 @@ void handleInputUsername() {
         }
     }
 }
-
+// fungsi untuk tampilan input username
 void renderInputUsername(SDL_Renderer *renderer) 
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
@@ -232,7 +231,7 @@ void renderInputUsername(SDL_Renderer *renderer)
 
     SDL_RenderPresent(renderer);
 }
-
+// fungsi untuk merender menu
 void buatMenu()
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
@@ -240,7 +239,7 @@ void buatMenu()
     renderMenu(&menu, &background);
     SDL_RenderPresent(renderer);
 }
-
+// fungsi untuk menangani input pada halaman About
 void inputAbout()
 {
     SDL_Event event;
@@ -257,7 +256,7 @@ void inputAbout()
     }
     renderAbout();
 }
-
+// fungsi untuk menangani input pada halaman Tutorial
 void inputTutorial()
 {
     SDL_Event event;
@@ -274,7 +273,7 @@ void inputTutorial()
     }
     renderTutorial();
 }
-
+// fungsi utama yang menjalankan game
 int SDL_main(int argc, char *argv[])
 {
     srand(time(NULL));

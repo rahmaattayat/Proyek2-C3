@@ -3,7 +3,7 @@
 #include <SDL3/SDL.h>
 #include "alda.h"
 #include "fairuz.h"
-
+//fungsi untuk menampilkan skor dan highskor di layar saat game berjalan
 void tampilskor(SDL_Renderer *renderer)
 {
     addressuser user = findUser(currentUsername);
@@ -41,26 +41,27 @@ void tampilskor(SDL_Renderer *renderer)
     SDL_RenderDebugText(renderer, posXSkor, posYSkor, teksSkor);
     SDL_RenderDebugText(renderer, posXHighSkor, posYHighSkor, teksHighSkor);
 }
-
+// Fungsi untuk menambahkan skor ketika musuh besar dikalahkan
 int tambahskormusuhbesar (int skor)
 {
     return skor + 30 * bonus;
 }
+// Fungsi untuk menambahkan skor ketika musuh kecil dikalahkan
 int tambahskor (int skor)
 {
     return skor + 10 * bonus;
 }
-
+// Fungsi untuk mengurangi skor ketika musuh kecil keluar layar
 int kuranginskor(int skor)
 {
     return skor - 10;
 }
-
+// Fungsi untuk mengurangi skor ketika musuh besar keluar layar
 int kuranginskormusuhbesar(int skor)
 {
     return skor - 30;
 }
-
+// Fungsi untuk mengecek dan memperbarui high skor
 void cekhighskor(addressuser user)
 {
     if (!user) return;
@@ -69,7 +70,7 @@ void cekhighskor(addressuser user)
         user->hskor = user->score;
     }
 }
-
+// Fungsi untuk tampilkan game over
 void gameover(SDL_Renderer *renderer, addressuser user)
 {
     // // Hentikan layar game
