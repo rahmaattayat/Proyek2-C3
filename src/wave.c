@@ -1,17 +1,20 @@
 #include "fairuz.h"
 #include <SDL3/SDL.h>
 #include "rahma.h"
+#include "ihsan.h"
 
 int waveterbaru = 1;
 int bonus = 1;
 
 void cekmusuh(Musuh *musuh)
 {
-    NodeMusuh* curr = headMusuh;
+    NodeMusuh *curr = headMusuh;
     bool semuaMusuhMati = true;
 
-    while (curr) {
-        if (curr->data.aktif) {
+    while (curr)
+    {
+        if (curr->data.aktif)
+        {
             semuaMusuhMati = false;
             return;
         }
@@ -27,7 +30,7 @@ void updatewave(Musuh *musuh)
         (waveterbaru)++;
 
         bonuswave(waveterbaru);
-        jumlahmusuh = tambahmusuh (jumlahmusuh,waveterbaru);
+        jumlahmusuh = tambahmusuh(jumlahmusuh, waveterbaru);
 
         if (jumlahmusuh > MAX_MUSUH)
         {
@@ -41,19 +44,20 @@ void updatewave(Musuh *musuh)
 void tampilkanWave(SDL_Renderer *renderer)
 {
     char teksWave[20];
+    SDL_Color warnaTeksWave;
 
     if (bonus == 2) // Jika sedang Bonus Wave
     {
         sprintf(teksWave, "BONUS WAVE!");
-        SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+        warnaTeksWave = (SDL_Color){255, 0, 0, 255};
     }
     else
     {
         sprintf(teksWave, "WAVE %d", waveterbaru);
-        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+        warnaTeksWave = (SDL_Color){255, 255, 0, 255};
     }
 
-    SDL_RenderDebugText(renderer, (LEBAR_LAYAR / 2) - 40, 22, teksWave);
+    renderText(renderer, (LEBAR_LAYAR / 2) - 40, 22, teksWave, 1.0f, warnaTeksWave);
 }
 
 int tambahmusuh(int jumlahmusuh, int waveterbaru)

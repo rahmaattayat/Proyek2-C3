@@ -15,7 +15,7 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 Pesawat pesawat;
 Background background;
-Musuh* musuh = NULL; 
+Musuh *musuh = NULL;
 Menu menu;
 
 statusGame state = STATE_MENU;
@@ -127,7 +127,8 @@ void renderGame()
 void restartGame()
 {
     addressuser user = findUser(currentUsername);
-    if (user) user->score = 0;
+    if (user)
+        user->score = 0;
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
@@ -157,12 +158,8 @@ void handleMenuInput()
             {
                 if (TombolHover(&menu.tombolPlay, x, y))
                 {
-                    // playClickSound();
-                    // playMusic(gameMusic);
-                    // state = STATE_GAME;
-                    // restartGame();
                     playClickSound();
-                    SDL_StartTextInput(window);  // mulai input teks SDL
+                    SDL_StartTextInput(window); // mulai input teks SDL
                     inputBuffer[0] = '\0';
                     inputLength = 0;
                     state = STATE_USERINPUT;
@@ -187,32 +184,44 @@ void handleMenuInput()
     }
 }
 // fungsi untuk menangani input username dan masuk ke state game
-void handleInputUsername() {
+void handleInputUsername()
+{
     SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_EVENT_QUIT) {
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_EVENT_QUIT)
+        {
             gameBerjalan = false;
-        } else if (event.type == SDL_EVENT_KEY_DOWN) {
+        }
+        else if (event.type == SDL_EVENT_KEY_DOWN)
+        {
             SDL_Scancode sc = event.key.scancode;
-            if (sc == SDL_SCANCODE_RETURN || sc == SDL_SCANCODE_KP_ENTER) {
+            if (sc == SDL_SCANCODE_RETURN || sc == SDL_SCANCODE_KP_ENTER)
+            {
                 strncpy(currentUsername, inputBuffer, sizeof(currentUsername));
                 currentUsername[sizeof(currentUsername) - 1] = '\0';
 
                 addressuser existing = findUser(currentUsername);
-                if (!existing) {
+                if (!existing)
+                {
                     insertUser(currentUsername, 0, 0);
                 }
-                SDL_StopTextInput(window); 
+                SDL_StopTextInput(window);
                 playMusic(gameMusic);
                 state = STATE_GAME;
                 restartGame();
                 inputBuffer[0] = '\0';
                 inputLength = 0;
-            } else if (sc == SDL_SCANCODE_BACKSPACE && inputLength > 0) {
+            }
+            else if (sc == SDL_SCANCODE_BACKSPACE && inputLength > 0)
+            {
                 inputBuffer[--inputLength] = '\0';
             }
-        } else if (event.type == SDL_EVENT_TEXT_INPUT) {
-            if (inputLength < sizeof(inputBuffer) - 1) {
+        }
+        else if (event.type == SDL_EVENT_TEXT_INPUT)
+        {
+            if (inputLength < sizeof(inputBuffer) - 1)
+            {
                 strcat(inputBuffer, event.text.text);
                 inputLength++;
             }
@@ -220,14 +229,25 @@ void handleInputUsername() {
     }
 }
 // fungsi untuk tampilan input username
-void renderInputUsername(SDL_Renderer *renderer) 
+void renderInputUsername(SDL_Renderer *renderer)
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
 
-    teksRenderTengah("MASUKKAN USERNAME", 180, 2.5f, (SDL_Color){255, 255, 0, 255});
-    teksRenderTengah(inputBuffer, 260, 2.0f, (SDL_Color){255, 255, 255, 255});
-    teksRenderTengah("Tekan ENTER untuk lanjut", 350, 1.0f, (SDL_Color){200, 200, 200, 255});
+    // Adjust positions to center text with scaling
+    float scale1 = 2.5f;
+    float scale2 = 2.0f;
+    float scale3 = 1.0f;
+    int width, height;
+
+    getTextSize("MASUKKAN USERNAME", scale1, &width, &height);
+    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 180, "MASUKKAN USERNAME", scale1, (SDL_Color){255, 255, 0, 255});
+
+    getTextSize(inputBuffer, scale2, &width, &height);
+    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 260, inputBuffer, scale2, (SDL_Color){255, 255, 255, 255});
+
+    getTextSize("Tekan ENTER untuk lanjut", scale3, &width, &height);
+    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 350, "Tekan ENTER untuk lanjut", scale3, (SDL_Color){200, 200, 200, 255});
 
     SDL_RenderPresent(renderer);
 }
@@ -290,7 +310,7 @@ int SDL_main(int argc, char *argv[])
             break;
         case STATE_USERINPUT:
             handleInputUsername();
-            renderInputUsername(renderer);            
+            renderInputUsername(renderer);
             break;
         case STATE_GAME:
             cekInput();
