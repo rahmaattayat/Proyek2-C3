@@ -43,6 +43,7 @@ void mulai()
     loadLeaderboard();
 
     bikinPesawat(&pesawat);
+    addWave(&headWave, 1);
     jumlahmusuh = 5;
     bikinMusuh(musuh, jumlahmusuh, 1);
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);

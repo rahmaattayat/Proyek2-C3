@@ -1,33 +1,51 @@
 #include "fairuz.h"
 #include <SDL3/SDL.h>
 #include "rahma.h"
+#include <stdlib.h>
 
-int waveterbaru = 1;
 int bonus = 1;
+Node *headWave = NULL;
+
+int getLastWaveNumber(Node *head)
+{
+    if (head == NULL)
+        return 0;
+    Node *temp = head;
+    while (temp->next != NULL)
+    {
+        temp = temp->next;
+    }
+    return temp->waveNumber;
+}
 
 void cekmusuh(Musuh *musuh)
 {
-    NodeMusuh* curr = headMusuh;
+    NodeMusuh *curr = headMusuh;
     bool semuaMusuhMati = true;
 
-    while (curr) {
-        if (curr->data.aktif) {
+    while (curr)
+    {
+        if (curr->data.aktif)
+        {
             semuaMusuhMati = false;
             return;
         }
         curr = curr->next;
     }
-    updatewave(NULL);
+    updatewave(musuh);
 }
 
 void updatewave(Musuh *musuh)
 {
-    if (waveterbaru < MAX_WAVE - 1)
-    {
-        (waveterbaru)++;
+    int lastWave = getLastWaveNumber(headWave);
 
-        bonuswave(waveterbaru);
-        jumlahmusuh = tambahmusuh (jumlahmusuh,waveterbaru);
+    if (lastWave < MAX_WAVE - 1)
+    {
+        int newWave = lastWave + 1;
+        addWave(&headWave, newWave);
+
+        bonuswave(newWave);
+        jumlahmusuh = tambahmusuh(jumlahmusuh, newWave);
 
         if (jumlahmusuh > MAX_MUSUH)
         {
@@ -41,36 +59,37 @@ void updatewave(Musuh *musuh)
 void tampilkanWave(SDL_Renderer *renderer)
 {
     char teksWave[20];
+    int currentWave = getLastWaveNumber(headWave);
 
-    if (bonus == 2) // Jika sedang Bonus Wave
+    if (bonus == 2)
     {
         sprintf(teksWave, "BONUS WAVE!");
         SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
     }
     else
     {
-        sprintf(teksWave, "WAVE %d", waveterbaru);
+        sprintf(teksWave, "WAVE %d", currentWave);
         SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
     }
 
     SDL_RenderDebugText(renderer, (LEBAR_LAYAR / 2) - 40, 22, teksWave);
 }
 
-int tambahmusuh(int jumlahmusuh, int waveterbaru)
+int tambahmusuh(int jumlahmusuh, int waveNumber)
 {
-    return jumlahmusuh + waveterbaru;
+    return jumlahmusuh + waveNumber;
 }
 
-void bonuswave(int waveterbaru)
+void bonuswave(int waveNumber)
 {
-    if (waveterbaru % 5 == 0)
+    if (waveNumber % 5 == 0)
     {
-        bonus = 2; // Poin dikali 2
+        bonus = 2;
         SDL_Log("BONUS WAVE! Semua poin digandakan!");
     }
     else
     {
-        bonus = 1; // Normal wave
+        bonus = 1;
     }
 }
 
@@ -94,4 +113,18 @@ void addWave(Node **head, int waveNumber)
         }
         temp->next = newNode;
     }
+}
+
+void freeWaves(Node *head)
+{
+    Node *current = head;
+    while (current != NULL)
+    {
+        Node *next = current->next;
+        free(current);
+        current = next;
+    }
+
+    // Setelah semua node dihapus, set pointer global ke NULL
+    headWave = NULL;
 }
