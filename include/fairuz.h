@@ -10,10 +10,13 @@
 
 #define MAX_MUSUH 10000
 #define MAX_WAVE 1000
+typedef struct Node Node;  // bilang ke compiler bahwa Node itu tipe struct yang akan didefinisikan nanti
 
-extern int waveterbaru;
+
 extern int jumlahmusuh;
 extern int bonus;
+extern Node *headWave; // Linked list wave harus dideklarasikan di file lain, misal fairuz.c
+
 
 typedef struct Node
 {
@@ -23,6 +26,8 @@ typedef struct Node
 
 void addWave(Node **head, int waveNumber);
 void freeWaves(Node *head);
+int getLastWaveNumber(Node *head);
+
 
 // Fungsi lainnya
 void updatewave(Musuh *musuh);
