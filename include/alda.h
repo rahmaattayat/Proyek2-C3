@@ -38,7 +38,7 @@ extern Mix_Chunk *enemyDeathSound;
 extern Mix_Chunk *playerHitSound;
 //protoype fungsi yang mengatur musik dan suara
 void initAudio();
-void playMusic();
+void playMusic(Mix_Music *music);
 void playShootSound();
 void playClickSound();
 void playEnemyDeathSound();
