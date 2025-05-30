@@ -76,4 +76,8 @@ void renderTutorial();
 // Tampilan LeaderBoard
 
 void renderLeaderboard(SDL_Renderer *renderer, const Background *background);
+
+// ttf tambahan untuk posisi sumbu x teks
+
+void getTextSize(const char* text, float scale, int* width, int* height);
 #endif // GEMA_H

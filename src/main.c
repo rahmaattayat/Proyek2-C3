@@ -15,7 +15,7 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 Pesawat pesawat;
 Background background;
-Musuh *musuh = NULL;
+Musuh* musuh = NULL;
 Menu menu;
 
 statusGame state = STATE_MENU;
@@ -128,8 +128,7 @@ void renderGame()
 void restartGame()
 {
     addressuser user = findUser(currentUsername);
-    if (user)
-        user->score = 0;
+    if (user) user->score = 0;
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
@@ -159,8 +158,12 @@ void handleMenuInput()
             {
                 if (TombolHover(&menu.tombolPlay, x, y))
                 {
+                    // playClickSound();
+                    // playMusic(gameMusic);
+                    // state = STATE_GAME;
+                    // restartGame();
                     playClickSound();
-                    SDL_StartTextInput(window); // mulai input teks SDL
+                    SDL_StartTextInput(window);  // mulai input teks SDL
                     inputBuffer[0] = '\0';
                     inputLength = 0;
                     state = STATE_USERINPUT;
@@ -190,26 +193,21 @@ void handleMenuInput()
     }
 }
 // fungsi untuk menangani input username dan masuk ke state game
-void handleInputUsername()
-{
+void handleInputUsername(){
     SDL_Event event;
-    while (SDL_PollEvent(&event))
-    {
-        if (event.type == SDL_EVENT_QUIT)
-        {
+    while (SDL_PollEvent(&event)) {
+        if (event.type == SDL_EVENT_QUIT) {
             gameBerjalan = false;
         }
         else if (event.type == SDL_EVENT_KEY_DOWN)
         {
             SDL_Scancode sc = event.key.scancode;
-            if (sc == SDL_SCANCODE_RETURN || sc == SDL_SCANCODE_KP_ENTER)
-            {
+            if (sc == SDL_SCANCODE_RETURN || sc == SDL_SCANCODE_KP_ENTER) {
                 strncpy(currentUsername, inputBuffer, sizeof(currentUsername));
                 currentUsername[sizeof(currentUsername) - 1] = '\0';
 
                 addressuser existing = findUser(currentUsername);
-                if (!existing)
-                {
+                if (!existing) {
                     insertUser(currentUsername, 0, 0);
                 }
                 SDL_StopTextInput(window);
@@ -218,16 +216,11 @@ void handleInputUsername()
                 restartGame();
                 inputBuffer[0] = '\0';
                 inputLength = 0;
-            }
-            else if (sc == SDL_SCANCODE_BACKSPACE && inputLength > 0)
-            {
+            } else if (sc == SDL_SCANCODE_BACKSPACE && inputLength > 0) {
                 inputBuffer[--inputLength] = '\0';
             }
-        }
-        else if (event.type == SDL_EVENT_TEXT_INPUT)
-        {
-            if (inputLength < sizeof(inputBuffer) - 1)
-            {
+        } else if (event.type == SDL_EVENT_TEXT_INPUT) {
+            if (inputLength < sizeof(inputBuffer) - 1) {
                 strcat(inputBuffer, event.text.text);
                 inputLength++;
             }

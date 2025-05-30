@@ -86,8 +86,7 @@ addressuser findUser(const char *username)
 }
 
 // Fungsi untuk mengurutkan linkedlist berdasarkan highskor tertinggi
-void sortLeaderboard()
-{
+void sortLeaderboard() {
     if (headuser == NULL || headuser->nextuser == NULL)
         return;
 
@@ -182,23 +181,19 @@ void freeLeaderboard()
     tailuser = NULL;
 }
 
-// Function to render the leaderboard with stars
 void renderLeaderboard(SDL_Renderer *renderer, const Background *background)
 {
-    SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255); // Dark background
+    SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
 
-    // Render stars from the background
     renderBackground(background, renderer);
     SDL_Color kuning = {255, 255, 0, 0};
 
-    // Render leaderboard title
     int width, height;
     float scale = 3.0f;
     getTextSize("LEADERBOARD", scale, &width, &height);
     renderText(renderer, (LEBAR_LAYAR - width) / 1.9f, 50, "LEADERBOARD", scale, kuning);
 
-    // Render table headers with wider spacing for 1080px width
     scale = 1.5f;
     getTextSize("No", scale, &width, &height);
     renderText(renderer, 400 - width / 2.0f, 150, "No", scale, kuning);
@@ -206,12 +201,12 @@ void renderLeaderboard(SDL_Renderer *renderer, const Background *background)
     renderText(renderer, 650 - width / 2.0f, 150, "Username", scale, kuning);
     getTextSize("Highskor", scale, &width, &height);
     renderText(renderer, 900 - width / 2.0f, 150, "Highskor", scale, kuning);
-    // Render leaderboard entries with wider spacing
+
     addressuser current = headuser;
     int count = 1;
     float yPos = 190;
     while (current != NULL && count <= 10)
-    { // Display top 10
+    { 
         char noStr[5];
         snprintf(noStr, sizeof(noStr), "%d.", count);
         char scoreStr[10];
@@ -219,11 +214,11 @@ void renderLeaderboard(SDL_Renderer *renderer, const Background *background)
 
         scale = 1.5f;
         getTextSize(noStr, scale, &width, &height);
-        renderText(renderer, 400 - width / 2.0f, yPos, noStr, scale, (SDL_Color){255, 255, 255, 255}); // Aligned with header at 200
+        renderText(renderer, 400 - width / 2.0f, yPos, noStr, scale, (SDL_Color){255, 255, 255, 255}); 
         getTextSize(current->username, scale, &width, &height);
-        renderText(renderer, 650 - width / 2.0f, yPos, current->username, scale, (SDL_Color){255, 255, 255, 255}); // Aligned with header at 540
+        renderText(renderer, 650 - width / 2.0f, yPos, current->username, scale, (SDL_Color){255, 255, 255, 255}); 
         getTextSize(scoreStr, scale, &width, &height);
-        renderText(renderer, 900 - width / 2.0f, yPos, scoreStr, scale, (SDL_Color){255, 255, 255, 255}); // Aligned with header at 880
+        renderText(renderer, 900 - width / 2.0f, yPos, scoreStr, scale, (SDL_Color){255, 255, 255, 255}); 
 
         yPos += 40;
         current = current->nextuser;

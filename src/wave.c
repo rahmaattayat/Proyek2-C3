@@ -21,13 +21,11 @@ int getLastWaveNumber(Node *head)
 
 void cekmusuh(Musuh *musuh)
 {
-    NodeMusuh *curr = headMusuh;
+    NodeMusuh* curr = headMusuh;
     bool semuaMusuhMati = true;
 
-    while (curr)
-    {
-        if (curr->data.aktif)
-        {
+    while (curr){
+        if (curr->data.aktif){
             semuaMusuhMati = false;
             return;
         }
@@ -46,7 +44,7 @@ void updatewave(Musuh *musuh)
         addWave(&headWave, newWave);
 
         bonuswave(newWave);
-        jumlahmusuh = tambahmusuh(jumlahmusuh, newWave);
+        jumlahmusuh = tambahmusuh (jumlahmusuh, newWave);
 
         if (jumlahmusuh > MAX_MUSUH)
         {

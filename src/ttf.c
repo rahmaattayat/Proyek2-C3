@@ -21,7 +21,6 @@ void initTTF()
     }
 }
 
-// Helper function to get text dimensions
 void getTextSize(const char *text, float scale, int *width, int *height)
 {
     if (!font || !text || scale <= 0)
@@ -66,8 +65,7 @@ void renderText(SDL_Renderer *renderer, float x, float y, const char *text, floa
         return;
     }
 
-    // Apply scaling to the destination rectangle
-    SDL_FRect dst = {x, y, w * scale, h * scale};
+    SDL_FRect dst = {(float)x, (float)y, (float)w * scale, (float)h * scale};
     SDL_RenderTexture(renderer, texture, NULL, &dst);
 
     SDL_DestroyTexture(texture);

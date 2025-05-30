@@ -57,7 +57,6 @@ extern TTF_Font* font;
 void initTTF();
 void cleanupTTF();
 void renderText(SDL_Renderer* renderer, float x, float y, const char* text, float scale, SDL_Color color);
-void getTextSize(const char* text, float scale, int* width, int* height);
 
 void bikinPesawat(Pesawat* pesawat);
 void bikinPeluru(PeluruStruct* peluru);

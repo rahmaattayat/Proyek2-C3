@@ -3,7 +3,7 @@
 #include <SDL3/SDL.h>
 #include "alda.h"
 #include "fairuz.h"
-// fungsi untuk menampilkan skor dan highskor di layar saat game berjalan
+//fungsi untuk menampilkan skor dan highskor di layar saat game berjalan
 void tampilskor(SDL_Renderer *renderer)
 {
     addressuser user = findUser(currentUsername);
@@ -41,12 +41,12 @@ void tampilskor(SDL_Renderer *renderer)
     renderText(renderer, posXHighSkor, posYHighSkor, teksHighSkor, 0.8f, warnaTeks);
 }
 // Fungsi untuk menambahkan skor ketika musuh besar dikalahkan
-int tambahskormusuhbesar(int skor)
+int tambahskormusuhbesar (int skor)
 {
     return skor + 30 * bonus;
 }
 // Fungsi untuk menambahkan skor ketika musuh kecil dikalahkan
-int tambahskor(int skor)
+int tambahskor (int skor)
 {
     return skor + 10 * bonus;
 }
@@ -63,8 +63,7 @@ int kuranginskormusuhbesar(int skor)
 // Fungsi untuk mengecek dan memperbarui high skor
 void cekhighskor(addressuser user)
 {
-    if (!user)
-        return;
+    if (!user) return;
     if (user->score > user->hskor)
     {
         user->hskor = user->score;
@@ -73,15 +72,16 @@ void cekhighskor(addressuser user)
 // Fungsi untuk tampilkan game over
 void gameover(SDL_Renderer *renderer, addressuser user)
 {
+    // // hentikan layar game
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
 
     const char *title = "GAME OVER";
-    float titleX = (LEBAR_LAYAR - 13 * strlen("GAME OVER") * 3.0f) / 2.0f;
+    float titleX = (LEBAR_LAYAR - 380) / 2.0f;
     float titleY = 250;
     renderText(renderer, titleX, titleY, title, 3.0f, (SDL_Color){255, 0, 0, 255});
 
-    // Tentukan warna untuk teks
+    // // Tentukan warna untuk teks
     SDL_Color warnaSkor = {255, 255, 0, 255}; // kuning
 
     // Siapkan teks untuk skor, dan high skor
@@ -90,9 +90,9 @@ void gameover(SDL_Renderer *renderer, addressuser user)
     snprintf(teksSkor, sizeof(teksSkor), "Skor: %d", user->score);
     snprintf(teksHighSkor, sizeof(teksHighSkor), "High Skor: %d", user->hskor);
 
-    float posXSkor = (LEBAR_LAYAR - 10 * strlen(teksSkor) * 1.5f) / 2.0f;
+    float posXSkor = (LEBAR_LAYAR - 140) / 2.0f;
     float posYSkor = titleY + 90;
-    float posXHighSkor = (LEBAR_LAYAR - 10 * strlen(teksHighSkor) * 1.5f) / 2.0f;
+    float posXHighSkor = (LEBAR_LAYAR - 235) / 2.0f;
     float posYHighSkor = posYSkor + 40;
 
     // Gambar teks skor

@@ -34,7 +34,6 @@ void renderTombol(Tombol *tombol)
     SDL_SetRenderDrawColor(renderer, warna.r, warna.g, warna.b, warna.a);
     SDL_RenderFillRect(renderer, &tombol->kotak);
 
-    // Adjust text position to center within button
     int width, height;
     getTextSize(tombol->teks, tombol->skalaTeks, &width, &height);
     float posisiXteks = tombol->kotak.x + (tombol->kotak.w - width) / 2.0f;

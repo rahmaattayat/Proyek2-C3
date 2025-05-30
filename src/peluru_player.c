@@ -4,9 +4,9 @@
 #include <stdio.h>
 #include "rahma.h"
 
-PeluruNode *buatPeluruNode()
+PeluruNode* buatPeluruNode()
 {
-    PeluruNode *newNode = (PeluruNode *)malloc(sizeof(PeluruNode));
+    PeluruNode* newNode = (PeluruNode*)malloc(sizeof(PeluruNode));
     if (!newNode)
         return NULL;
     bikinPeluru(&newNode->info);
@@ -15,7 +15,7 @@ PeluruNode *buatPeluruNode()
     return newNode;
 }
 
-void tambahPeluruNode(Pesawat *pesawat, PeluruNode *node)
+void tambahPeluruNode(Pesawat* pesawat, PeluruNode* node)
 {
     if (!node)
         return;
@@ -25,7 +25,7 @@ void tambahPeluruNode(Pesawat *pesawat, PeluruNode *node)
     }
     else
     {
-        PeluruNode *last = pesawat->peluruHead;
+        PeluruNode* last = pesawat->peluruHead;
         while (last->next != NULL)
             last = last->next;
         last->next = node;
@@ -33,7 +33,7 @@ void tambahPeluruNode(Pesawat *pesawat, PeluruNode *node)
     }
 }
 
-void hapusPeluruNode(Pesawat *pesawat, PeluruNode *node)
+void hapusPeluruNode(Pesawat* pesawat, PeluruNode* node)
 {
     if (!node)
         return;
@@ -46,24 +46,24 @@ void hapusPeluruNode(Pesawat *pesawat, PeluruNode *node)
     free(node);
 }
 
-void freePeluruList(Pesawat *pesawat)
+void freePeluruList(Pesawat* pesawat)
 {
-    PeluruNode *current = pesawat->peluruHead;
+    PeluruNode* current = pesawat->peluruHead;
     while (current)
     {
-        PeluruNode *temp = current;
+        PeluruNode* temp = current;
         current = current->next;
         free(temp);
     }
     pesawat->peluruHead = NULL;
 }
 
-int nembak(Pesawat *pesawat)
+int nembak(Pesawat* pesawat)
 {
     if (pesawat->cd_tembak > 0 || pesawat->peluru_sekarang <= 0 || pesawat->sedang_reload)
         return 0;
 
-    PeluruNode *newNode = buatPeluruNode();
+    PeluruNode* newNode = buatPeluruNode();
     if (!newNode)
         return 0;
 
@@ -80,12 +80,12 @@ int nembak(Pesawat *pesawat)
     return 1;
 }
 
-void jalankanPeluru(Pesawat *pesawat)
+void jalankanPeluru(Pesawat* pesawat)
 {
-    PeluruNode *current = pesawat->peluruHead;
+    PeluruNode* current = pesawat->peluruHead;
     while (current)
     {
-        PeluruNode *next = current->next;
+        PeluruNode* next = current->next;
         if (current->info.nyala)
         {
             current->info.x += current->info.dx;
@@ -99,9 +99,9 @@ void jalankanPeluru(Pesawat *pesawat)
     }
 }
 
-void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
+void bikinGambarPeluru(SDL_Renderer* renderer, Pesawat* pesawat)
 {
-    PeluruNode *current = pesawat->peluruHead;
+    PeluruNode* current = pesawat->peluruHead;
     while (current)
     {
         if (current->info.nyala)
@@ -111,7 +111,8 @@ void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
                 current->info.x - 8,
                 current->info.y,
                 current->info.w,
-                current->info.h};
+                current->info.h
+            };
             SDL_RenderFillRect(renderer, &ekor);
 
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
@@ -119,14 +120,15 @@ void bikinGambarPeluru(SDL_Renderer *renderer, Pesawat *pesawat)
                 current->info.x,
                 current->info.y,
                 current->info.w,
-                current->info.h};
+                current->info.h
+            };
             SDL_RenderFillRect(renderer, &kotakpeluru);
         }
         current = current->next;
     }
 }
 
-int reload(Pesawat *pesawat)
+int reload(Pesawat* pesawat)
 {
     if (!pesawat->sedang_reload && pesawat->peluru_sekarang < pesawat->magasin)
     {
@@ -137,7 +139,7 @@ int reload(Pesawat *pesawat)
     return 0;
 }
 
-void updateReload(Pesawat *pesawat)
+void updateReload(Pesawat* pesawat)
 {
     if (pesawat->sedang_reload)
     {
@@ -150,7 +152,7 @@ void updateReload(Pesawat *pesawat)
     }
 }
 
-void tampilAmunisi(SDL_Renderer *renderer, Pesawat *pesawat)
+void tampilAmunisi(SDL_Renderer* renderer, Pesawat* pesawat)
 {
     char text[64];
     SDL_Color merah = {255, 50, 50, 255};
