@@ -241,35 +241,20 @@ void renderInputUsername(SDL_Renderer *renderer)
     SDL_RenderClear(renderer);
 
     // Adjust positions to center text with scaling
-    float scale1 = 2.5f;
-    float scale2 = 2.0f;
-    float scale3 = 1.0f;
+    float skala1 = 2.0f;
+    float skala2 = 2.0f;
+    float skala3 = 1.0f;
     int width, height;
 
-    getTextSize("MASUKKAN USERNAME", scale1, &width, &height);
-    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 180, "MASUKKAN USERNAME", scale1, (SDL_Color){255, 255, 0, 255});
+    getTextSize("MASUKKAN USERNAME", skala1, &width, &height);
+    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 180, "MASUKKAN USERNAME", skala1, (SDL_Color){255, 255, 0, 255});
 
-    getTextSize(inputBuffer, scale2, &width, &height);
-    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 260, inputBuffer, scale2, (SDL_Color){255, 255, 255, 255});
+    getTextSize(inputBuffer, skala2, &width, &height);
+    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 260, inputBuffer, skala2, (SDL_Color){255, 255, 255, 255});
 
-    getTextSize("Tekan ENTER untuk lanjut", scale3, &width, &height);
-    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 350, "Tekan ENTER untuk lanjut", scale3, (SDL_Color){200, 200, 200, 255});
+    getTextSize("Tekan ENTER untuk lanjut", skala3, &width, &height);
+    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 350, "Tekan ENTER untuk lanjut", skala3, (SDL_Color){200, 200, 200, 255});
 
-    SDL_RenderPresent(renderer);
-}
-// fungsi untuk merender menu
-void buatMenu()
-{
-    SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
-    SDL_RenderClear(renderer);
-    renderBackground(&background, renderer);
-
-    int width, height;
-    float scale = 3.0f;
-    getTextSize("C3 - SPACE INVADERS", scale, &width, &height);
-    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 120, "C3 - SPACE INVADERS", scale, (SDL_Color){255, 255, 0, 255});
-
-    renderTombolMenu(&menu);
     SDL_RenderPresent(renderer);
 }
 // fungsi untuk menangani input pada halaman About
@@ -337,7 +322,7 @@ int SDL_main(int argc, char *argv[])
         case STATE_MENU:
             handleMenuInput();
             updateBackground(&background, 1.0f);
-            buatMenu();
+            renderMenu(&menu, &background);
             break;
         case STATE_USERINPUT:
             handleInputUsername();

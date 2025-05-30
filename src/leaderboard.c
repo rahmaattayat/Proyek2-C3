@@ -195,15 +195,15 @@ void renderLeaderboard(SDL_Renderer *renderer, const Background *background)
     // Render leaderboard title
     int width, height;
     float scale = 3.0f;
-    getTextSize("LEADER BOARD", scale, &width, &height);
-    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 50, "LEADER BOARD", scale, kuning);
+    getTextSize("LEADERBOARD", scale, &width, &height);
+    renderText(renderer, (LEBAR_LAYAR - width) / 1.9f, 50, "LEADERBOARD", scale, kuning);
 
     // Render table headers with wider spacing for 1080px width
     scale = 1.5f;
     getTextSize("No", scale, &width, &height);
     renderText(renderer, 400 - width / 2.0f, 150, "No", scale, kuning);
-    getTextSize("Nama Pilot (username)", scale, &width, &height);
-    renderText(renderer, 750 - width / 2.0f, 150, "Username", scale, kuning);
+    getTextSize("Username", scale, &width, &height);
+    renderText(renderer, 650 - width / 2.0f, 150, "Username", scale, kuning);
     getTextSize("Highskor", scale, &width, &height);
     renderText(renderer, 900 - width / 2.0f, 150, "Highskor", scale, kuning);
     // Render leaderboard entries with wider spacing

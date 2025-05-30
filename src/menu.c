@@ -49,7 +49,7 @@ void renderHalamanStatik(const char **teks, int jumlahBaris, float startX, float
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
-    float scale = 2.0f;
+    float scale = 1.3f;
     for (int i = 0; i < jumlahBaris; ++i)
     {
         int width, height;
@@ -63,12 +63,13 @@ void renderHalamanStatik(const char **teks, int jumlahBaris, float startX, float
 
 void menuInit(Menu *menu)
 {
+    float skala = 1.0f;
     float posisiY = TINGGI_LAYAR / 2 - (TINGGI_TOMBOL * 2);
-    tombolInit(&menu->tombolPlay, "PLAY", posisiY, 1.3f);
-    tombolInit(&menu->tombolAbout, "ABOUT", posisiY + TINGGI_TOMBOL + 10, 1.3f);
-    tombolInit(&menu->tombolTutorial, "TUTORIAL", posisiY + (TINGGI_TOMBOL + 10) * 2, 1.3f);
-    tombolInit(&menu->tombolLeaderboard, "LEADERBOARD", posisiY + (TINGGI_TOMBOL + 10) * 3, 1.3f);
-    tombolInit(&menu->tombolExit, "EXIT", posisiY + (TINGGI_TOMBOL + 10) * 4, 1.3f);
+    tombolInit(&menu->tombolPlay, "PLAY", posisiY, skala);
+    tombolInit(&menu->tombolAbout, "ABOUT", posisiY + TINGGI_TOMBOL + 10, skala);
+    tombolInit(&menu->tombolTutorial, "TUTORIAL", posisiY + (TINGGI_TOMBOL + 10) * 2, skala);
+    tombolInit(&menu->tombolLeaderboard, "LEADERBOARD", posisiY + (TINGGI_TOMBOL + 10) * 3, skala);
+    tombolInit(&menu->tombolExit, "EXIT", posisiY + (TINGGI_TOMBOL + 10) * 4, skala);
 }
 
 void tombolUpdateSemua(Menu *menu, float mouseX, float mouseY)
@@ -96,14 +97,17 @@ void renderTombolMenu(Menu *menu)
 
 void renderMenu(Menu *menu, const Background *background)
 {
+    SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
+    SDL_RenderClear(renderer);
     renderBackground(background, renderer);
 
     int width, height;
-    float scale = 3.0f;
+    float scale = 2.5f;
     getTextSize("C3 - SPACE INVADERS", scale, &width, &height);
     renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 120, "C3 - SPACE INVADERS", scale, (SDL_Color){255, 255, 0, 255});
 
     renderTombolMenu(menu);
+    SDL_RenderPresent(renderer);
 }
 
 // --- HALAMAN ABOUT DAN TUTORIAL ---
