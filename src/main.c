@@ -153,7 +153,7 @@ void handleMenuInput()
         {
             float x, y;
             SDL_GetMouseState(&x, &y);
-            updateMenu(&menu, x, y); // update hover status
+            updateMenu(&menu, x, y); 
 
             if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN && event.button.button == SDL_BUTTON_LEFT)
             {
@@ -240,7 +240,6 @@ void renderInputUsername(SDL_Renderer *renderer)
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
 
-    // Adjust positions to center text with scaling
     float skala1 = 2.0f;
     float skala2 = 2.0f;
     float skala3 = 1.0f;
@@ -249,8 +248,11 @@ void renderInputUsername(SDL_Renderer *renderer)
     getTextSize("MASUKKAN USERNAME", skala1, &width, &height);
     renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 180, "MASUKKAN USERNAME", skala1, (SDL_Color){255, 255, 0, 255});
 
-    getTextSize(inputBuffer, skala2, &width, &height);
-    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 260, inputBuffer, skala2, (SDL_Color){255, 255, 255, 255});
+    if (inputLength > 0)
+    {
+        getTextSize(inputBuffer, skala2, &width, &height);
+        renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 260, inputBuffer, skala2, (SDL_Color){255, 255, 255, 255});
+    }
 
     getTextSize("Tekan ENTER untuk lanjut", skala3, &width, &height);
     renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 350, "Tekan ENTER untuk lanjut", skala3, (SDL_Color){200, 200, 200, 255});
@@ -306,7 +308,7 @@ void inputLeaderboard()
             state = STATE_MENU;
         }
     }
-    updateBackground(&background, 1.0f); // Added to make stars move
+    updateBackground(&background, 1.0f);
     renderLeaderboard(renderer, &background);
 }
 // fungsi utama yang menjalankan game
