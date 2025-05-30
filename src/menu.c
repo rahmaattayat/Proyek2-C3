@@ -67,7 +67,8 @@ void menuInit(Menu *menu)
     tombolInit(&menu->tombolPlay, "PLAY", posisiY, 1.3f);
     tombolInit(&menu->tombolAbout, "ABOUT", posisiY + TINGGI_TOMBOL + 10, 1.3f);
     tombolInit(&menu->tombolTutorial, "TUTORIAL", posisiY + (TINGGI_TOMBOL + 10) * 2, 1.3f);
-    tombolInit(&menu->tombolExit, "EXIT", posisiY + (TINGGI_TOMBOL + 10) * 3, 1.3f);
+    tombolInit(&menu->tombolLeaderboard, "LEADERBOARD", posisiY + (TINGGI_TOMBOL + 10) * 3, 1.3f);
+    tombolInit(&menu->tombolExit, "EXIT", posisiY + (TINGGI_TOMBOL + 10) * 4, 1.3f);
 }
 
 void tombolUpdateSemua(Menu *menu, float mouseX, float mouseY)
@@ -75,6 +76,7 @@ void tombolUpdateSemua(Menu *menu, float mouseX, float mouseY)
     tombolUpdateHover(&menu->tombolPlay, mouseX, mouseY);
     tombolUpdateHover(&menu->tombolAbout, mouseX, mouseY);
     tombolUpdateHover(&menu->tombolTutorial, mouseX, mouseY);
+    tombolUpdateHover(&menu->tombolLeaderboard, mouseX, mouseY);
     tombolUpdateHover(&menu->tombolExit, mouseX, mouseY);
 }
 
@@ -88,6 +90,7 @@ void renderTombolMenu(Menu *menu)
     renderTombol(&menu->tombolPlay);
     renderTombol(&menu->tombolAbout);
     renderTombol(&menu->tombolTutorial);
+    renderTombol(&menu->tombolLeaderboard);
     renderTombol(&menu->tombolExit);
 }
 

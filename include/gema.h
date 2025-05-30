@@ -50,6 +50,7 @@ typedef struct
     Tombol tombolPlay;
     Tombol tombolAbout;
     Tombol tombolTutorial;
+    Tombol tombolLeaderboard;
     Tombol tombolExit;
 } Menu;
 
@@ -72,4 +73,7 @@ void renderMenu(Menu *menu, const Background *background);
 void renderAbout();
 void renderTutorial();
 
+// Tampilan LeaderBoard
+
+void renderLeaderboard(SDL_Renderer *renderer, const Background *background);
 #endif // GEMA_H

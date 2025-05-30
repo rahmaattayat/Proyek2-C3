@@ -14,7 +14,7 @@ void initTTF()
         return;
     }
 
-    font = TTF_OpenFont("assets/fonts/ChonkyBunny.ttf", 24);
+    font = TTF_OpenFont("assets/fonts/PixelifySans.ttf", 24);
     if (!font)
     {
         printf("Failed to load font: %s\n", SDL_GetError());

@@ -61,6 +61,7 @@ void tampilkanWave(SDL_Renderer *renderer)
 {
     char teksWave[20];
     int currentWave = getLastWaveNumber(headWave);
+    SDL_Color warnaTeksWave;
 
     if (bonus == 2)
     {
@@ -70,7 +71,7 @@ void tampilkanWave(SDL_Renderer *renderer)
     else
     {
         sprintf(teksWave, "WAVE %d", currentWave);
-        SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+        warnaTeksWave = (SDL_Color){255, 255, 0, 255};
     }
 
     renderText(renderer, (LEBAR_LAYAR / 2) - 40, 22, teksWave, 1.0f, warnaTeksWave);

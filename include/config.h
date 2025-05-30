@@ -12,6 +12,7 @@ typedef enum
     STATE_USERINPUT,
     STATE_GAME,
     STATE_ABOUT,
-    STATE_TUTORIAL
+    STATE_TUTORIAL,
+    STATE_LEADERBOARD
 } statusGame;
 #endif // CONFIG_H

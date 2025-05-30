@@ -175,6 +175,11 @@ void handleMenuInput()
                     playClickSound();
                     state = STATE_TUTORIAL;
                 }
+                else if (TombolHover(&menu.tombolLeaderboard, x, y))
+                {
+                    playClickSound();
+                    state = STATE_LEADERBOARD;
+                }
                 else if (TombolHover(&menu.tombolExit, x, y))
                 {
                     playClickSound();
@@ -257,7 +262,14 @@ void buatMenu()
 {
     SDL_SetRenderDrawColor(renderer, 0, 5, 20, 255);
     SDL_RenderClear(renderer);
-    renderMenu(&menu, &background);
+    renderBackground(&background, renderer);
+
+    int width, height;
+    float scale = 3.0f;
+    getTextSize("C3 - SPACE INVADERS", scale, &width, &height);
+    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 120, "C3 - SPACE INVADERS", scale, (SDL_Color){255, 255, 0, 255});
+
+    renderTombolMenu(&menu);
     SDL_RenderPresent(renderer);
 }
 // fungsi untuk menangani input pada halaman About
@@ -294,6 +306,24 @@ void inputTutorial()
     }
     renderTutorial();
 }
+// fungsi untuk menangani input pada halaman Leaderboard
+void inputLeaderboard()
+{
+    SDL_Event event;
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_EVENT_QUIT)
+        {
+            gameBerjalan = false;
+        }
+        else if (event.type == SDL_EVENT_KEY_DOWN && event.key.scancode == SDL_SCANCODE_ESCAPE)
+        {
+            state = STATE_MENU;
+        }
+    }
+    updateBackground(&background, 1.0f); // Added to make stars move
+    renderLeaderboard(renderer, &background);
+}
 // fungsi utama yang menjalankan game
 int SDL_main(int argc, char *argv[])
 {
@@ -324,6 +354,9 @@ int SDL_main(int argc, char *argv[])
         case STATE_TUTORIAL:
             inputTutorial();
             renderTutorial();
+            break;
+        case STATE_LEADERBOARD:
+            inputLeaderboard();
             break;
         }
         SDL_Delay(16);

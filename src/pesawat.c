@@ -224,7 +224,7 @@ void tampilNyawa(SDL_Renderer *renderer, Pesawat *pesawat)
 {
     char text[64];
     SDL_Color putih = {255, 255, 255, 255};
-    renderText(renderer, 20, 680, "LIVES: ", 0.9f, putih);
+    renderText(renderer, 20, 680, "LIVES: ", 0.75f, putih);
 
     int baseX = 135;
     int baseY = 693;
