@@ -44,7 +44,7 @@ void renderTombol(Tombol *tombol)
 
 // --- TEKS & RENDER UTILITAS ---
 
-void renderHalamanStatik(const char **teks, int jumlahBaris, float startX, float startY, float jarakY)
+void renderIsiMenu(const char **teks, int jumlahBaris, float startX, float startY, float jarakY)
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
@@ -71,18 +71,13 @@ void menuInit(Menu *menu)
     tombolInit(&menu->tombolExit, "EXIT", posisiY + (TINGGI_TOMBOL + 10) * 4, skala);
 }
 
-void tombolUpdateSemua(Menu *menu, float mouseX, float mouseY)
+void updateSemuaTombol(Menu *menu, float mouseX, float mouseY)
 {
     tombolUpdateHover(&menu->tombolPlay, mouseX, mouseY);
     tombolUpdateHover(&menu->tombolAbout, mouseX, mouseY);
     tombolUpdateHover(&menu->tombolTutorial, mouseX, mouseY);
     tombolUpdateHover(&menu->tombolLeaderboard, mouseX, mouseY);
     tombolUpdateHover(&menu->tombolExit, mouseX, mouseY);
-}
-
-void updateMenu(Menu *menu, float mouseX, float mouseY)
-{
-    tombolUpdateSemua(menu, mouseX, mouseY);
 }
 
 void renderTombolMenu(Menu *menu)
@@ -121,7 +116,7 @@ void renderAbout()
         "4. Muhammad Ihsan R (241511083)",
         "5. Rahma Attaya T (241511088)",
         "Tekan ESC untuk kembali"};
-    renderHalamanStatik(teks, 7, 200, 100, 30);
+    renderIsiMenu(teks, 7, 200, 100, 30);
 }
 
 void renderTutorial()
@@ -134,5 +129,5 @@ void renderTutorial()
         "5. Ambil power-up untuk nyawa atau peluru tambahan",
         "6. Hindari tabrakan dengan musuh karena bisa mengurangi nyawa",
         "Tekan ESC untuk kembali"};
-    renderHalamanStatik(teks, 7, 200, 100, 35);
+    renderIsiMenu(teks, 7, 200, 100, 35);
 }

@@ -65,8 +65,7 @@ void teksRenderTengah(const char *teks, float y, float skala, SDL_Color warna);
 void renderHalamanStatik(const char **teks, int jumlahBaris, float startX, float startY, float jarakY);
 
 void menuInit(Menu *menu);
-void tombolUpdateSemua(Menu *menu, float mouseX, float mouseY);
-void updateMenu(Menu *menu, float mouseX, float mouseY);
+void updateSemuaTombol(Menu *menu, float mouseX, float mouseY);
 void renderTombolMenu(Menu *menu);
 void renderMenu(Menu *menu, const Background *background);
 

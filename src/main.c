@@ -152,7 +152,7 @@ void handleMenuInput()
         {
             float x, y;
             SDL_GetMouseState(&x, &y);
-            updateMenu(&menu, x, y); 
+            updateSemuaTombol(&menu, x, y); 
 
             if (event.type == SDL_EVENT_MOUSE_BUTTON_DOWN && event.button.button == SDL_BUTTON_LEFT)
             {
