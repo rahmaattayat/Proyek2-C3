@@ -26,7 +26,7 @@ Space Invaders adalah game arcade 2D di mana pemain mengendalikan pesawat luar a
 - Membunuh Musuh Biasa menambah skor sebanyak 10 poin (dikalikan dengan bonus wave, jika aktif).
 - Membunuh Musuh Kuat menambah skor sebanyak 30 poin (dikalikan dengan bonus wave, jika aktif).
 - Jika musuh (biasa atau kuat) keluar dari layar tanpa terbunuh, skor akan berkurang: -10 poin untuk Musuh Biasa dan -30 poin untuk Musuh Kuat.
-- Skor tertinggi (high score) disimpan dalam file highskor.dat dan diperbarui jika skor saat ini melebihi high score sebelumnya.
+- Skor tertinggi (high score) selalu diperbaharui berdasarkan skor tertinggi yang didapat.
 
 ## **3. Wave dan Bonus**
 - Permainan terdiri dari beberapa wave, dimulai dari Wave 1, dengan jumlah musuh bertambah setiap wave (maksimal 20 musuh).
@@ -69,6 +69,9 @@ Space Invaders adalah game arcade 2D di mana pemain mengendalikan pesawat luar a
 - Permainan memiliki musik latar untuk menu, permainan, dan Game Over.
 - Efek suara diputar saat menembak, musuh mati, pemain tertabrak, dan pesawat player menyentuh suplai.
 
+## **10. Leaderboard**
+- Sistem leaderboad untuk mengetahui 10 rank teratas pemain dengan highskor tertinggi yang pernah didapatkan
+- Data pemain disimpan dalam file agar tidak hilang, data pemain termasuk username, skor dan highskor.
 # Struktur File Proyek:
 ```
 Proyek2-C3/
@@ -131,6 +134,7 @@ Proyek2-C3/
 - Deklarasi dan inisialisasi audio(SDL_Mixer)
 - Sistem skor pemain
 - Tampilan saat game over
+- Sistem leaderboard
 
 ## **fairuz.h**
 - Deklarasi jumlah maksimal musuh dan wave
@@ -142,6 +146,8 @@ Proyek2-C3/
 - Deklarasi jumlah maksimal bintang
 - Deklarasi bagian menu
 - Deklarasi background saat memulai permainan
+- tampilan input username
+- tampilan leaderboard
 
 ## **ihsan.h**
 - Deklarasi jumlah maksimal peluru, suplai dan berapa jenis suplai yang ada
