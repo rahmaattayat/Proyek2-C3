@@ -16,6 +16,55 @@ int musuhAtribut[JENIS_MUSUH][3] =
         {3, 85, 85}  // musuh kuat: hp, width, height
 };
 
+void tambahNodeMusuh(Musuh musuh)
+{
+    NodeMusuh *newNode = (NodeMusuh *)malloc(sizeof(NodeMusuh));
+    newNode->data = musuh;
+    newNode->prev = NULL;
+    newNode->next = NULL;
+
+    if (headMusuh == NULL)
+    {
+        headMusuh = newNode;
+    }
+    else
+    {
+        NodeMusuh *temp = headMusuh;
+        while (temp->next)
+            temp = temp->next;
+        temp->next = newNode;
+        newNode->prev = temp;
+    }
+}
+
+void hapusNodeMusuh(NodeMusuh *node)
+{
+    if (!node)
+        return;
+
+    if (node->prev)
+        node->prev->next = node->next;
+    else
+        headMusuh = node->next;
+
+    if (node->next)
+        node->next->prev = node->prev;
+
+    free(node);
+}
+
+void freeMusuh()
+{
+    NodeMusuh *current = headMusuh;
+    while (current)
+    {
+        NodeMusuh *temp = current;
+        current = current->next;
+        free(temp);
+    }
+    headMusuh = NULL;
+}
+
 void aturAtributMusuh(Musuh *musuh)
 {
     musuh->hp = musuhAtribut[musuh->tipe][0];
@@ -72,55 +121,6 @@ void bikinMusuh(Musuh *musuh, int jumlah, int aktif)
         Musuh musuh = buatMusuh(i, &jumlahMusuhKuat);
         tambahNodeMusuh(musuh);
     }
-}
-
-void tambahNodeMusuh(Musuh musuh)
-{
-    NodeMusuh *newNode = (NodeMusuh *)malloc(sizeof(NodeMusuh));
-    newNode->data = musuh;
-    newNode->prev = NULL;
-    newNode->next = NULL;
-
-    if (headMusuh == NULL)
-    {
-        headMusuh = newNode;
-    }
-    else
-    {
-        NodeMusuh *temp = headMusuh;
-        while (temp->next)
-            temp = temp->next;
-        temp->next = newNode;
-        newNode->prev = temp;
-    }
-}
-
-void hapusNodeMusuh(NodeMusuh *node)
-{
-    if (!node)
-        return;
-
-    if (node->prev)
-        node->prev->next = node->next;
-    else
-        headMusuh = node->next;
-
-    if (node->next)
-        node->next->prev = node->prev;
-
-    free(node);
-}
-
-void freeMusuh()
-{
-    NodeMusuh *current = headMusuh;
-    while (current)
-    {
-        NodeMusuh *temp = current;
-        current = current->next;
-        free(temp);
-    }
-    headMusuh = NULL;
 }
 
 void gerakinMusuh(Musuh *musuh)
