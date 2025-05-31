@@ -19,7 +19,7 @@ int getLastWaveNumber(Node *head)
     return temp->waveNumber;
 }
 
-void cekmusuh(Musuh *musuh)
+void cekmusuh()
 {
     NodeMusuh* curr = headMusuh;
     bool semuaMusuhMati = true;
@@ -31,10 +31,10 @@ void cekmusuh(Musuh *musuh)
         }
         curr = curr->next;
     }
-    updatewave(musuh);
+    updatewave();
 }
 
-void updatewave(Musuh *musuh)
+void updatewave()
 {
     int lastWave = getLastWaveNumber(headWave);
 
@@ -51,7 +51,7 @@ void updatewave(Musuh *musuh)
             jumlahmusuh = MAX_MUSUH;
         }
         SDL_Log("jumlah musuh = %d", jumlahmusuh);
-        bikinMusuh(musuh, jumlahmusuh, 1);
+        bikinMusuh(jumlahmusuh);
     }
 }
 
