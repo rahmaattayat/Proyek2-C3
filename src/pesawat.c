@@ -54,8 +54,10 @@ void gerakinPesawat(Pesawat *pesawat, const Uint8 *keyboard, bool pencetSpasi)
 
     if (pencetSpasi && pesawat->cd_tembak <= 0)
     {
-        nembak(pesawat);
-        pesawat->cd_tembak = 15;
+        if (nembak(pesawat))
+        {
+            pesawat->cd_tembak = 15;
+        }
     }
 
     if (pesawat->cd_tembak > 0)

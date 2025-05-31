@@ -76,7 +76,14 @@ void cekInput()
             }
             else if (event.key.scancode == SDL_SCANCODE_R)
             {
-                reload(&pesawat);
+                if (reload(&pesawat))
+                {
+                    printf("Reload dimulai!\n");
+                }
+                else
+                {
+                    printf("Reload gagal!\n");
+                }
             }
         }
     }
@@ -102,7 +109,17 @@ void updateGame()
     if (waktuSekarang - waktuTerakhirSuplai >= rentangSpawnSuplai)
     {
         int jenis = rand() % JENIS_SUPLAI;
-        spawnSuplai(jenis);
+        if (spawnSuplai(jenis))
+        {
+            if (jenis == 0)
+            {
+                printf("Suplai nyawa berhasil di-spawn.\n");
+            }
+            else if (jenis == 1)
+            {
+                printf("Suplai amunisi berhasil di-spawn.\n");
+            }
+        }
         waktuTerakhirSuplai = waktuSekarang;
         rentangSpawnSuplai = (rand() % (rentangMaksimum - rentangMinimum + 1) + rentangMinimum) * 1000;
     }
