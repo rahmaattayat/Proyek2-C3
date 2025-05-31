@@ -8,7 +8,7 @@
 #include "config.h"
 #include <SDL3/SDL.h>
 
-#define MAX_MUSUH 24
+#define MAX_MUSUH 30
 #define MAX_WAVE 1000
 typedef struct Node Node;  // bilang ke compiler bahwa Node itu tipe struct yang akan didefinisikan nanti
 
@@ -33,7 +33,7 @@ int getLastWaveNumber(Node *head);
 void updatewave();
 void cekmusuh();
 int kuranginskor(int skor);
-int tambahmusuh(int jumlahmusuh, int waveterbaru);
+int tambahmusuh(int jumlahmusuh);
 void tampilkanWave(SDL_Renderer *renderer);
 int kuranginskormusuhbesar(int skor);
 void bonuswave(int waveterbaru);
