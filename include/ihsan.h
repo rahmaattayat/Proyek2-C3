@@ -10,6 +10,7 @@
 #define MAX_PELURU 50
 #define MAX_SUPLAI 2
 #define JENIS_SUPLAI 2
+#define CD_TEMBAK 15
 
 typedef struct
 {

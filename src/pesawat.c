@@ -52,11 +52,11 @@ void gerakinPesawat(Pesawat *pesawat, const Uint8 *keyboard, bool pencetSpasi)
         pesawat->dx = 6;
     }
 
-    if (pencetSpasi && pesawat->cd_tembak <= 0)
+    if (pencetSpasi && pesawat->cd_tembak <= 0 && pesawat->peluru_sekarang > 0 && !pesawat->sedang_reload)
     {
         if (nembak(pesawat))
         {
-            pesawat->cd_tembak = 15;
+            pesawat->cd_tembak = CD_TEMBAK;
         }
     }
 
@@ -225,9 +225,9 @@ void tampilNyawa(SDL_Renderer *renderer, Pesawat *pesawat)
 {
     char text[64];
     SDL_Color putih = {255, 255, 255, 255};
-    renderText(renderer, 20, 680, "LIVES: ", 0.75f, putih);
+    renderText(renderer, 20, 682, "LIVES: ", 0.90f, putih);
 
-    int baseX = 135;
+    int baseX = 155;
     int baseY = 693;
     int jarak = 30;
     int radius = 10;

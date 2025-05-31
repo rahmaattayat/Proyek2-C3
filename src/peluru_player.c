@@ -64,8 +64,10 @@ int nembak(Pesawat* pesawat)
         return 0;
 
     PeluruNode* newNode = buatPeluruNode();
-    if (!newNode)
+    if (!newNode) {
+        SDL_Log("Gagal mengalokasikan memori untuk peluru!");
         return 0;
+    }
 
     newNode->info.x = pesawat->x + pesawat->w;
     newNode->info.y = pesawat->y + pesawat->h / 2 - newNode->info.h / 2;
@@ -76,7 +78,7 @@ int nembak(Pesawat* pesawat)
     tambahPeluruNode(pesawat, newNode);
 
     pesawat->peluru_sekarang--;
-    pesawat->cd_tembak = 10;
+    pesawat->cd_tembak = CD_TEMBAK;
     return 1;
 }
 
@@ -106,7 +108,7 @@ void bikinGambarPeluru(SDL_Renderer* renderer, Pesawat* pesawat)
     {
         if (current->info.nyala)
         {
-            SDL_SetRenderDrawColor(renderer, 255, 200, 0, 150);
+            SDL_SetRenderDrawColor(renderer, 255, 200, 0, 0);
             SDL_FRect ekor = {
                 current->info.x - 8,
                 current->info.y,
@@ -115,7 +117,7 @@ void bikinGambarPeluru(SDL_Renderer* renderer, Pesawat* pesawat)
             };
             SDL_RenderFillRect(renderer, &ekor);
 
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, 0);
             SDL_FRect kotakpeluru = {
                 current->info.x,
                 current->info.y,

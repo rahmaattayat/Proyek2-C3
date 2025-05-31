@@ -105,7 +105,7 @@ void updateGame()
     updateSuplai(renderer, &pesawat);
 
     Uint32 waktuSekarang = SDL_GetTicks();
-    if (waktuSekarang - waktuTerakhirSuplai >= rentangSpawnSuplai)
+    if (waktuSekarang - waktuTerakhirSuplai >= rentangSpawnSuplai && rentangSpawnSuplai > 0)
     {
         int jenis = rand() % JENIS_SUPLAI;
         if (spawnSuplai(jenis))
@@ -146,6 +146,7 @@ void restartGame()
     addressuser user = findUser(currentUsername);
     if (user) user->score = 0;
 
+    freePeluruList(&pesawat);
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
     bikinMusuh(jumlahmusuh);
@@ -355,6 +356,7 @@ int SDL_main(int argc, char *argv[])
         }
         SDL_Delay(16);
     }
+    freePeluruList(&pesawat);
     hapusTeksturSuplai();
     clearSuplai();
     saveLeaderboard();
