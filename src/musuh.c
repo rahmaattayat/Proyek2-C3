@@ -72,6 +72,12 @@ void aturAtributMusuh(Musuh *musuh)
     musuh->h = musuhAtribut[musuh->tipe][2];
 }
 
+void resetPosisiMusuh(Musuh *musuh, int index)
+{
+    musuh->x = LEBAR_LAYAR + 10 + index * 100;
+    musuh->y = 10 + rand() % (TINGGI_LAYAR - musuh->h - 20);
+}
+
 Musuh buatMusuh(int index, int *jumlahMusuhKuat)
 {
     Musuh musuh;
@@ -91,8 +97,7 @@ Musuh buatMusuh(int index, int *jumlahMusuhKuat)
     }
 
     aturAtributMusuh(&musuh);
-    musuh.y = 10 + rand() % (TINGGI_LAYAR - musuh.h - 20);
-
+    resetPosisiMusuh(&musuh, index);
     return musuh;
 }
 
@@ -107,6 +112,10 @@ void bikinMusuh(int jumlah)
     if (currentWave >= 5)
     {
         jumlahMusuhKuat = currentWave - 4;
+        if (jumlahMusuhKuat > 10)
+        {
+            jumlahMusuhKuat = 10;
+        }
     }
     else
     {
@@ -134,10 +143,9 @@ void gerakinMusuh()
     }
 }
 
-int musuhKeluarLayar()
+void musuhKeluarLayar()
 {
     addressuser user = findUser(currentUsername);
-    int countReset = 0;
     NodeMusuh *curr = headMusuh;
     while (curr)
     {
@@ -151,19 +159,14 @@ int musuhKeluarLayar()
             {
                 user->score = kuranginskor(user->score);
             }
-
-            curr->data.x = LEBAR_LAYAR + 10;
-            curr->data.y = 10 + rand() % (TINGGI_LAYAR - curr->data.h - 20);
-            countReset++;
+            resetPosisiMusuh(&curr->data, 0);
         }
         curr = curr->next;
     }
-    return countReset;
 }
 
-int nabrakPeluru(Pesawat *pesawat)
+void nabrakPeluru(Pesawat *pesawat)
 {
-    int hitCount = 0;
     PeluruNode *current = pesawat->peluruHead;
     while (current)
     {
@@ -187,7 +190,6 @@ int nabrakPeluru(Pesawat *pesawat)
                 {
                     efekNabrakPeluru(pesawat, musuh);
                     hapusPeluruNode(pesawat, current);
-                    hitCount++;
                     break;
                 }
                 musuhNode = musuhNode->next;
@@ -195,7 +197,6 @@ int nabrakPeluru(Pesawat *pesawat)
         }
         current = next;
     }
-    return hitCount;
 }
 
 void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh)
