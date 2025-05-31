@@ -21,6 +21,12 @@ int getLastWaveNumber(Node *head)
 
 void cekmusuh()
 {
+    if (headMusuh == NULL) 
+    {
+        updatewave();
+        return;
+    }
+
     NodeMusuh* curr = headMusuh;
     bool semuaMusuhMati = true;
 

@@ -361,6 +361,7 @@ int SDL_main(int argc, char *argv[])
     clearSuplai();
     saveLeaderboard();
     freeLeaderboard();
+    freeMusuh();
     stopMusic();
     closeAudio();
 

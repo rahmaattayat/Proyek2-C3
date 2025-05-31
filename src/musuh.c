@@ -188,7 +188,7 @@ void nabrakPeluru(Pesawat *pesawat)
                     current->info.y < musuh->y + musuh->h &&
                     current->info.y + current->info.h > musuh->y)
                 {
-                    efekNabrakPeluru(pesawat, musuh);
+                    efekNabrakPeluru(pesawat, musuh, musuhNode);
                     hapusPeluruNode(pesawat, current);
                     break;
                 }
@@ -199,7 +199,7 @@ void nabrakPeluru(Pesawat *pesawat)
     }
 }
 
-void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh)
+void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, NodeMusuh *musuhNode)
 {
     musuh->hp--;
     if (musuh->hp <= 0)
@@ -272,6 +272,7 @@ void kelolaGameOver(SDL_Renderer *renderer)
     // ubah state ke menu
     state = STATE_MENU;
     playMusic(menuMusic);
+    freeMusuh();
     // reset jumlah musuh dan wave untuk game berikutnya
     jumlahmusuh = 5;
     freeWaves(headWave);

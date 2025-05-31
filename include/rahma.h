@@ -40,7 +40,7 @@ void gerakinMusuh();
 void musuhKeluarLayar();
 void nabrakPeluru(Pesawat* pesawat);
 void nabrakMusuh(SDL_Renderer* renderer, Pesawat *pesawat);
-void efekNabrakPeluru(Pesawat* pesawat, Musuh *musuh);
+void efekNabrakPeluru(Pesawat* pesawat, Musuh *musuh, NodeMusuh *musuhNode);
 void kelolaGameOver(SDL_Renderer* renderer);
 
 void bikinGambarMusuh(SDL_Renderer* renderer);
