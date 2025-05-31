@@ -8,7 +8,7 @@
 #include "config.h"
 #include <SDL3/SDL.h>
 
-#define MAX_MUSUH 10000
+#define MAX_MUSUH 24
 #define MAX_WAVE 1000
 typedef struct Node Node;  // bilang ke compiler bahwa Node itu tipe struct yang akan didefinisikan nanti
 
