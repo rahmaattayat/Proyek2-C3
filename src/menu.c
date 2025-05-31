@@ -4,7 +4,7 @@
 
 extern SDL_Renderer *renderer;
 
-void tombolInit(Tombol *tombol, const char *teks, float y, float skalaTeks)
+void tombolInit(Tombol *tombol, const char *teks, float y, int skalaTeks)
 {
     tombol->teks = teks;
     tombol->kotak.x = (LEBAR_LAYAR - LEBAR_TOMBOL) / 2;
@@ -44,16 +44,16 @@ void renderTombol(Tombol *tombol)
 
 // --- TEKS & RENDER UTILITAS ---
 
-void renderIsiMenu(const char **teks, int jumlahBaris, float startX, float startY, float jarakY)
+void renderIsiMenu(const char **teks, int jumlahBaris, int startX, int startY, int jarakY)
 {
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
-    float scale = 1.3f;
+    float skala = 1.3f;
     for (int i = 0; i < jumlahBaris; ++i)
     {
         int width, height;
-        getTextSize(teks[i], scale, &width, &height);
-        renderText(renderer, startX, startY + i * jarakY, teks[i], scale, (SDL_Color){255, 255, 255, 255});
+        getTextSize(teks[i], skala, &width, &height);
+        renderText(renderer, startX, startY + i * jarakY, teks[i], skala, (SDL_Color){255, 255, 255, 255});
     }
     SDL_RenderPresent(renderer);
 }
@@ -62,7 +62,7 @@ void renderIsiMenu(const char **teks, int jumlahBaris, float startX, float start
 
 void menuInit(Menu *menu)
 {
-    float skala = 1.0f;
+    int skala = 1;
     float posisiY = TINGGI_LAYAR / 2 - (TINGGI_TOMBOL * 2);
     tombolInit(&menu->tombolPlay, "PLAY", posisiY, skala);
     tombolInit(&menu->tombolAbout, "ABOUT", posisiY + TINGGI_TOMBOL + 10, skala);
@@ -96,9 +96,9 @@ void renderMenu(Menu *menu, const Background *background)
     renderBackground(background, renderer);
 
     int width, height;
-    float scale = 2.5f;
-    getTextSize("C3 - SPACE INVADERS", scale, &width, &height);
-    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 120, "C3 - SPACE INVADERS", scale, (SDL_Color){255, 255, 0, 255});
+    float skala = 2.5f;
+    getTextSize("C3 - SPACE INVADERS", skala, &width, &height);
+    renderText(renderer, (LEBAR_LAYAR - width) / 2.0f, 120, "C3 - SPACE INVADERS", skala, (SDL_Color){255, 255, 0, 255});
 
     renderTombolMenu(menu);
     SDL_RenderPresent(renderer);
