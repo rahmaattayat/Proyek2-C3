@@ -16,7 +16,7 @@
 # Deskripsi
 Space Invaders adalah game arcade 2D di mana pemain mengendalikan pesawat luar angkasa untuk menghancurkan gelombang musuh yang datang. Pemain harus mengelola amunisi, menghindari tabrakan, dan memanfaatkan power-up untuk bertahan selama mungkin.
 
-# Aturan
+# Aturan Game
 ## **1. Tipe Musuh**
 - Terdapat dua tipe musuh: Musuh Biasa dan Musuh Kuat.
 - Musuh Biasa memiliki 1 HP, sedangkan Musuh Kuat memiliki 3 HP.
@@ -154,8 +154,8 @@ Proyek2-C3/
 - Sistem musuh dan jenis musuh
 - Sistem collision pesawat dengan musuh
 
-# Keterangan Teknis
-## **Langkah-Langkah Setup**
+# Keterangan Teknis:
+## **Langkah-Langkah Setup dan Kontrol Pemain**
 ### **1. Tools yang digunakan**
 - Visual Studio Code
 - GitHub Dekstop
