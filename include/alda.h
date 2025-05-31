@@ -36,6 +36,8 @@ extern Mix_Chunk *shootSound;
 extern Mix_Chunk *clickSound;
 extern Mix_Chunk *enemyDeathSound;
 extern Mix_Chunk *playerHitSound;
+extern Mix_Chunk *powerUpHealthSound;
+extern Mix_Chunk *powerUpAmmoSound;
 //protoype fungsi yang mengatur musik dan suara
 void initAudio();
 void playMusic(Mix_Music *music);
@@ -43,6 +45,8 @@ void playShootSound();
 void playClickSound();
 void playEnemyDeathSound();
 void playPlayerHitSound();
+void playPowerUpHealthSound();
+void playPowerUpAmmoSound();
 void stopMusic();
 void closeAudio();
 //protoype fungsi yang mengatur leaderboard

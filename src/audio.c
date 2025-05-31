@@ -9,6 +9,8 @@ Mix_Chunk *shootSound = NULL;
 Mix_Chunk *clickSound = NULL;
 Mix_Chunk *enemyDeathSound = NULL;
 Mix_Chunk *playerHitSound = NULL;
+Mix_Chunk *powerUpHealthSound = NULL;
+Mix_Chunk *powerUpAmmoSound = NULL;
 
 // Fungsi inisialisasi SDL_mixer dan memuat musik serta efek suara
 void initAudio() {
@@ -35,9 +37,11 @@ void initAudio() {
     clickSound = Mix_LoadWAV("assets/audio/click.wav");
     enemyDeathSound = Mix_LoadWAV("assets/audio/enemy_death.wav");
     playerHitSound = Mix_LoadWAV("assets/audio/player_hit.wav");
+    powerUpHealthSound = Mix_LoadWAV("assets/audio/nyawa.wav");
+    powerUpAmmoSound = Mix_LoadWAV("assets/audio/amunisi.wav");
 
     // Cek apakah semua file audio berhasil dimuat
-    if (!menuMusic || !gameMusic || !gameOverMusic ||!shootSound || !clickSound || !enemyDeathSound || !playerHitSound) 
+    if (!menuMusic || !gameMusic || !gameOverMusic ||!shootSound || !clickSound || !enemyDeathSound || !playerHitSound || !powerUpHealthSound || !powerUpAmmoSound) 
     {
         printf("Failed to load audio files: %s\n", SDL_GetError());
     }
@@ -80,6 +84,14 @@ void playEnemyDeathSound()
 void playPlayerHitSound() 
 {
     Mix_PlayChannel(-1, playerHitSound, 0); 
+}
+
+void playPowerUpHealthSound() {
+    Mix_PlayChannel(-1, powerUpHealthSound, 0);
+}
+
+void playPowerUpAmmoSound() {
+    Mix_PlayChannel(-1, powerUpAmmoSound, 0);
 }
 // fungsi untuk menghentikan musik yang sedang diputar
 void stopMusic() 

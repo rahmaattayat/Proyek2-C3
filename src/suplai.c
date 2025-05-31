@@ -1,4 +1,5 @@
 #include "ihsan.h"
+#include "alda.h"
 #include <stdlib.h>
 
 SDL_Texture *teksturSuplaiNyawa = NULL;
@@ -102,11 +103,13 @@ void cekTabrakanSuplai(Suplai* suplai, Pesawat* pesawat, int jenis)
     if (jenis == 0 && pesawat->nyawa < 3)
     {
         pesawat->nyawa++;
+        playPowerUpHealthSound();
     }
     else if (jenis == 1)
     {
         pesawat->magasin += 5;
         pesawat->peluru_sekarang = pesawat->magasin;
+        playPowerUpAmmoSound();
     }
     suplai->aktif = false;
 }
