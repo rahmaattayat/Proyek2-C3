@@ -30,8 +30,8 @@ int getLastWaveNumber(Node *head);
 
 
 // Fungsi lainnya
-void updatewave(Musuh *musuh);
-void cekmusuh(Musuh *musuh);
+void updatewave();
+void cekmusuh();
 int kuranginskor(int skor);
 int tambahmusuh(int jumlahmusuh, int waveterbaru);
 void tampilkanWave(SDL_Renderer *renderer);

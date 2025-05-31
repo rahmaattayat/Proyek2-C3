@@ -15,7 +15,6 @@ SDL_Window *window = NULL;
 SDL_Renderer *renderer = NULL;
 Pesawat pesawat;
 Background background;
-Musuh* musuh = NULL;
 Menu menu;
 
 statusGame state = STATE_MENU;
@@ -45,7 +44,7 @@ void mulai()
     bikinPesawat(&pesawat);
     addWave(&headWave, 1);
     jumlahmusuh = 5;
-    bikinMusuh(musuh, jumlahmusuh, 1);
+    bikinMusuh(jumlahmusuh);
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
     loadTeksturSuplai(renderer);
 
@@ -97,12 +96,12 @@ void updateGame()
     updatePesawat(&pesawat);
     updateReload(&pesawat);
     jalankanPeluru(&pesawat);
-    gerakinMusuh(musuh);
-    musuhKeluarLayar(musuh);
-    cekmusuh(musuh);
+    gerakinMusuh();
+    musuhKeluarLayar();
+    cekmusuh();
     updateBackground(&background, 1.0f);
-    nabrakPeluru(&pesawat, musuh);
-    nabrakMusuh(renderer, &pesawat, musuh);
+    nabrakPeluru(&pesawat);
+    nabrakMusuh(renderer, &pesawat);
     updateSuplai(renderer, &pesawat);
 
     Uint32 waktuSekarang = SDL_GetTicks();
@@ -132,7 +131,7 @@ void renderGame()
     renderBackground(&background, renderer);
     bikinGambarPesawat(renderer, &pesawat);
     bikinGambarPeluru(renderer, &pesawat);
-    bikinGambarMusuh(renderer, musuh);
+    bikinGambarMusuh(renderer);
     renderSuplai(renderer);
     tampilskor(renderer);
     tampilNyawa(renderer, &pesawat);
@@ -149,11 +148,9 @@ void restartGame()
 
     bikinPesawat(&pesawat);
     jumlahmusuh = 5;
-    bikinMusuh(musuh, jumlahmusuh, 1);
+    bikinMusuh(jumlahmusuh);
     bikinBackground(&background, LEBAR_LAYAR, TINGGI_LAYAR);
     bonus = 1;
-
-    clearSuplai();
 }
 // fungsi untuk mengelola input dari menu
 void handleMenuInput()

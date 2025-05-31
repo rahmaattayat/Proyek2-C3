@@ -96,7 +96,7 @@ Musuh buatMusuh(int index, int *jumlahMusuhKuat)
     return musuh;
 }
 
-void bikinMusuh(Musuh *musuh, int jumlah, int aktif)
+void bikinMusuh(int jumlah)
 {
     freeMusuh();
     headMusuh = NULL;
@@ -123,7 +123,7 @@ void bikinMusuh(Musuh *musuh, int jumlah, int aktif)
     }
 }
 
-void gerakinMusuh(Musuh *musuh)
+void gerakinMusuh()
 {
     NodeMusuh *curr = headMusuh;
     while (curr)
@@ -134,7 +134,7 @@ void gerakinMusuh(Musuh *musuh)
     }
 }
 
-int musuhKeluarLayar(Musuh *musuh)
+int musuhKeluarLayar()
 {
     addressuser user = findUser(currentUsername);
     int countReset = 0;
@@ -161,7 +161,7 @@ int musuhKeluarLayar(Musuh *musuh)
     return countReset;
 }
 
-int nabrakPeluru(Pesawat *pesawat, Musuh *musuh)
+int nabrakPeluru(Pesawat *pesawat)
 {
     int hitCount = 0;
     PeluruNode *current = pesawat->peluruHead;
@@ -185,7 +185,7 @@ int nabrakPeluru(Pesawat *pesawat, Musuh *musuh)
                     current->info.y < musuh->y + musuh->h &&
                     current->info.y + current->info.h > musuh->y)
                 {
-                    efekNabrakPeluru(pesawat, musuh, 0, 0);
+                    efekNabrakPeluru(pesawat, musuh);
                     hapusPeluruNode(pesawat, current);
                     hitCount++;
                     break;
@@ -198,7 +198,7 @@ int nabrakPeluru(Pesawat *pesawat, Musuh *musuh)
     return hitCount;
 }
 
-void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int unused1, int unused2)
+void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh)
 {
     musuh->hp--;
     if (musuh->hp <= 0)
@@ -221,7 +221,7 @@ void efekNabrakPeluru(Pesawat *pesawat, Musuh *musuh, int unused1, int unused2)
     }
 }
 
-void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat, Musuh *musuh)
+void nabrakMusuh(SDL_Renderer *renderer, Pesawat *pesawat)
 {
     NodeMusuh *node = headMusuh;
     while (node)
@@ -277,7 +277,7 @@ void kelolaGameOver(SDL_Renderer *renderer)
     addWave(&headWave, 1);
 }
 
-void bikinGambarMusuh(SDL_Renderer *renderer, Musuh *musuh)
+void bikinGambarMusuh(SDL_Renderer *renderer)
 {
     // warna buat musuh biasa
     SDL_Color warnaTubuh = {50, 255, 70, 255};   // hijau
