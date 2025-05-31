@@ -13,8 +13,7 @@ typedef struct {
     float x, y;       
     float dx;         
     int w, h;         
-    int batasAtas, batasBawah; 
-    int batasKiri, batasKanan; 
+    int batasKiri;
     int aktif;
     int hp;
     int tipe;
