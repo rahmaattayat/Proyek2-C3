@@ -18,56 +18,56 @@ Space Invaders adalah game arcade 2D di mana pemain mengendalikan pesawat luar a
 
 # Aturan
 ## **1. Tipe Musuh**
--Terdapat dua tipe musuh: Musuh Biasa dan Musuh Kuat.
--Musuh Biasa memiliki 1 HP, sedangkan Musuh Kuat memiliki 3 HP.
--Musuh Kuat mulai muncul pada wave 5, dengan jumlah yang meningkat seiring kenaikan wave (maksimal sepertiga dari jumlah musuh).
+- Terdapat dua tipe musuh: Musuh Biasa dan Musuh Kuat.
+- Musuh Biasa memiliki 1 HP, sedangkan Musuh Kuat memiliki 3 HP.
+- Musuh Kuat mulai muncul pada wave 5, dengan jumlah yang meningkat seiring kenaikan wave (maksimal sepertiga dari jumlah musuh).
 
 ## **2. Skor**
--Membunuh Musuh Biasa menambah skor sebanyak 10 poin (dikalikan dengan bonus wave, jika aktif).
--Membunuh Musuh Kuat menambah skor sebanyak 30 poin (dikalikan dengan bonus wave, jika aktif).
--Jika musuh (biasa atau kuat) keluar dari layar tanpa terbunuh, skor akan berkurang: -10 poin untuk Musuh Biasa dan -30 poin untuk Musuh Kuat.
--Skor tertinggi (high score) disimpan dalam file highskor.dat dan diperbarui jika skor saat ini melebihi high score sebelumnya.
+- Membunuh Musuh Biasa menambah skor sebanyak 10 poin (dikalikan dengan bonus wave, jika aktif).
+- Membunuh Musuh Kuat menambah skor sebanyak 30 poin (dikalikan dengan bonus wave, jika aktif).
+- Jika musuh (biasa atau kuat) keluar dari layar tanpa terbunuh, skor akan berkurang: -10 poin untuk Musuh Biasa dan -30 poin untuk Musuh Kuat.
+- Skor tertinggi (high score) disimpan dalam file highskor.dat dan diperbarui jika skor saat ini melebihi high score sebelumnya.
 
 ## **3. Wave dan Bonus**
--Permainan terdiri dari beberapa wave, dimulai dari Wave 1, dengan jumlah musuh bertambah setiap wave (maksimal 20 musuh).
--Setiap kelipatan 5 wave (misalnya Wave 5, 10, dst.), merupakan Bonus Wave, di mana semua poin yang diperoleh digandakan (bonus = 2).
--Jumlah musuh pada setiap wave bertambah sesuai nomor wave, namun dibatasi hingga maksimal 20 musuh.
+- Permainan terdiri dari beberapa wave, dimulai dari Wave 1, dengan jumlah musuh bertambah setiap wave (maksimal 20 musuh).
+- Setiap kelipatan 5 wave (misalnya Wave 5, 10, dst.), merupakan Bonus Wave, di mana semua poin yang diperoleh digandakan (bonus = 2).
+- Jumlah musuh pada setiap wave bertambah sesuai nomor wave, namun dibatasi hingga maksimal 20 musuh.
 
 ## **4. Kontrol Pesawat**
--Gunakan tombol W untuk bergerak ke atas, S untuk ke bawah, A untuk ke kiri, dan D untuk ke kanan.
--Tekan Spasi untuk menembak peluru (dengan jeda antar tembakan).
--Tekan R untuk reload amunisi jika peluru habis (memerlukan waktu reload 60 frame).
--Pesawat memiliki 3 nyawa di awal permainan dan 30 amunisi per magasin.
+- Gunakan tombol W untuk bergerak ke atas, S untuk ke bawah, A untuk ke kiri, dan D untuk ke kanan.
+- Tekan Spasi untuk menembak peluru (dengan jeda antar tembakan).
+- Tekan R untuk reload amunisi jika peluru habis (memerlukan waktu reload 60 frame).
+- Pesawat memiliki 3 nyawa di awal permainan dan 30 amunisi per magasin.
 
 ## **5. Amunisi dan Reload**
--Pesawat dapat menembak hingga 30 peluru per magasin.
--Jika amunisi habis, tekan R untuk reload, yang akan mengisi ulang magasin tetapi membutuhkan waktu.
--Selama reload, status "RELOADING..." akan ditampilkan di layar.
+- Pesawat dapat menembak hingga 30 peluru per magasin.
+- Jika amunisi habis, tekan R untuk reload, yang akan mengisi ulang magasin tetapi membutuhkan waktu.
+- Selama reload, status "RELOADING..." akan ditampilkan di layar.
 
 ## **6. Power-Ups (Suplai)**
--Terdapat dua jenis power-up: Nyawa dan Amunisi.
--Power-up muncul secara acak setiap 30–45 detik di sisi kanan layar dan bergerak ke kiri.
--Menabrak power-up Nyawa akan menambah 1 nyawa (maksimal 3 nyawa).
--Menabrak power-up Amunisi akan menambah kapasitas magasin sebanyak 5 peluru dan langsung mengisi ulang amunisi.
+- Terdapat dua jenis power-up: Nyawa dan Amunisi.
+- Power-up muncul secara acak setiap 30–45 detik di sisi kanan layar dan bergerak ke kiri.
+- Menabrak power-up Nyawa akan menambah 1 nyawa (maksimal 3 nyawa).
+- Menabrak power-up Amunisi akan menambah kapasitas magasin sebanyak 5 peluru dan langsung mengisi ulang amunisi.
 
 ## **7. Tabrakan dengan Musuh**
--Jika pesawat menabrak Musuh Biasa, nyawa berkurang 1 poin.
--Jika menabrak Musuh Kuat, nyawa berkurang 2 poin.
--Jika nyawa habis (0), permainan berakhir (Game Over), dan skor disimpan. Permainan akan kembali ke menu utama setelah 4 detik.
+- Jika pesawat menabrak Musuh Biasa, nyawa berkurang 1 poin.
+- Jika menabrak Musuh Kuat, nyawa berkurang 2 poin.
+- Jika nyawa habis (0), permainan berakhir (Game Over), dan skor disimpan. Permainan akan kembali ke menu utama setelah 4 detik.
 
 ## **8. Menu dan Navigasi**
--Pada menu utama, pilih opsi PLAY untuk memulai permainan, ABOUT untuk melihat informasi pengembang, TUTORIAL untuk panduan permainan, atau EXIT untuk keluar.
--Tekan ESC pada layar About atau Tutorial untuk kembali ke menu utama.
--Klik tombol di menu menggunakan mouse, dengan efek suara saat tombol diklik.
+- Pada menu utama, pilih opsi PLAY untuk memulai permainan, ABOUT untuk melihat informasi pengembang, TUTORIAL untuk panduan permainan, atau EXIT untuk keluar.
+- Tekan ESC pada layar About atau Tutorial untuk kembali ke menu utama.
+- Klik tombol di menu menggunakan mouse, dengan efek suara saat tombol diklik.
 
 ## **9. Game Over**
--Saat Game Over, layar akan menampilkan skor akhir dan high score.
--Permainan akan menunda selama 4 detik sebelum kembali ke menu utama, dengan musik Game Over diputar.
--Jumlah musuh direset ke 5, wave direset ke 1, dan skor direset ke 0 untuk permainan berikutnya.
+- Saat Game Over, layar akan menampilkan skor akhir dan high score.
+- Permainan akan menunda selama 4 detik sebelum kembali ke menu utama, dengan musik Game Over diputar.
+- Jumlah musuh direset ke 5, wave direset ke 1, dan skor direset ke 0 untuk permainan berikutnya.
 
 ## **10. Audio**
--Permainan memiliki musik latar untuk menu, permainan, dan Game Over.
--Efek suara diputar saat menembak, musuh mati, pemain tertabrak, dan pesawat player menyentuh suplai.
+- Permainan memiliki musik latar untuk menu, permainan, dan Game Over.
+- Efek suara diputar saat menembak, musuh mati, pemain tertabrak, dan pesawat player menyentuh suplai.
 
 # Struktur File Proyek:
 ```
@@ -157,25 +157,25 @@ Proyek2-C3/
 # Keterangan Teknis
 ## **Langkah-Langkah Setup**
 ### **1. Tools yang digunakan**
--Visual Studio Code
--GitHub Dekstop
--MSYS2 (Compiler)
--Scoop
+- Visual Studio Code
+- GitHub Dekstop
+- MSYS2 (Compiler)
+- Scoop
 
 ### **2. Langkah Instalasi**
--Install VSCode, Git, MSYS2GitHub Dekstop
--Pastikan PATH environment sudah berisi: MinGw\bin
--Install Extension C/C++ di VSCode
--Buka Git Bash lalu jalankan:  
+- Install VSCode, Git, MSYS2GitHub Dekstop
+- Pastikan PATH environment sudah berisi: MinGw\bin
+- Install Extension C/C++ di VSCode
+- Buka Git Bash lalu jalankan:  
 ```
 scoop install make
 ```
 
 ### **3. Menjalankan Game**
--Download repository dari GitHub (ZIP atau Clone)
--Buka folder project di VSCode
--Buka terminal di VSCode, ubah terminal ke Git Bash
--Compile dan jalankan program menggunakan Make:
+- Download repository dari GitHub (ZIP atau Clone)
+- Buka folder project di VSCode
+- Buka terminal di VSCode, ubah terminal ke Git Bash
+- Compile dan jalankan program menggunakan Make:
 ```
 make
 ```
