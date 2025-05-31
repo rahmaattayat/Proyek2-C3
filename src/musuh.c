@@ -70,14 +70,12 @@ void aturAtributMusuh(Musuh *musuh)
     musuh->hp = musuhAtribut[musuh->tipe][0];
     musuh->w = musuhAtribut[musuh->tipe][1];
     musuh->h = musuhAtribut[musuh->tipe][2];
-    musuh->y = 10 + rand() % (TINGGI_LAYAR - musuh->h - 20);
 }
 
 Musuh buatMusuh(int index, int *jumlahMusuhKuat)
 {
     Musuh musuh;
     musuh.x = LEBAR_LAYAR + index * 100;
-    musuh.y = 10 + (index % 5) * 80;
     musuh.dx = -(2 + rand() % 2);
     musuh.batasKiri = -10;
     musuh.aktif = 1;
@@ -93,6 +91,8 @@ Musuh buatMusuh(int index, int *jumlahMusuhKuat)
     }
 
     aturAtributMusuh(&musuh);
+    musuh.y = 10 + rand() % (TINGGI_LAYAR - musuh.h - 20);
+
     return musuh;
 }
 
