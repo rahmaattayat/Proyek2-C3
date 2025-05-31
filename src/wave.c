@@ -77,7 +77,7 @@ void tampilkanWave(SDL_Renderer *renderer)
 
 int tambahmusuh(int jumlahmusuh, int waveNumber)
 {
-    return jumlahmusuh + waveNumber;
+    return jumlahmusuh + 2;
 }
 
 void bonuswave(int waveNumber)
